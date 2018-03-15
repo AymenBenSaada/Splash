@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.macbook.splash">
+
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/final_logo_wihout_font"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:roundIcon="@drawable/final_logo_wihout_font"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".SplashActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".MainActivity" />
+        <activity
+            android:name=".LoggedMainActivity"
+            android:label="eDonec"
+            android:noHistory="true"
+            android:parentActivityName=".MainActivity" />
+
+        <!--
+            android:screenOrientation="portrait"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+        -->
+        <activity android:name=".Registration.SecondScreenSignUpActivity" />
+        <activity android:name=".Registration.ThirdScreenSignUpActivity" />
+        <activity android:name=".Registration.FourthScreenSignUpActivity" />
+        <activity android:name=".ValidationActivity" />
+        <activity android:name=".Registration.FifthScreenSignUpActivity" />
+        <activity android:name=".Registration.SixthScreenSignUpParentActivity" />
+        <activity android:name=".Registration.SeventhScreenSignUpParentActivity" />
+        <activity android:name=".EmailLinkingSecondParentActivity" />
+        <activity android:name=".CameraInscriptionChildrenActivity" />
+        <activity android:name=".ValidatingChildrenInscriptionPhotoActivity" />
+        <activity android:name=".FirstScreenSignUpChild_No_Activity" />
+        <activity android:name=".SecondScreenSignUpChild_No_Activity" />
+        <activity android:name=".SelectingKindergardenSignUpActivity" />
+        <activity
+            android:name=".WebViewActivity"
+            android:label="Suggestions"
+            android:noHistory="true">
+
+            <!-- android:parentActivityName=".CommunSuggestionPerUserActivity" -->
+
+        </activity>
+        <activity
+            android:name=".CommunSuggestionPerUserActivity"
+            android:label="Suggestions"
+            android:noHistory="true" />
+        <activity android:name=".CommunSuggestionsActivity" />
+        <activity
+            android:name=".TeacherSelectingChildrenForPostActivity"
+            android:noHistory="true" />
+        <activity
+            android:name=".LogsPerChildActivity"
+            android:noHistory="true" />
+        <activity
+            android:name=".Admin.AdminMainActivity"
+            android:label="Console Admin" />
+        <activity android:name=".Admin.Admin_Enseignants_Activity" />
+
+        <service android:name=".Firebase.MyAndroidFirebaseInstanceIdService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name=".Firebase.MyAndroidFirebaseMsgService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+
+        <activity android:name=".Admin.Admin_Groupes_Activity" />
+        <activity android:name=".Admin.Admin_Enseignant_Selected_Activity" />
+        <activity android:name=".Admin.Admin_Groupes_OnGroupSelected_Activity" />
+        <activity android:name=".Admin.Admin_ChildrenList_Activity" />
+        <activity android:name=".Admin.Admin_Child_Selected_Activity" />
+        <activity android:name=".Admin.Admin_Child_Selected_Logs_Activity" />
+        <activity android:name=".Admin.Admin_Child_Selected_Feed_Activity"></activity>
+    </application>
+
+</manifest>

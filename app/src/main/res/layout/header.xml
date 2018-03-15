@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/child_logs_background"
+    android:padding="30dp"
+    >
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/profile_image"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@drawable/genericprofile"
+        app:civ_border_color="@color/gris6d"
+        app:civ_border_width="1dp"
+        android:layout_centerHorizontal="true"/>
+
+    <RelativeLayout
+        android:layout_marginStart="-10dp"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/profile_image">
+    <TextView
+        android:id="@+id/profile_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/gris6d"
+        android:text="Name"
+        android:textStyle="bold"
+        android:textSize="17sp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"/>
+    <TextView
+        android:id="@+id/profile_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/gris6d"
+        android:textSize="13sp"
+        android:layout_marginTop="35dp"
+        android:layout_alignTop="@+id/profile_name"
+        android:layout_alignStart ="@id/profile_name"
+        android:text="email@edonec.com"/>
+
+    </RelativeLayout>
+</RelativeLayout>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_for_log_comment">
+
+    <ImageView
+        android:layout_width="15dp"
+        android:layout_height="40dp"
+        android:src="@drawable/search_logo"
+        android:layout_marginEnd="7dp"
+        android:layout_alignEnd="@+id/et_child_name_in_newlog"
+        android:layout_alignTop="@+id/et_child_name_in_newlog"
+        android:alpha="0.5"/>
+    <EditText
+        android:id="@+id/et_child_name_in_newlog"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:hint="Tapez le nom de l'enfant..."
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:singleLine="true"
+        android:gravity="center_vertical"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:textSize="12sp"
+        android:textColor="@color/black"
+        android:background="@drawable/trans_white_rectangle_without_corners"/>
+
+
+    <ListView
+        android:id="@+id/listView_children_in_newlog"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="@drawable/trans_white_rectangle_without_corners"
+        android:layout_below="@+id/et_child_name_in_newlog"
+        android:layout_alignStart="@+id/et_child_name_in_newlog"
+        android:layout_alignEnd="@+id/et_child_name_in_newlog"
+        android:layout_marginTop="7dp">
+    </ListView>
+
+    <EditText
+        android:id="@+id/et_log_title_in_newlog"
+        android:singleLine="true"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:hint="Titre de l'observation..."
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        android:layout_below="@+id/listView_children_in_newlog"
+        android:layout_alignStart="@+id/et_child_name_in_newlog"
+        android:layout_alignEnd="@+id/et_child_name_in_newlog"
+        android:background="@drawable/trans_white_rectangle_without_corners"
+        android:gravity="center_vertical"
+        android:layout_marginTop="7dp"/>
+
+    <EditText
+        android:id="@+id/et_log_content_in_newlog"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:hint="Contenu de l'observation..."
+        android:gravity="top"
+        android:paddingTop="12dp"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        android:layout_below="@+id/et_log_title_in_newlog"
+        android:layout_alignStart="@+id/et_child_name_in_newlog"
+        android:layout_alignEnd="@+id/et_child_name_in_newlog"
+        android:background="@drawable/trans_white_rectangle_without_corners"
+        android:layout_marginTop="7dp"
+        android:layout_marginBottom="7dp"
+        />
+
+    <Button
+        android:id="@+id/btn_send_in_newlog"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:text="envoyer"
+        android:textColor="@android:color/white"
+        android:textSize="11sp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@color/violet4"
+        android:layout_alignBottom="@+id/et_log_content_in_newlog"
+        android:layout_alignEnd="@+id/et_log_content_in_newlog"
+        />
+
+
+</RelativeLayout>

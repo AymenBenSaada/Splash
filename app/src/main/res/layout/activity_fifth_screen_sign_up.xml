@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/backgroundcut"
+    tools:context="com.example.macbook.splash.Registration.SecondScreenSignUpActivity">
+
+    <ImageView
+        android:layout_width="272px"
+        android:layout_height="353px"
+        android:background="@drawable/logo"
+        android:layout_marginTop="130px"
+        android:layout_marginStart="216px"
+        android:transitionName="imgTransition"
+        android:id="@+id/imageView" />
+
+    <TextView
+        android:id="@+id/infosupp"
+        android:layout_width="657px"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/imageView"
+        android:layout_below="@+id/imageView"
+        android:layout_marginTop="98px"
+        android:textSize="56px"
+        android:text="Quelques Informations supplémentaires:"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_below="@+id/infosupp"
+        android:layout_marginTop="20dp">
+        <TextView
+            android:id="@+id/tvEtatCivile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="200px"
+            android:text="@string/etat_civile"
+            android:textColor="@color/violet4"
+            android:textSize="36px"
+            />
+
+        <Spinner
+            android:id="@+id/etatCivilSpinner"
+            android:layout_width="244dp"
+            android:layout_height="110px"
+            android:layout_marginStart="180px"
+            android:spinnerMode="dropdown"
+            android:textSize="48px" />
+
+        <TextView
+            android:layout_width="666px"
+            android:layout_height="1px"
+            android:layout_marginStart="200px"
+            android:background="@color/violet4"
+            />
+
+
+
+        <TextView
+            android:id="@+id/tvAdresse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="200px"
+            android:layout_marginTop="37px"
+            android:text="@string/adresse"
+            android:textColor="@color/violet4"
+            android:textSize="36px"
+            />
+
+        <EditText
+            android:id="@+id/etAdresse"
+            android:layout_width="660px"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="205px"
+            android:layout_marginTop="25px"
+            android:inputType="textPersonName"
+            android:background="@android:color/transparent"
+            android:textColor="@color/black"
+            android:textSize="48px"/>
+
+        <TextView
+            android:layout_width="666px"
+            android:layout_height="1px"
+            android:layout_marginStart="200px"
+            android:layout_marginTop="25px"
+            android:background="@color/violet4"
+            />
+
+        <TextView
+            android:id="@+id/tvTel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="200px"
+            android:layout_marginTop="37px"
+            android:text="Numéro de téléphone"
+            android:textColor="@color/violet4"
+            android:textSize="36px"
+            />
+
+        <EditText
+            android:id="@+id/etTel"
+            android:layout_width="660px"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="205px"
+            android:layout_marginTop="25px"
+            android:inputType="number"
+            android:maxLength="8"
+            android:background="@android:color/transparent"
+            android:textColor="@color/black"
+            android:textSize="48px"/>
+
+        <TextView
+            android:layout_width="666px"
+            android:layout_height="1px"
+            android:layout_marginStart="200px"
+            android:layout_marginTop="25px"
+            android:background="@color/violet4"
+            />
+
+
+        <Button
+            android:id="@+id/btnContinuer5thScreen"
+            android:layout_width="396px"
+            android:layout_height="110px"
+            android:background="@color/violet4"
+            android:onClick="SixthScreenSignUp"
+            android:text="@string/continuer"
+            android:textColor="@android:color/background_light"
+            android:textSize="42px"
+            android:textStyle="bold"
+            android:layout_marginTop="97px"
+            android:layout_marginEnd="81px"
+            android:layout_gravity="right"/>
+
+
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

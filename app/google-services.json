@@ -1,0 +1,73 @@
+{
+  "project_info": {
+    "project_number": "274566282996",
+    "firebase_url": "https://edonec-63c79.firebaseio.com",
+    "project_id": "edonec-63c79",
+    "storage_bucket": "edonec-63c79.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:274566282996:android:0ab8c1b143d6ba22",
+        "android_client_info": {
+          "package_name": "edonec.myapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "274566282996-rarq6o1qb59gp1dkavcta3tkr8tv8pp7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDzqu6caqtOEzOH9M5PnErHLk0hAz4rAIg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:274566282996:android:65713958705acb29",
+        "android_client_info": {
+          "package_name": "com.example.macbook.splash"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "274566282996-rarq6o1qb59gp1dkavcta3tkr8tv8pp7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDzqu6caqtOEzOH9M5PnErHLk0hAz4rAIg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

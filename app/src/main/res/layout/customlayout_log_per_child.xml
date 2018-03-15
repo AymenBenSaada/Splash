@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:fadeScrollbars="false">
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:scrollbars="vertical"
+    android:scrollbarAlwaysDrawVerticalTrack="true"
+    >
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_for_log_comment">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/photo_child_per_log"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="25dp"
+        android:layout_marginStart="15dp"
+        android:src="@mipmap/ic_launcher_round"
+        app:civ_border_color="@android:color/transparent"/>
+
+    <ImageView
+        android:id="@+id/maskaa"
+        android:layout_width="65dp"
+        android:layout_height="64dp"
+        android:paddingTop="2dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
+        app:srcCompat="@drawable/mask"
+        android:alpha="1"/>
+
+    <TextView
+        android:id="@+id/log_name_in_log_per_child"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_below="@id/maskaa"
+        android:text="Votre enfant est un peu off"
+        android:textColor="#000"
+        android:textSize="35sp" />
+
+    <TextView
+        android:id="@+id/log_writer_in_log_per_child"
+        android:layout_below="@+id/log_date_in_log_per_child"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/log_name_in_log_per_child"
+        android:text="Rédigé par : Moniaaaaa bewa"
+        android:textSize="11sp"
+        android:textColor="#000"
+        />
+
+    <TextView
+        android:id="@+id/log_date_in_log_per_child"
+        android:layout_below="@+id/log_name_in_log_per_child"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_alignEnd="@+id/log_name_in_log_per_child"
+        android:text="Modifié le : 15/02/2018"
+        android:textSize="11sp"
+        android:textColor="#000"
+        />
+
+    <TextView
+        android:id="@+id/log_content_in_log_per_child"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_alignStart="@id/log_name_in_log_per_child"
+        android:layout_alignEnd="@id/log_name_in_log_per_child"
+        android:layout_below="@id/log_writer_in_log_per_child"
+        android:text="@string/testText"
+        android:textSize="14sp"
+        android:textColor="#000"/>
+
+    <TextView
+        android:id="@+id/line_in_log_per_child"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/violet4"
+        android:layout_marginTop="15dp"
+        android:layout_below="@+id/log_content_in_log_per_child"
+        android:layout_alignStart="@+id/log_content_in_log_per_child"
+        android:layout_alignEnd="@+id/log_content_in_log_per_child"
+        android:layout_marginStart="0dp"
+        android:alpha="0.5"
+        android:layout_marginEnd="0dp"
+        />
+
+    <ListView
+        android:id="@+id/listview_log_comment_in_log_per_child"
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:layout_marginTop="15dp"
+        android:layout_alignStart="@+id/log_name_in_log_per_child"
+        android:layout_alignEnd="@+id/log_name_in_log_per_child"
+        android:layout_below="@+id/line_in_log_per_child"
+        android:background="@drawable/trans_white_rectangle"
+        android:divider="@null"
+        android:dividerHeight="0dp"
+        >
+
+    </ListView>
+
+    <TextView
+        android:id="@+id/tv_commentaire_in_log_per_child"
+        android:layout_below="@+id/listview_log_comment_in_log_per_child"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:layout_alignStart="@id/log_name_in_log_per_child"
+        android:text="Commentaire : "
+        android:textColor="@color/violet4"
+        android:textStyle="bold"
+        />
+
+    <EditText
+        android:id="@+id/et_commentaire_in_log_per_child"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_marginTop="10dp"
+        android:layout_toStartOf="@+id/btn_commentaire_in_log_per_child"
+        android:layout_below="@+id/tv_commentaire_in_log_per_child"
+        android:layout_alignStart="@+id/tv_commentaire_in_log_per_child"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="5dp"
+        android:background="@android:color/transparent"
+        android:textSize="12sp"
+        android:textColor="@color/black"
+        />
+
+    <Button
+        android:id="@+id/btn_commentaire_in_log_per_child"
+        android:layout_alignBottom="@+id/et_commentaire_in_log_per_child"
+        android:layout_alignEnd="@+id/log_content_in_log_per_child"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:background="@drawable/send_coment"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/violet4"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/et_commentaire_in_log_per_child"
+        android:layout_alignStart="@+id/et_commentaire_in_log_per_child"
+        android:layout_alignEnd="@+id/btn_commentaire_in_log_per_child"
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="10dp"
+        android:alpha="0.5"
+        android:layout_marginBottom="30dp"
+        />
+</RelativeLayout>
+
+</LinearLayout>
+
+</ScrollView>

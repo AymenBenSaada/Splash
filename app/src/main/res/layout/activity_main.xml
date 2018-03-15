@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.macbook.splash.MainActivity">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/backgroundcut"
+        android:scaleType="centerCrop" />
+
+    <ImageView
+        android:id="@+id/edonecLogo"
+        android:layout_width="116dp"
+        android:layout_height="152dp"
+        android:background="@drawable/logo"
+        android:layout_marginTop="54dp"
+        android:layout_centerHorizontal="true"
+        android:transitionName="imgTransition"/>
+
+   <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="255dp"
+        android:layout_alignParentStart="true"
+        android:onClick="hideKeyboard">
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="255dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvEmail"
+            android:layout_width="223dp"
+            android:layout_height="wrap_content"
+            android:text="@string/adresse_email"
+            android:textColor="@color/violet4"
+            android:layout_gravity="center_horizontal"
+            android:textSize="12sp"
+            />
+
+        <EditText
+            android:id="@+id/etEmail"
+            android:layout_width="221dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp"
+            android:inputType="textEmailAddress"
+            android:background="@android:color/transparent"
+            android:textColor="@color/black"
+            android:textSize="16sp"/>
+        
+        <TextView
+            android:layout_width="223dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/violet4"
+            android:layout_gravity="center_horizontal"
+            android:alpha="0.5"
+            />
+
+        <TextView
+            android:id="@+id/tvMdp"
+            android:layout_width="223dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="19dp"
+            android:text="@string/mot_de_passe"
+            android:textColor="@color/violet4"
+            android:textSize="12sp"
+            />
+
+        <EditText
+            android:id="@+id/etMdp"
+            android:layout_width="221dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp"
+            android:inputType="textPassword"
+            android:background="@android:color/transparent"
+            android:textColor="@color/black"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:layout_width="223dp"
+            android:layout_height="1dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp"
+            android:background="@color/violet4"
+            android:alpha="0.5"
+            />
+
+        <Button
+            android:id="@+id/btnInscription"
+            android:layout_width="133dp"
+            android:layout_height="37dp"
+            android:layout_marginTop="29dp"
+            android:layout_gravity="center_horizontal"
+            android:textSize="14sp"
+            android:text="S'IDENTIFIER"
+            android:textColor="@android:color/background_light"
+            android:textStyle="bold"
+            android:background="@color/violet4"
+            android:onClick="SIdentifier"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="24dp"
+            android:layout_gravity="center_horizontal"
+            android:weightSum="2">
+        <TextView
+            android:id="@+id/dejaMembre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Vous avez déjà un compte?"
+            android:textColor="@color/grisvert"
+            android:textSize="14sp"
+            android:layout_weight="1"
+            />
+        <Button
+            android:id="@+id/btnSIdentifier"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:text="s'inscrire"
+            android:textSize="14sp"
+            android:textColor="@color/violet4"
+            android:onClick="Inscription"
+            android:textAllCaps="false"
+            android:layout_weight="1"
+            />
+        </LinearLayout>
+
+
+    </LinearLayout>
+</RelativeLayout>

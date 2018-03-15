@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3e0d29</color>
+    <color name="colorPrimaryDark">#320a21</color>
+    <color name="colorAccent">#3F0D2A</color>
+    <color name="gris">#c8c8c8</color>
+    <color name="grisvert">#888888</color>
+    <color name="gris6d">#dddddd</color>
+    <color name="gris6e">#eeeeee</color>
+    <color name="darkgray">#6c6c6c</color>
+    <color name="black">#000</color>
+    <color name="graydark">#282828</color>
+    <color name="violet4">#3d0d28</color>
+    <color name="bleu5">#2a657e</color>
+
+</resources>

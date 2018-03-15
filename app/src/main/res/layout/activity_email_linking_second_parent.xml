@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/backgroundcut"
+    tools:context="com.example.macbook.splash.Registration.SecondScreenSignUpActivity">
+
+    <ImageView
+        android:layout_width="272px"
+        android:layout_height="353px"
+        android:background="@drawable/logo"
+        android:layout_marginTop="130px"
+        android:layout_marginStart="216px"
+        android:transitionName="imgTransition"
+        android:id="@+id/imageView" />
+
+    <TextView
+        android:id="@+id/email2parent"
+        android:layout_width="657px"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/imageView"
+        android:layout_below="@+id/imageView"
+        android:layout_marginTop="98px"
+        android:textSize="56px"
+        android:text="Afin de vivre l’expérience eDonec en toute sécurité veuillez enter l'Email du parent qui a dèjà enregistré les enfants"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_below="@+id/email2parent"
+        android:layout_marginTop="210px">
+
+        <TextView
+            android:id="@+id/tvemail2parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Adresse Email"
+            android:textColor="@color/violet4"
+            android:textSize="36px"
+            android:layout_marginStart="200px"
+            android:layout_marginTop="37px"
+            />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="200px">
+
+
+            <EditText
+                android:id="@+id/etemail2parent"
+                android:layout_width="220dp"
+                android:layout_height="110px"
+                android:textColor="@color/black"
+                android:inputType="textEmailAddress"
+                android:textSize="48px"
+                android:background="@android:color/transparent"
+                android:gravity="center_vertical"/>
+
+        </LinearLayout>
+
+
+
+        <TextView
+            android:layout_width="666px"
+            android:layout_height="1px"
+            android:layout_marginStart="200px"
+            android:background="@color/violet4"
+            />
+
+
+
+        <Button
+            android:id="@+id/btnContinuer8thScreen"
+            android:layout_width="396px"
+            android:layout_height="110px"
+            android:onClick="LinkingEmailParent"
+            android:background="@color/violet4"
+            android:text="@string/continuer"
+            android:textColor="@android:color/background_light"
+            android:textSize="42px"
+            android:textStyle="bold"
+            android:layout_marginTop="97px"
+            android:layout_marginEnd="81px"
+            android:layout_gravity="right"/>
+
+    </LinearLayout>
+
+
+</RelativeLayout>

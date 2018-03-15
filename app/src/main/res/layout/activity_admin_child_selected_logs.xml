@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.macbook.splash.Admin.Admin_Child_Selected_Logs_Activity">
+
+    <ImageView
+        android:id="@+id/child_logs_background"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@drawable/child_logs_background"
+        />
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/child_profilpicture_in_logs"
+        android:layout_marginTop="12dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/genericprofile"
+        app:civ_border_color="@color/violet4"/>
+
+    <TextView
+        android:id="@+id/child_name_in_logs"
+        android:layout_width="wrap_content"
+        android:layout_height="28dp"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:layout_below="@+id/child_profilpicture_in_logs"
+        android:text="Prenom Nom"
+        android:textColor="@android:color/white"
+        android:textSize="22sp"
+        />
+    <TextView
+        android:id="@+id/child_nickname_in_logs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/child_name_in_logs"
+        android:text="(Nickname)"
+        android:textColor="@android:color/white"
+        android:textSize="12sp"
+        />
+
+
+    <ListView
+        android:id="@+id/logs_list_per_child"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/child_logs_background">
+
+    </ListView>
+
+</RelativeLayout>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/photoKindergarden"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignTop="@+id/tv_nameKindergardenList"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="22dp"
+        android:src="@mipmap/ic_launcher_round"
+        app:civ_border_color="@android:color/transparent"/>
+
+    <ImageView
+        android:id="@+id/mask"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:paddingTop="2dp"
+        android:layout_marginStart="15dp"
+        android:layout_alignTop="@+id/tv_nameKindergardenList"
+        app:srcCompat="@drawable/mask"
+        android:alpha="1"/>
+
+
+
+    <TextView
+        android:id="@+id/tv_nameKindergardenList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
+        android:layout_toEndOf="@+id/photoKindergarden"
+        android:text="Kindergaden Name"
+        android:singleLine="true"
+        android:textColor="#000"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/tvKindergardenUserName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:layout_alignStart="@+id/tv_nameKindergardenList"
+        android:layout_below="@+id/tv_nameKindergardenList"
+        android:text="( KindergardenUSERNAME )"
+        android:textColor="@color/black"
+        android:textSize="13sp" />
+
+    <TextView
+        android:id="@+id/tvAdresseKindergardenList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/tv_nameKindergardenList"
+        android:layout_below="@+id/tvKindergardenUserName"
+        android:text="Tunis, 23 Av.Liberté"
+        android:singleLine="true"
+        android:textColor="@color/black"
+        android:textSize="13sp" />
+
+
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <View
+            android:layout_width="223dp"
+            android:layout_height="1dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="100dp"
+            android:background="@color/gris"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </android.support.constraint.ConstraintLayout>
+
+
+</RelativeLayout>

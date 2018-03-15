@@ -1,0 +1,82 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.example.macbook.splash.Fragments.CameraFragment">
+
+    <com.otaliastudios.cameraview.CameraView
+        android:id="@+id/camera"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cameraCropOutput="true"
+        app:cameraPictureSizeMaxHeight="2048"
+        app:cameraPictureSizeMaxWidth="2048">
+    </com.otaliastudios.cameraview.CameraView>
+
+    <ImageView
+        android:id="@+id/teacherCameraFlash"
+        android:layout_width="30dp"
+        android:layout_height="40dp"
+        android:src="@drawable/flashisautomatic"
+        android:layout_gravity="right"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="40dp"/>
+
+    <Chronometer
+        android:id="@+id/teacherCameraChronometer"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="40dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:textColor="@android:color/holo_red_dark"
+        android:visibility="invisible"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="35dp"
+        >
+
+        <ImageView
+            android:id="@+id/teacherCameraTakePhoto"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@drawable/snappicture"
+            android:layout_gravity="center_horizontal|center_vertical"
+            />
+
+
+        <ImageView
+            android:id="@+id/recordButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/snapvideo"
+            android:layout_gravity="center_vertical|right"
+            android:layout_marginEnd="40dp"
+            android:alpha="0.5"
+            />
+        <ImageView
+            android:id="@+id/teacherCameraFlip"
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:src="@drawable/flipcamera"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="40dp"/>
+
+        <ProgressBar
+            android:id="@+id/recordProgressBar"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_gravity="center_horizontal"
+            android:indeterminate="false"
+            android:progressDrawable="@drawable/circular_progress_bar"
+            android:background="@drawable/circle_shape"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:max="12"
+            android:progress="0"/>
+
+    </FrameLayout>
+</FrameLayout>

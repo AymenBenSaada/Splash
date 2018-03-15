@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/backgroundcut"
+    tools:context="com.example.macbook.splash.SecondScreenSignUpChild_No_Activity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/Rv1"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="44dp"
+            android:orientation="vertical"
+            android:layout_gravity="center_horizontal">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="118dp"
+                android:src="@drawable/logo"
+                android:id="@+id/imageView"
+                />
+        </LinearLayout>
+        <TextView
+            android:layout_marginTop="33dp"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/dateDeNaissanceEnfant"
+            android:layout_width="220dp"
+            android:layout_height="45dp"
+            android:textSize="18sp"
+            android:text="Date de naissance du nieme enfant"/>
+
+
+
+        <TextView
+            android:id="@+id/tvDateDeNaissanceEnfant"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="154dp"
+            android:text="@string/date_de_naissance"
+            android:layout_gravity="center_horizontal"
+            android:textSize="12sp"
+            android:layout_width="223dp"
+            android:textColor="@color/violet4"
+            />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
+            <EditText
+                android:id="@+id/etDateDeNaissanceEnfant"
+                android:layout_height="wrap_content"
+                android:inputType="date"
+                android:hint="JJ/MM/AAAA"
+                android:background="@android:color/transparent"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:layout_marginTop="8dp"
+                android:layout_width="190dp"
+                />
+            <ImageView
+                android:id="@+id/birthdayImageEnfant"
+                android:layout_width="33dp"
+                android:layout_height="33dp"
+                android:src="@drawable/birthdayimage"
+                android:layout_marginTop="4dp"
+                android:onClick="onClickImageBirthday"
+                />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="223dp"
+            android:layout_height="1dp"
+            android:background="@color/violet4"
+            android:layout_gravity="center_horizontal"
+            android:alpha="0.5"
+            />
+
+        <Button
+            android:id="@+id/btnContinuerSecondScreenSignUpChildNo"
+            android:layout_width="132dp"
+            android:layout_height="37dp"
+            android:background="@color/violet4"
+            android:onClick="ThirdScreenSignUpChild_No_Activity"
+            android:text="@string/continuer"
+            android:textColor="@android:color/background_light"
+            android:textSize="14dp"
+            android:textStyle="bold"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="27dp"
+            android:layout_gravity="right"/>
+
+
+
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>

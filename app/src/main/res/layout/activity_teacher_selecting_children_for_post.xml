@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.macbook.splash.TeacherSelectingChildrenForPostActivity"
+    android:background="@color/grisvert"
+    >
+
+    <ImageView
+        android:id="@+id/teacherSelectingChildrenImageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        />
+
+    <VideoView
+        android:id="@+id/teacherSelectingChildrenVideoView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:visibility="invisible"
+        />
+    <ListView
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:layout_width="85dp"
+        android:layout_height="match_parent"
+        android:id="@+id/listViewChildrenPics"
+        android:divider="@null"
+        android:dividerHeight="0dp">
+    </ListView>
+
+    <ImageView
+        android:id="@+id/btnAfterSelectingChildren"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/sendwithcircle"
+        android:alpha="0.7"
+        android:layout_gravity="right|bottom"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="40dp"/>
+
+</FrameLayout>

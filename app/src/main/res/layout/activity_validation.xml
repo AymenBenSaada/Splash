@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/backgroundcut"
+    tools:context="com.example.macbook.splash.ValidationActivity">
+
+    <ImageView
+        android:layout_width="272px"
+        android:layout_height="353px"
+        android:background="@drawable/logo"
+        android:layout_marginTop="130px"
+        android:layout_marginStart="216px"
+        android:transitionName="imgTransition"
+        android:id="@+id/imageView" />
+
+    <TextView
+        android:id="@+id/tvValider"
+        android:layout_width="223dp"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/imageView"
+        android:layout_below="@+id/imageView"
+        android:layout_marginTop="98px"
+        android:textSize="56px"
+        android:text="Valider votre Inscription:"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_below="@+id/tvValider">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/test"
+            android:text="tfvgwbhjnekqweqeuqweq"
+            android:layout_gravity="center_horizontal"
+            />
+
+        <Button
+            android:id="@+id/btnValidateInscription"
+            android:layout_width="132dp"
+            android:layout_height="37dp"
+            android:onClick="validate"
+            android:background="@color/violet4"
+            android:text="Valider"
+            android:textColor="@android:color/background_light"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_marginEnd="81px"
+            android:layout_gravity="bottom|right"
+            android:layout_marginBottom="100dp"/>
+
+    </FrameLayout>
+
+
+</RelativeLayout>

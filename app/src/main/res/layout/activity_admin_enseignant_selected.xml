@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.macbook.splash.Admin.Admin_Enseignant_Selected_Activity">
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/teacher_selected_in_admin_background"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@drawable/child_logs_background"/>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/teacher_profilpicture_in_admin"
+        android:layout_marginTop="32dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/ic_launcher_background"
+        app:civ_border_color="@color/violet4"/>
+
+    <TextView
+        android:id="@+id/teacher_name_in_profile_in_admin"
+        android:layout_width="wrap_content"
+        android:layout_height="28dp"
+        android:layout_marginTop="15dp"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:layout_below="@+id/teacher_profilpicture_in_admin"
+        android:text="Prenom Nom"
+        android:textColor="@android:color/white"
+        android:textSize="25sp" />
+
+    <TextView
+        android:id="@+id/tv_group_list_per_teacher_in_admin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Liste des groupes"
+        android:textSize="15sp"
+        android:textStyle="normal"
+        android:textColor="@color/grisvert"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="25dp"
+        android:layout_below="@+id/teacher_selected_in_admin_background"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/grp_list_RecyclerView"
+        android:layout_below="@+id/tv_group_list_per_teacher_in_admin"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <TextView
+        android:id="@+id/tv_contacts_per_teacher_in_admin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Contacts utiles"
+        android:layout_marginTop="10dp"
+        android:textSize="15sp"
+        android:textStyle="normal"
+        android:textColor="@color/grisvert"
+        android:layout_marginStart="25dp"
+        android:layout_below="@+id/grp_list_RecyclerView"/>
+
+    <android.support.v7.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="130dp"
+        card_view:cardUseCompatPadding="true"
+        card_view:cardElevation="5dp"
+        card_view:cardBackgroundColor="@color/gris6e"
+        android:layout_below="@+id/tv_contacts_per_teacher_in_admin"
+        android:layout_centerHorizontal="true">
+
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:orientation="vertical">
+           <LinearLayout
+               android:layout_marginTop="1dp"
+               android:layout_width="match_parent"
+               android:layout_height="51dp"
+               android:orientation="horizontal">
+
+               <ImageView
+                   android:layout_marginStart="15dp"
+                   android:layout_width="25dp"
+                   android:layout_height="50dp"
+                   android:src="@drawable/phones_teacher_profile"/>
+
+               <TextView
+                   android:id="@+id/teacher_phone_number_in_admin"
+                   android:layout_width="match_parent"
+                   android:layout_height="match_parent"
+                   android:text="+216 53 231 468"
+                   android:textColor="@color/black"
+                   android:singleLine="true"
+                   android:textSize="20sp"
+                   android:gravity="center"/>
+
+           </LinearLayout>
+           <View
+               android:layout_width="match_parent"
+               android:layout_height="1dp"
+               android:background="@color/black"
+               android:alpha="0.1"
+               android:layout_marginStart="5dp"
+               android:layout_marginEnd="5dp">
+
+           </View>
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="51dp"
+               android:orientation="horizontal">
+
+               <ImageView
+                   android:layout_marginStart="15dp"
+                   android:layout_width="25dp"
+                   android:layout_height="50dp"
+                   android:src="@drawable/emails_teacher_profile"/>
+
+               <TextView
+                   android:id="@+id/teacher_email_in_admin"
+                   android:layout_width="match_parent"
+                   android:layout_height="match_parent"
+                   android:text="email@eDonec.com"
+                   android:textColor="@color/black"
+                   android:textSize="20sp"
+                   android:singleLine="true"
+                   android:gravity="center"/>
+
+           </LinearLayout>
+
+
+       </LinearLayout>
+
+
+
+    </android.support.v7.widget.CardView>
+
+  </RelativeLayout>
+
+</ScrollView>
