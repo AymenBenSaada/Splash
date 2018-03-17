@@ -53,9 +53,20 @@ public class EmailLinkingSecondParentActivity extends AppCompatActivity{
     }
 
 
-
     public void LinkingEmailParent (View v){
         Intent intent = new Intent(this, ValidationActivity.class);
+        if(!(etemail2parent.getText().toString().indexOf("@")>0))
+        {
+            etemail2parent.setError("Veuillez insérer un Email valid");
+            etemail2parent.requestFocus();
+            return;
+        }
+        if(etemail2parent.getText().toString().isEmpty())
+        {
+            etemail2parent.setError("Veuillez insérer un Email");
+            etemail2parent.requestFocus();
+            return;
+        }
         parentRegistrationViewModel.setEmailLinking(etemail2parent.getText().toString());
         intent.putExtra("person",parentRegistrationViewModel);
         startActivity(intent);

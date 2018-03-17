@@ -64,6 +64,22 @@ public class ThirdScreenSignUpActivity extends Activity {
         }else{
             gender = Gender.Male;
         }
+        if(prenom.getText().toString().isEmpty())
+        {
+
+                prenom.setError("Veuillez insérer votre prénom");
+                prenom.requestFocus();
+                return;
+
+        }
+        if(nom.getText().toString().isEmpty())
+        {
+
+            nom.setError("Veuillez insérer votre nom");
+            nom.requestFocus();
+            return;
+
+        }
         person.setGender(gender);
         person.setName(prenom.getText().toString());
         person.setLastName(prenom.getText().toString());

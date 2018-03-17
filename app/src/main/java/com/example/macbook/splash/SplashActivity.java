@@ -147,7 +147,7 @@ public class SplashActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                SplashActivity.this.startActivity(new Intent( SplashActivity.this, LoggedMainActivity.class));
+                SplashActivity.this.startActivity(new Intent( SplashActivity.this, MainActivity.class));
                 SplashActivity.this.finish();
             }
         }, 4333);
@@ -180,6 +180,7 @@ public class SplashActivity extends AppCompatActivity {
                         //REQUEST GET TEACHER WITH GROUPS
                         teacher = response.body();
 
+                        Log.e("debug","entring respons body");
                         //region Initialization
                         //region date formater (contains date1,date2,date3,date4)
                         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.US);
@@ -214,6 +215,7 @@ public class SplashActivity extends AppCompatActivity {
                         logs.add(log1);logs.add(log2);logs.add(log3);logs.add(log4);logs.add(log5);
                         List<com.example.macbook.splash.Models.Log> logs2 = new ArrayList<>();
                         logs2.add(log1);logs2.add(log2);logs2.add(log3);logs2.add(log4);
+                        Log.e("debug","entring second respons body phase");
 
 
                         Child child1 = new Child(1,"Aymen","Gharbi","Nawfel",date1, Gender.Male,logs,1,0);
@@ -230,10 +232,12 @@ public class SplashActivity extends AppCompatActivity {
                         Group group1 = new Group(1,children,"Batmans");
                         List<Group> groups = new ArrayList<>();
                         groups.add(group1);
+                        Log.e("debug","entring third respons body phase");
 
                         teacher.setGroups(groups);
 
                         //endregion
+                        Log.e("debug","entring Fourth respons body phase");
 
                         //region Initalization of Children MediaList
                         Media media1 = new Media(1,"dObtwfF.jpg",0,null);
@@ -299,6 +303,7 @@ public class SplashActivity extends AppCompatActivity {
                             }
                         }
                         //endregion
+                        Log.e("debug","entring fifth respons body phase");
 
                         //region download Teacher MEDIA
                         iMediaApi.getPhoto("nXrHjaG.jpg").enqueue(new Callback<ResponseBody>() {
@@ -339,6 +344,7 @@ public class SplashActivity extends AppCompatActivity {
                             }
                         });
                         //endregion
+                        Log.e("debug","entring sixth respons body phase");
 
                         saveTeacher(teacher);
 
@@ -346,6 +352,8 @@ public class SplashActivity extends AppCompatActivity {
 
                     }catch (Exception e){
                         e.printStackTrace();
+                        Log.e("debug","entring exeption catch of respons body");
+
                     }
                 }
 

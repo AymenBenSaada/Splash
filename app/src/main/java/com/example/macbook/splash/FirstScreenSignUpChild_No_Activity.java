@@ -74,7 +74,22 @@ public class FirstScreenSignUpChild_No_Activity extends Activity {
         {
             gender = Gender.Male;
         }
+        if(prenomEnfant.getText().toString().isEmpty())
+        {
 
+                prenomEnfant.setError("Veuillez insérer le prénom de votre enfant");
+                prenomEnfant.requestFocus();
+                return;
+
+        }
+        if(nomEnfant.getText().toString().isEmpty())
+        {
+
+            nomEnfant.setError("Veuillez insérer le nom de votre enfant");
+            nomEnfant.requestFocus();
+            return;
+
+        }
         ChildRegistrationViewModel childRegistrationViewModel = new ChildRegistrationViewModel();
 
         childRegistrationViewModel.setName(prenomEnfant.getText().toString());

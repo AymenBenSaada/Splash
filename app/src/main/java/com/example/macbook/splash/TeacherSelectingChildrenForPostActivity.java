@@ -225,7 +225,6 @@ public class TeacherSelectingChildrenForPostActivity extends AppCompatActivity {
                     @Override
                     public void onStart() {
                     }
-
                     @Override
                     public void onSuccess(File file) {
                         Log.i("TAG", file.getAbsolutePath());
@@ -234,7 +233,6 @@ public class TeacherSelectingChildrenForPostActivity extends AppCompatActivity {
                     @Override
                     public void onError(Throwable e) {
                         e.printStackTrace();
-
                     }
                 });
     }
