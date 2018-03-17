@@ -6,14 +6,22 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.macbook.splash.Interfaces.ApiClient;
+import com.example.macbook.splash.Interfaces.ITeachersApi;
+import com.example.macbook.splash.Models.Teacher;
 import com.example.macbook.splash.ViewModels.ChildRegistrationViewModel;
 import com.example.macbook.splash.ViewModels.ParentRegistrationViewModel;
 import com.example.macbook.splash.ViewModels.Person;
 import com.example.macbook.splash.ViewModels.TeacherRegistrationViewModel;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ValidationActivity extends AppCompatActivity {
 
@@ -64,6 +72,8 @@ public class ValidationActivity extends AppCompatActivity {
 
         }else {//TEACHER
             text = "<font color=#888888>Un email de confirmation vous a été envoyé ainsi qu'au </font> <font color=#3d0d28> Rawdha n°"+((TeacherRegistrationViewModel) person).getKindergardenID()+"</font> <font color=#888888> pour finaliser votre </font> <font color=#3d0d28>inscription</font>";
+            // register teacher
+
             test.setText(person.toString());
         }
 
@@ -81,4 +91,23 @@ public class ValidationActivity extends AppCompatActivity {
 
         actionBar.hide();
     }
+    public void registerTeacher()
+    {
+        ITeachersApi service = ApiClient.getClient().create(ITeachersApi.class);
+        service.putTeacher(1,person.ToTeacher()).
+            enqueue(new Callback<Void>() {
+                @Override
+                public void onResponse(Call<Void> call, Response<Void> response) {
+                    Log.e("Linking child", "success");
+                }
+
+                @Override
+                public void onFailure(Call<Void> call, Throwable t) {
+                    Log.e("Linking child", "failure");
+                }
+            });
+    }
+
+
 }
+

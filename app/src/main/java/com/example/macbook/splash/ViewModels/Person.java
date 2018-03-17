@@ -2,6 +2,7 @@ package com.example.macbook.splash.ViewModels;
 
 import com.example.macbook.splash.Enum.Gender;
 import com.example.macbook.splash.Enum.Status;
+import com.example.macbook.splash.Models.Teacher;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -51,6 +52,15 @@ public class Person implements Serializable {
         teacherRegistrationViewModel.setBirth(this.Birth);
 
         return teacherRegistrationViewModel;
+    }
+    public Teacher ToTeacher(){
+
+        TeacherRegistrationViewModel teacherRegistrationViewModel = this.ConvertToTeacher();
+        Date graduationDate = new Date(teacherRegistrationViewModel.getGraduationYear());
+        Teacher teacher = new Teacher(0,this.Name,this.LastName,this.Adress,this.Email,
+                this.Gender,this.Birth,this.Phone,this.Status,graduationDate,null,null,-1);
+
+        return teacher;
     }
 
 
