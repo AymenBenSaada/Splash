@@ -30,6 +30,7 @@ import com.example.macbook.splash.Adapters.ChildProfilePictureAdapter;
 import com.example.macbook.splash.Enum.Gender;
 import com.example.macbook.splash.Interfaces.ApiClient;
 import com.example.macbook.splash.Interfaces.IMediaApi;
+import com.example.macbook.splash.Interfaces.IPostsApi;
 import com.example.macbook.splash.Models.Child;
 import com.example.macbook.splash.Models.Group;
 import com.example.macbook.splash.Models.Post;
@@ -328,6 +329,7 @@ public class TeacherSelectingChildrenForPostActivity extends AppCompatActivity {
 
     private void transition(){
         uploadFile();
+        addPost();
         Intent intent = new Intent(this,LoggedMainActivity.class);
         intent.putExtra("position",1);
         startActivity(intent);
@@ -358,26 +360,58 @@ public class TeacherSelectingChildrenForPostActivity extends AppCompatActivity {
         }
     }
 
+    private void addPost() {
+
+        IPostsApi service = ApiClient.getClient().create(IPostsApi.class);
+        //post.setTeacherId(teacher.Id);
+        service.postPost(post).enqueue(new Callback<Post>() {
+            @Override
+            public void onResponse(Call<Post> call, Response<Post> response) {
+                Log.e("Posting Post", "success");
+                post = response.body();
+            }
+
+            @Override
+            public void onFailure(Call<Post> call, Throwable t) {
+                Log.e("Posting Post", "failed");
+            }
+        });
+
+        for (int i=0;i<IsChildSelected.size();i++) {
+
+            if (!IsChildSelected.get(i)) {
+                continue;
+            }
+
+            service.linkChildToPost(post.getId(), children.get(i).getId()).
+                    enqueue(new Callback<Void>() {
+                        @Override
+                        public void onResponse(Call<Void> call, Response<Void> response) {
+                            Log.e("Linking child", "success");
+                        }
+
+                        @Override
+                        public void onFailure(Call<Void> call, Throwable t) {
+                            Log.e("Linking child", "failure");
+                        }
+                    });
+        }
+    }
     private void uploadFile(){
 
         File file = new File (compressedPhotoURIforSendeing);
 
         MultipartBody.Part filePart = MultipartBody.Part.createFormData("file", file.getName(), RequestBody.create(MediaType.parse("image/*"), file));
 
-        IMediaApi service = ApiClient.getClient().create(IMediaApi.class);
-        service.uploadAttachment(filePart).enqueue(new Callback<ResponseBody>() {
+        IPostsApi service = ApiClient.getClient().create(IPostsApi.class);
+        service.AddPostShot(filePart).enqueue(new Callback<Integer>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                try {
-                    String s = response.body().string();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+            public void onResponse(Call<Integer> call, Response<Integer> response) {
                 Log.e("Upload", "success");
             }
 
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            public void onFailure(Call<Integer> call, Throwable t) {
                 Log.e("Upload", "failure" + t.toString());
             }
         });
@@ -391,21 +425,15 @@ public class TeacherSelectingChildrenForPostActivity extends AppCompatActivity {
 
         MultipartBody.Part filePart = MultipartBody.Part.createFormData("file_",videoFile.getName(), requestVideoFile);
 
-        IMediaApi service = ApiClient.getClient().create(IMediaApi.class);
-        service.uploadAttachment(filePart).enqueue(new Callback<ResponseBody>() {
+        IPostsApi service = ApiClient.getClient().create(IPostsApi.class);
+        service.AddPostVideo(filePart).enqueue(new Callback<Integer>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                try {
-                    String s = response.body().string();
-                    Log.e("Upload",s);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+            public void onResponse(Call<Integer> call, Response<Integer> response) {
                 Log.e("Upload", "success");
             }
 
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            public void onFailure(Call<Integer> call, Throwable t) {
                 Log.e("Upload", "failure" + t.toString());
             }
         });

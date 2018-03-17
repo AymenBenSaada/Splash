@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Splash.iml" filepath="$PROJECT_DIR$/Splash.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/Splash.iml" filepath="$PROJECT_DIR$/.idea/Splash.iml" />
+      <module fileurl="file://C:\Users\Master\AndroidStudioProjects\Splash\Splash.iml" filepath="C:\Users\Master\AndroidStudioProjects\Splash\Splash.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://C:\Users\Master\AndroidStudioProjects\Splash\app\app.iml" filepath="C:\Users\Master\AndroidStudioProjects\Splash\app\app.iml" />
     </modules>
   </component>
 </project>
