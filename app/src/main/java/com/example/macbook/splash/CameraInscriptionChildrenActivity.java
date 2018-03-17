@@ -1,5 +1,6 @@
 package com.example.macbook.splash;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.media.ThumbnailUtils;
@@ -18,6 +19,8 @@ import com.otaliastudios.cameraview.Gesture;
 import com.otaliastudios.cameraview.GestureAction;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 
 public class CameraInscriptionChildrenActivity extends AppCompatActivity {
 
@@ -25,6 +28,8 @@ public class CameraInscriptionChildrenActivity extends AppCompatActivity {
     ChildRegistrationViewModel childRegistrationViewModel;
     int nbrIteration;
 
+    private File photoFile;
+    private FileOutputStream fileOutputStream = null;
 
     CameraView camera;
     public Bitmap bmp1;
@@ -56,6 +61,16 @@ public class CameraInscriptionChildrenActivity extends AppCompatActivity {
                 CameraUtils.BitmapCallback photo = new CameraUtils.BitmapCallback() {
                     @Override
                     public void onBitmapReady(Bitmap bitmap) {
+                        try {
+                            photoFile = new File(getFilesDir()+"/profile"+nbrIteration+".png");
+                            Log.e("DEBUG"," "+photoFile.getAbsolutePath());
+
+                            fileOutputStream = new FileOutputStream(photoFile);
+                            bitmap.compress(Bitmap.CompressFormat.PNG, 100, fileOutputStream); // bmp is your Bitmap instance
+                            // PNG is a lossless format, the compression factor (100) is ignored
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                         bmp1 = Bitmap.createScaledBitmap(bitmap, 480, 325, true);
                       //  bmp1=bitmap;
                         Log.e("DEBUG",""+bmp1.getByteCount());
@@ -108,7 +123,7 @@ public class CameraInscriptionChildrenActivity extends AppCompatActivity {
 
     public void transition(){
         Intent intent = new Intent(this, ValidatingChildrenInscriptionPhotoActivity.class);
-
+        intent.putExtra("photoUriString",photoFile.getAbsolutePath());
         intent.putExtra("photo",bmp1Array);
         intent.putExtra("child",childRegistrationViewModel);
         intent.putExtra("person",parentRegistrationViewModel);

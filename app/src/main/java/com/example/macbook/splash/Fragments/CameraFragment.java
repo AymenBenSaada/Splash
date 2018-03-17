@@ -207,12 +207,6 @@ public class CameraFragment extends Fragment {
                             }
                         }
                         /////////////////////////////
-                        bmp = Bitmap.createScaledBitmap(bitmap, (bitmap.getWidth())/3,(bitmap.getHeight())/3, true);
-
-                        Log.e("DEBUG",""+bmp.getByteCount());
-                        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                        bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
-                        PhotoArray = stream.toByteArray();
 
                         transition();
 
@@ -345,7 +339,6 @@ public class CameraFragment extends Fragment {
 
     public void transition(){
         Intent intent = new Intent(getActivity(), TeacherSelectingChildrenForPostActivity.class);
-        intent.putExtra("photo",PhotoArray);
         intent.putExtra("photoUriString",photoFile.getAbsolutePath());
         teacherCameraTakePhoto.setClickable(true);
         startActivity(intent);

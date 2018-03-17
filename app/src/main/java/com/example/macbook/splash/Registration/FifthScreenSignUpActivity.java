@@ -81,6 +81,14 @@ public class FifthScreenSignUpActivity extends Activity {
 
         person.setStatus(status);
         person.setAdress(adresse.getText().toString());
+        if(tel.getText().toString().isEmpty())
+        {
+            tel.setError("Veuillez insérer votre numéro de télephone");
+            tel.requestFocus();
+            return;
+        }
+
+
         person.setPhone(Integer.parseInt(tel.getText().toString()));
 
         if(account.equals("parent")) {
@@ -96,7 +104,6 @@ public class FifthScreenSignUpActivity extends Activity {
         intent = new Intent(this, SelectingKindergardenSignUpActivity.class);
         TeacherRegistrationViewModel teacherRegistrationViewModel = (TeacherRegistrationViewModel)person.ConvertToTeacher();
         teacherRegistrationViewModel.setGraduationYear(Integer.parseInt(anneeDiplome));
-
         intent.putExtra("person",teacherRegistrationViewModel);
         intent.putExtra("account",account);
         startActivity(intent);

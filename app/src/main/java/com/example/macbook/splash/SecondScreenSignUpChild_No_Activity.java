@@ -70,6 +70,8 @@ public class SecondScreenSignUpChild_No_Activity extends AppCompatActivity imple
             convertedDate = dateFormat.parse(dateString);
         } catch (ParseException e) {
             // TODO Auto-generated catch block
+            etDateDeNaissanceEnfant.setError("Veuillez insérer une date valide (JJ/MM/AAAA)");
+            etDateDeNaissanceEnfant.requestFocus();
             e.printStackTrace();
         }
         childRegistrationViewModel.setBirthday(convertedDate);

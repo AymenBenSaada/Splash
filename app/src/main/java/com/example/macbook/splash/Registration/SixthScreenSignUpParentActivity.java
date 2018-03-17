@@ -54,6 +54,13 @@ public class SixthScreenSignUpParentActivity extends AppCompatActivity{
 
     public void SeventhScreenSignUpParent (View v){
         Intent intent = new Intent(this, SeventhScreenSignUpParentActivity.class);
+        if(!((etnbrEnfants.getText().toString().length()>=0)&&(!etnbrEnfants.getText().toString().isEmpty())))
+
+            {
+                etnbrEnfants.setError("veuillez indiqué le nombre de vos enfants");
+                etnbrEnfants.requestFocus();
+                return;
+            }
         parentRegistrationViewModel.setChildrenCount(Integer.parseInt(etnbrEnfants.getText().toString()));
         intent.putExtra("person",parentRegistrationViewModel);
         startActivity(intent);

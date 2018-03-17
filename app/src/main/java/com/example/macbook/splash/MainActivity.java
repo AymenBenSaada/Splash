@@ -3,9 +3,12 @@ package com.example.macbook.splash;
 import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Paint;
 import android.graphics.Typeface;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Pair;
 import android.view.View;
 import android.view.Window;
@@ -15,16 +18,50 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkResponse;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.HttpHeaderParser;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.JsonRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.macbook.splash.Admin.AdminMainActivity;
+import com.example.macbook.splash.Models.User;
 import com.example.macbook.splash.Registration.SecondScreenSignUpActivity;
 import com.example.macbook.splash.SwipePagers.TeacherPager;
+import com.google.gson.JsonObject;
+
+import junit.framework.Test;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import static android.provider.ContactsContract.CommonDataKinds.Website.URL;
 
 public class MainActivity extends Activity {
+    SharedPreferences shared;
 
 
     EditText etEmail;
     EditText etMdp;
+    Boolean valid_login=false;
+    List<User> users = new ArrayList<>();
+    //private UserLoginTask mAuthTask = null;
+
 
 
     @Override
@@ -39,17 +76,6 @@ public class MainActivity extends Activity {
 
 
 
-
-        /*
-
-        View view = this.getCurrentFocus();
-        if (view != null) {
-            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-        }
-         */
-        //TO DISABLE THE BAR AT THE BOTTOM
-        //getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
 
         Typeface RegularRobotoFont=Typeface.createFromAsset(getAssets(),"fonts/Roboto-Regular.ttf");
         Typeface MediumRobotoFont=Typeface.createFromAsset(getAssets(),"fonts/Roboto-Medium.ttf");
@@ -67,8 +93,15 @@ public class MainActivity extends Activity {
         tvEmail.setTypeface(RegularRobotoFont);
         etEmail.setTypeface(RegularRobotoFont);
         tvMdp.setTypeface(RegularRobotoFont);
-        btnInscription.setTypeface(MediumRobotoFont);
+        //btnInscription.setTypeface(MediumRobotoFont);
         dejaMembre.setTypeface(RegularRobotoFont);
+
+        btnInscription.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TestLogin();
+            }
+        });
 
     }
 
@@ -81,6 +114,9 @@ public class MainActivity extends Activity {
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(),0);
     }
 
+
+
+
     public void Inscription (View v){
         Intent intent = new Intent(this, SecondScreenSignUpActivity.class);
 
@@ -90,14 +126,22 @@ public class MainActivity extends Activity {
             etEmail.requestFocus();
             return;
         }
-        if(email.indexOf('@')==0)
+        if(!(email.indexOf("@")>0))
         {
             etEmail.setError("Veuillez insérer un Email valid");
+            etEmail.requestFocus();
+            return;
         }
-        if(etMdp.getText().toString().trim().isEmpty())
+        if(etMdp.getText().toString().trim().isEmpty()) {
             etMdp.setError("Le mot de passe est obligatior!");
-        if(etMdp.getText().toString().trim().length()<8)
+            etMdp.requestFocus();
+            return;
+        }
+        if(etMdp.getText().toString().trim().length()<8) {
             etMdp.setError("Le mot dois contenire au moins 8 charactère");
+            etMdp.requestFocus();
+            return;
+        }
 
         ImageView edonecLogo = (ImageView)findViewById(R.id.edonecLogo);
         Pair pair = new Pair<View,String>(edonecLogo,"imgTransition");
@@ -111,14 +155,111 @@ public class MainActivity extends Activity {
     }
 
     public void SIdentifier (View v){
+
+
+
+
+
         Intent intent = new Intent(this, LoggedMainActivity.class);
         //Intent intent = new Intent(this, AdminMainActivity.class);
         startActivity(intent);
     }
+
+
+
 
     @Override
     public void onBackPressed() {
         // Do Here what ever you want do on back press;
         return;
     }
+
+
+    public void TestLogin(){
+        final String email = etEmail.getText().toString();
+        final String password = etMdp.getText().toString();
+
+        // RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+
+                /*------------------------------URL---------------------------------*/
+        String url = "https://edonecserver.azurewebsites.net/Auth/login";
+        try {
+            RequestQueue requestQueue = Volley.newRequestQueue(this);
+            JSONObject jsonBody = new JSONObject();
+            jsonBody.put("email", email);
+            jsonBody.put("password", password);
+            final String mRequestBody = jsonBody.toString();
+
+            JsonRequest stringRequest = new JsonObjectRequest(Request.Method.POST, url,null, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+
+                    // Get the current student (json object) data
+                    try {Log.e("LOG_RESPONSE", String.valueOf(response));
+                        String userId = response.getString("userId");
+                        String role = response.getString("userDescriptor");
+
+                        if (role.equals("Admin")){
+                            Intent intent = new Intent(MainActivity.this, AdminMainActivity.class);
+                            intent.putExtra("userId",userId);
+                            startActivity(intent);
+                        }
+                        else  if (role.equals("Teacher")){
+                            Intent intent = new Intent(MainActivity.this, LoggedMainActivity.class);
+                            intent.putExtra("userId",userId);
+                            startActivity(intent);
+                        }
+                        else {
+                            Intent intent = new Intent(MainActivity.this, LoggedMainActivity.class);
+                            intent.putExtra("userId",userId);
+                            startActivity(intent);
+                        }
+
+
+
+
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(MainActivity.this, "NN FRR", Toast.LENGTH_SHORT).show();
+                }
+            }) {
+                @Override
+                public String getBodyContentType() {
+                    return String.format("application/json; charset=utf-8");
+                }
+
+                @Override
+                public byte[] getBody() {
+                    try {
+                        return mRequestBody == null ? null : mRequestBody.getBytes("utf-8");
+                    } catch (UnsupportedEncodingException uee) {
+                        VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s",
+                                mRequestBody, "utf-8");
+                        return null;
+                    }
+                }
+            };
+            //MySingleton.getInstance(this).addToRequestQueue(stringRequest);
+
+
+            requestQueue.add(stringRequest);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+
+
+
+
 }

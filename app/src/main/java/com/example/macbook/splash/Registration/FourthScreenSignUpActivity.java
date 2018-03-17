@@ -85,7 +85,11 @@ public class FourthScreenSignUpActivity extends AppCompatActivity implements Dat
             convertedDate = dateFormat.parse(dateString);
         } catch (ParseException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+                dateDeNaissance.setError("Veuillez insérer une date valide (JJ/MM/AAAA)");
+                dateDeNaissance.requestFocus();
+                e.printStackTrace();
+                return;
+
         }
         person.setBirth(convertedDate);
 
