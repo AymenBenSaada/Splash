@@ -79,20 +79,10 @@ public class FourthScreenSignUpActivity extends AppCompatActivity implements Dat
     public void FifthScreenSignUp (View v){
         Intent intent = new Intent(this, FifthScreenSignUpActivity.class);
         String dateString = dateDeNaissance.getText().toString();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        Date convertedDate = new Date();
-        try {
-            convertedDate = dateFormat.parse(dateString);
-        } catch (ParseException e) {
-            // TODO Auto-generated catch block
-                dateDeNaissance.setError("Veuillez insérer une date valide (JJ/MM/AAAA)");
-                dateDeNaissance.requestFocus();
-                e.printStackTrace();
-                return;
 
-        }
-        person.setBirth(convertedDate);
-
+        dateDeNaissance.setError("Veuillez insérer une date valide (JJ/MM/AAAA)");
+        dateDeNaissance.requestFocus();
+        person.setBirth(dateString);
         intent.putExtra("person",person);
         intent.putExtra("account",account);
         intent.putExtra("anneeDiplome", anneeDiplome.getText().toString());

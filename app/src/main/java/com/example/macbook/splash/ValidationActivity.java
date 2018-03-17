@@ -98,6 +98,7 @@ public class ValidationActivity extends AppCompatActivity {
 
         actionBar.hide();
     }
+    //region TeacherRegistration
     public void registerTeacher()
     {
         IRegistrationInterface registrationService =  ApiClient.getClient().create(IRegistrationInterface.class);
@@ -146,6 +147,26 @@ public class ValidationActivity extends AppCompatActivity {
 
 
     }
+//endregion
+
+
+    //region ParentRegistration
+    public void parentTeacher()
+    {
+        IRegistrationInterface registrationService =  ApiClient.getClient().create(IRegistrationInterface.class);
+        registrationService.registerParent(new AccountRegistrationModel(person)).enqueue(new Callback<RegistrationResponseModel>() {
+            @Override
+            public void onResponse(Call<RegistrationResponseModel> call, final Response<RegistrationResponseModel> response) {
+                Log.e("pushing Account done!", "success");
+            }
+
+            @Override
+            public void onFailure(Call<RegistrationResponseModel> call, Throwable t) {
+                Log.e("failed 0", "failure");
+            }
+        });
+    }
+//endregion
 
 
 }

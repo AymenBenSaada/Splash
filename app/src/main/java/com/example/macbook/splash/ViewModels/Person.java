@@ -1,10 +1,19 @@
 package com.example.macbook.splash.ViewModels;
 
+
+
+import android.util.Log;
+
 import com.example.macbook.splash.Enum.Gender;
 import com.example.macbook.splash.Enum.Status;
+import com.example.macbook.splash.Models.Parent;
 import com.example.macbook.splash.Models.Teacher;
 
 import java.io.Serializable;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.Date;
 
 /**
@@ -21,7 +30,7 @@ public class Person implements Serializable {
     private String LastName;
     private Gender Gender;
     private Date Birth;
-
+    private String datest;
     public ParentRegistrationViewModel ConvertToParent(){
         ParentRegistrationViewModel parentRegistrationViewModel = new ParentRegistrationViewModel();
 
@@ -33,7 +42,7 @@ public class Person implements Serializable {
         parentRegistrationViewModel.setPhone(this.Phone);
         parentRegistrationViewModel.setStatus(this.Status);
         parentRegistrationViewModel.setGender(this.Gender);
-        parentRegistrationViewModel.setBirth(this.Birth);
+        parentRegistrationViewModel.setBirth(this.datest);
 
         return parentRegistrationViewModel;
     }
@@ -49,7 +58,7 @@ public class Person implements Serializable {
         teacherRegistrationViewModel.setPhone(this.Phone);
         teacherRegistrationViewModel.setStatus(this.Status);
         teacherRegistrationViewModel.setGender(this.Gender);
-        teacherRegistrationViewModel.setBirth(this.Birth);
+        teacherRegistrationViewModel.setBirth(this.datest);
 
         return teacherRegistrationViewModel;
     }
@@ -58,9 +67,15 @@ public class Person implements Serializable {
         TeacherRegistrationViewModel teacherRegistrationViewModel = this.ConvertToTeacher();
         Date graduationDate = new Date(teacherRegistrationViewModel.getGraduationYear());
         Teacher teacher = new Teacher(0,this.Name,this.LastName,this.Adress,this.Email,
-                this.Gender,this.Birth,this.Phone,this.Status,graduationDate,null,null,-1);
+                this.Gender,this.Birth.toString(),this.Phone,this.Status,graduationDate,null,null,-1);
 
         return teacher;
+    }
+    public Parent ToParent(){
+        ParentRegistrationViewModel parentRegistrationViewModel = this.ConvertToParent();
+        Parent parent = new Parent(0,this.Name,this.LastName,null,this.Adress,this.Email,
+                this.Gender.toString(),this.Birth,this.Phone,this.Status.toString(),parentRegistrationViewModel.getChildrenCount());
+        return parent;
     }
 
 
@@ -143,12 +158,43 @@ public class Person implements Serializable {
         Gender = gender;
     }
 
-    public Date getBirth() {
-        return Birth;
+    public String getBirth() {
+        return datest;
     }
 
-    public void setBirth(Date birth) {
-        Birth = birth;
+    public void setBirth(String birth) {
+        datest = formattedDateFromString("dd/mm/yyyy","yyyy-mm-dd'T'hh:mm:ss",birth);
+       ////////////////////// this needs to be fixed ////////////////////
+        Birth = new Date();
     }
+
+    public static String formattedDateFromString(String inputFormat, String outputFormat, String inputDate){
+        if(inputFormat.equals("")){ // if inputFormat = "", set a default input format.
+            inputFormat = "yyyy-MM-dd hh:mm:ss";
+        }
+        if(outputFormat.equals("")){
+            outputFormat = "EEEE d 'de' MMMM 'del' yyyy"; // if inputFormat = "", set a default output format.
+        }
+        Date parsed = null;
+        String outputDate = "";
+
+        SimpleDateFormat df_input = new SimpleDateFormat(inputFormat, java.util.Locale.getDefault());
+        SimpleDateFormat df_output = new SimpleDateFormat(outputFormat, java.util.Locale.getDefault());
+
+        // You can set a different Locale, This example set a locale of Country Mexico.
+        //SimpleDateFormat df_input = new SimpleDateFormat(inputFormat, new Locale("es", "MX"));
+        //SimpleDateFormat df_output = new SimpleDateFormat(outputFormat, new Locale("es", "MX"));
+
+        try {
+            parsed = df_input.parse(inputDate);
+
+            outputDate = df_output.format(parsed);
+        } catch (Exception e) {
+            Log.e("formattedDateFromString", "Exception in formateDateFromstring(): " + e.getMessage());
+        }
+        return outputDate;
+
+    }
+
 
 }

@@ -35,7 +35,7 @@ public class Teacher {
     private Gender gender;
 
     @SerializedName("birth")
-    private Date birth;
+    private String birth;
 
     @SerializedName("phone")
     private int phone;
@@ -61,7 +61,7 @@ public class Teacher {
     @SerializedName("kindergartenId")
     private int kindergartenId;
 
-    public Teacher(int id, String name, String lastName, String address, String email, Gender gender, Date birth,int phone, Status status, Date graduationDate, List<Group> groups, List<Suggestion> suggestions, int kindergartenId) {
+    public Teacher(int id, String name, String lastName, String address, String email, Gender gender, String birth,int phone, Status status, Date graduationDate, List<Group> groups, List<Suggestion> suggestions, int kindergartenId) {
         this.id = id;
         this.name = name;
         this.lastName = lastName;
@@ -125,11 +125,11 @@ public class Teacher {
         this.gender = gender;
     }
 
-    public Date getBirth() {
+    public String getBirth() {
         return birth;
     }
 
-    public void setBirth(Date birth) {
+    public void setBirth(String birth) {
         this.birth = birth;
     }
 

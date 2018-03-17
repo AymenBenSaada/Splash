@@ -21,6 +21,7 @@ public class Parent {
     @NonNull
     private String lastName;
 
+
     @NonNull
     private String profession;
 
@@ -52,7 +53,7 @@ public class Parent {
 
     public Parent(int id, @NonNull String name, @NonNull String lastName,
                   @NonNull String profession, @NonNull String address, @NonNull String email,
-                  @NonNull String gender, Date birth, @NonNull String status, int childCount) {
+                  @NonNull String gender, Date birth,int Phone, @NonNull String status, int childCount) {
 
         this.id = id;
         this.name = name;
@@ -64,6 +65,7 @@ public class Parent {
         this.birth = birth;
         this.status = status;
         this.childCount = childCount;
+        this.phone=Phone;
     }
 
     @Nullable
