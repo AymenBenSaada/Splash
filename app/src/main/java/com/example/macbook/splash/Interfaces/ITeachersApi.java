@@ -3,6 +3,7 @@ package com.example.macbook.splash.Interfaces;
 import com.example.macbook.splash.Models.Group;
 import com.example.macbook.splash.Models.Suggestion;
 import com.example.macbook.splash.Models.Teacher;
+import com.example.macbook.splash.Models.TeacherInscriptionRequestSubmitViewModel;
 
 import java.util.List;
 
@@ -45,6 +46,14 @@ public interface ITeachersApi {
     Call<Void> deleteTeacher(@Path ("teacherId") int teacherId);
 
     //endregion
+
+    //region TeacherKinderGarten
+
+    @POST("api/Teacher/{teacherId}/TeacherInscriptionRequests")
+    Call<ResponseBody> requestLinkTeacherToKG(@Body TeacherInscriptionRequestSubmitViewModel teacherInscriptionRequestSubmitViewModel);
+    //endregion
+
+
 
     //region TeacherGroupsApi
 
