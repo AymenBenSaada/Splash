@@ -127,7 +127,7 @@ public class SplashActivity extends AppCompatActivity {
                 new AdminAsyncRefresh().execute();
             }
         }else {
-            new AdminAsyncRefresh().execute();
+            new TeacherAsyncRefresh().execute();
         }
         //endregion
 
