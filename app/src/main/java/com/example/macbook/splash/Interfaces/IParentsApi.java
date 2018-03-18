@@ -36,6 +36,9 @@ public interface IParentsApi {
     @GET("api/Parents/{parentId}/Children")
     Call<List<Child>> getParentChildren(@Path("parentId") int parentID);
 
+    @GET("api/Parents/{parentId}/All")
+    Call<Parent> getParentWithChildrenWithLogsWithComments(@Path("parentId") int parentId);
+
     @POST("api/Parents/{parentId}/FcmToken")
     Call<ResponseBody> postParentToken(@Path("parentId")int parentID, @Body String parentToken);
 

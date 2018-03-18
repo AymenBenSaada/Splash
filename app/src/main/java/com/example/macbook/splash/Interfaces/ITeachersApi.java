@@ -30,6 +30,9 @@ public interface ITeachersApi {
 
     //region TeachersApi
 
+    @GET("api/Teachers/{teacherId}/All")
+    Call<Teacher> getTeacherWithAll(@Path("teacherId") int teacherId);
+
     @GET("/api/Teachers/{teacherId}")
     Call<Teacher> getTeacher(@Path("teacherId") int teacherId);
 

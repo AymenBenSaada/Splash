@@ -136,18 +136,12 @@ public interface IChildrenApi{
     );
 
     //endregion
-
-    //region LinkChildToKindergarten
-
     //region TeacherKinderGarten
 
     @POST("api/Parents/{parentId}/ChildAdoptionRequests")
     Call<ResponseBody> requestLinkChildToKG(
-            @Path("parentId") int ParentId,
-            @Body TeacherInscriptionRequestSubmitViewModel teacherInscriptionRequestSubmitViewModel
-            );
-    //endregion
-
+            @Path("parentId") int Id,
+            @Body TeacherInscriptionRequestSubmitViewModel teacherInscriptionRequestSubmitViewModel);
     //endregion
 
 }
