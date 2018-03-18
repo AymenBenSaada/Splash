@@ -1,7 +1,11 @@
 package com.example.macbook.splash.ViewModels;
 
 import android.support.annotation.Nullable;
+import android.util.Log;
 
+import com.example.macbook.splash.Models.Child;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,6 +23,8 @@ public class ParentRegistrationViewModel extends Person{
     @Nullable
     private String EmailLinking;
 
+
+
     @Override
     public String toString() {
         return "ParentRegistrationViewModel{" +
@@ -27,6 +33,7 @@ public class ParentRegistrationViewModel extends Person{
                 ", EmailLinking='" + EmailLinking + '\'' +
                 '}';
     }
+
 
     @Nullable
     public String getEmailLinking() {return EmailLinking;}
@@ -43,6 +50,7 @@ public class ParentRegistrationViewModel extends Person{
 
     public void addChild(List<ChildRegistrationViewModel> children, ChildRegistrationViewModel child){
         children.add(child);
+
     }
 
     public int getChildrenCount() {

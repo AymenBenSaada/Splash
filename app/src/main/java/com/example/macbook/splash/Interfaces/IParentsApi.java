@@ -38,4 +38,8 @@ public interface IParentsApi {
 
     @POST("api/Parents/{parentId}/FcmToken")
     Call<ResponseBody> postParentToken(@Path("parentId")int parentID, @Body String parentToken);
+
+    @PUT("api/parents/{parentId}")
+    Call<ResponseBody> putParent(@Path("parentId")int parentID, @Body Parent parent);
+
 }

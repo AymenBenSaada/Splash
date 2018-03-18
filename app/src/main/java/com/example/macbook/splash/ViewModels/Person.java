@@ -67,7 +67,7 @@ public class Person implements Serializable {
         TeacherRegistrationViewModel teacherRegistrationViewModel = this.ConvertToTeacher();
         Date graduationDate = new Date(teacherRegistrationViewModel.getGraduationYear());
         Teacher teacher = new Teacher(0,this.Name,this.LastName,this.Adress,this.Email,
-                this.Gender,this.Birth.toString(),this.Phone,this.Status,graduationDate,null,null,-1);
+                this.Gender,this.Birth,this.Phone,this.Status,graduationDate,null,null,-1);
 
         return teacher;
     }

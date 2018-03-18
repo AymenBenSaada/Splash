@@ -12,9 +12,12 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.macbook.splash.Interfaces.ApiClient;
+import com.example.macbook.splash.Interfaces.IChildrenApi;
+import com.example.macbook.splash.Interfaces.IParentsApi;
 import com.example.macbook.splash.Interfaces.IRegistrationInterface;
 import com.example.macbook.splash.Interfaces.ITeachersApi;
 import com.example.macbook.splash.Models.AccountRegistrationModel;
+import com.example.macbook.splash.Models.Child;
 import com.example.macbook.splash.Models.Post;
 import com.example.macbook.splash.Models.RegistrationResponseModel;
 import com.example.macbook.splash.Models.Teacher;
@@ -24,6 +27,11 @@ import com.example.macbook.splash.ViewModels.ParentRegistrationViewModel;
 import com.example.macbook.splash.ViewModels.Person;
 import com.example.macbook.splash.ViewModels.TeacherRegistrationViewModel;
 
+import java.io.File;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -34,7 +42,7 @@ public class ValidationActivity extends AppCompatActivity {
     Person person;
     int userID;
     String text;
-
+    int childCount;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -44,7 +52,7 @@ public class ValidationActivity extends AppCompatActivity {
 
 
         super.onCreate(savedInstanceState);
-        registerTeacher();
+        registerParent();
         setContentView(R.layout.activity_validation);
         Button btnValidateInscription = findViewById(R.id.btnValidateInscription);
         Typeface RegularRobotoFont=Typeface.createFromAsset(getAssets(),"fonts/Roboto-Regular.ttf");
@@ -98,6 +106,7 @@ public class ValidationActivity extends AppCompatActivity {
 
         actionBar.hide();
     }
+
     //region TeacherRegistration
     public void registerTeacher()
     {
@@ -106,36 +115,8 @@ public class ValidationActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<RegistrationResponseModel> call, final Response<RegistrationResponseModel> response) {
                 Log.e("pushing Account done!", "success");
-
-                final ITeachersApi service = ApiClient.getClient().create(ITeachersApi.class);
                 userID = response.body().getUserId();
-                service.putTeacher(userID,person.ToTeacher()).
-                        enqueue(new Callback<Void>() {
-                            @Override
-                            public void onResponse(Call<Void> call, Response<Void> response2) {
-                                final ITeachersApi service2 = ApiClient.getClient().create(ITeachersApi.class);
-
-                                Log.e("pushing teacher done!", "success");
-                                service2.requestLinkTeacherToKG(new TeacherInscriptionRequestSubmitViewModel(response.body().getUserId(),((TeacherRegistrationViewModel) person).getKindergardenID()))
-                                        .enqueue(new Callback<ResponseBody>() {
-                                            @Override
-                                            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                                                Log.e("linking teacher done!", "success");
-
-                                            }
-                                            @Override
-                                            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                                                Log.e("failed 3", "failure");
-
-                                            }
-                                        });
-                            }
-
-                            @Override
-                            public void onFailure(Call<Void> call, Throwable t) {
-                                Log.e("failed 1", "failure");
-                            }
-                        });
+                putTeacherAfterAccountRegistration();
             }
 
             @Override
@@ -147,17 +128,64 @@ public class ValidationActivity extends AppCompatActivity {
 
 
     }
-//endregion
+    //endregion
+
+    //region TeacherResponseBodyAfterAccountRegistration
+    public void putTeacherAfterAccountRegistration(){
+
+        final ITeachersApi service = ApiClient.getClient().create(ITeachersApi.class);
+
+        service.putTeacher(userID,person.ToTeacher()).
+                enqueue(new Callback<Void>() {
+                    @Override
+                    public void onResponse(Call<Void> call, Response<Void> response2) {
+
+                        Log.e("pushing teacher done!", "success");
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<Void> call, Throwable t) {
+                        Log.e("failed 1", "failure");
+                    }
+                });
+    }
+    //endregion
+
+    //region LinkingTeacherTOKinderGarten
+    public void linkTeacherToKG(){
+                    final ITeachersApi service2 = ApiClient.getClient().create(ITeachersApi.class);
+                    service2.requestLinkTeacherToKG(userID,new TeacherInscriptionRequestSubmitViewModel(userID,((TeacherRegistrationViewModel) person).getKindergardenID()))
+                        .enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response3) {
+                        Log.e("linking teacher done!", "success");
+
+                    }
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        Log.e("failed 3", "failure");
+
+                    }
+                });
+    }
+    //endregion
+
+
 
 
     //region ParentRegistration
-    public void parentTeacher()
+    public void registerParent()
     {
         IRegistrationInterface registrationService =  ApiClient.getClient().create(IRegistrationInterface.class);
         registrationService.registerParent(new AccountRegistrationModel(person)).enqueue(new Callback<RegistrationResponseModel>() {
             @Override
             public void onResponse(Call<RegistrationResponseModel> call, final Response<RegistrationResponseModel> response) {
                 Log.e("pushing Account done!", "success");
+                userID = response.body().getUserId();
+                putParentAfterAccountRegistration();
+
+
             }
 
             @Override
@@ -166,7 +194,101 @@ public class ValidationActivity extends AppCompatActivity {
             }
         });
     }
-//endregion
+    //endregion
+
+    //region PutParentAfterAccountRegistration
+    public void putParentAfterAccountRegistration(){
+        final IParentsApi parentsApi = ApiClient.getClient(). create(IParentsApi.class);
+
+        parentsApi.putParent(userID,person.ToParent()).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                Log.e("pushing Parent done!", "success");
+                childCount = ((ParentRegistrationViewModel) person).getChildrenCount();
+                for (ChildRegistrationViewModel child:
+                        ((ParentRegistrationViewModel) person).getChildren()) {
+                    postChild(child.ToChild());
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+    }
+    //endregion
+
+    //region PutChildAfterAccountRegistration
+
+    public void postChild(final Child child)
+    {
+        final IChildrenApi childrenApi = ApiClient.getClient().create(IChildrenApi.class);
+        childrenApi.postChild(child).enqueue(new Callback<Child>() {
+            @Override
+            public void onResponse(Call<Child> call, Response<Child> response) {
+                Log.e("Child Model done!", "success");
+                postChildProfilePicture(response.body().getId(),response.body());
+
+            }
+
+            @Override
+            public void onFailure(Call<Child> call, Throwable t) {
+
+            }
+        });
+    }
+    //endregion
+
+    //region PutChildProfilePictureAfterChildRegistration
+
+    public void postChildProfilePicture(int Id, final Child child){
+        final IChildrenApi childrenProfilePictureApi = ApiClient.getClient().create(IChildrenApi.class);
+        File file = new File (child.getProfilePictureLink());
+
+        MultipartBody.Part filePart = MultipartBody.Part.createFormData("file", file.getName(), RequestBody.create(MediaType.parse("image/*"), file));
+        final int childId = Id;
+        final Child childFinal = child;
+        childrenProfilePictureApi.postChildProfilePicture(Id,filePart).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                Log.e("Child Model done!", "success");
+                linkTokindergarten(childId,childFinal);
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+
+
+    }
+    //endregion
+
+    //region LinkChildToKinderGarten
+    public void linkTokindergarten(int Id,Child child) {
+        final IChildrenApi service2 = ApiClient.getClient().create(IChildrenApi.class);
+        service2.requestLinkChildToKG(userID, new TeacherInscriptionRequestSubmitViewModel(Id, child.getKindergartenId()))
+                .enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response3) {
+                        Log.e("linking Child done!", "success");
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        Log.e("failed 3", "failure");
+                    }
+                });
+    }
+
+    //endregion
+
+
 
 
 }

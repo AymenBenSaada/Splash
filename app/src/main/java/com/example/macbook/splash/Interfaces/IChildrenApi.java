@@ -6,6 +6,7 @@ import com.example.macbook.splash.Models.Child;
 import com.example.macbook.splash.Models.Group;
 import com.example.macbook.splash.Models.Parent;
 import com.example.macbook.splash.Models.Post;
+import com.example.macbook.splash.Models.TeacherInscriptionRequestSubmitViewModel;
 
 import java.util.List;
 
@@ -113,7 +114,7 @@ public interface IChildrenApi{
     @POST("/api/Children/{childId}/ProfilePicture")
     Call<ResponseBody> postChildProfilePicture(
             @Path("childId") int childId,
-            @Part("description") RequestBody description,
+           // @Part("description") RequestBody description,
             @Part MultipartBody.Part file
     );
 
@@ -133,6 +134,19 @@ public interface IChildrenApi{
             @Part("description") RequestBody description,
             @Part MultipartBody.Part file
     );
+
+    //endregion
+
+    //region LinkChildToKindergarten
+
+    //region TeacherKinderGarten
+
+    @POST("api/Parents/{parentId}/ChildAdoptionRequests")
+    Call<ResponseBody> requestLinkChildToKG(
+            @Path("parentId") int ParentId,
+            @Body TeacherInscriptionRequestSubmitViewModel teacherInscriptionRequestSubmitViewModel
+            );
+    //endregion
 
     //endregion
 

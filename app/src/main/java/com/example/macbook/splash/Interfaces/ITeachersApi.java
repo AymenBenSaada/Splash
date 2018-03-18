@@ -50,7 +50,9 @@ public interface ITeachersApi {
     //region TeacherKinderGarten
 
     @POST("api/Teacher/{teacherId}/TeacherInscriptionRequests")
-    Call<ResponseBody> requestLinkTeacherToKG(@Body TeacherInscriptionRequestSubmitViewModel teacherInscriptionRequestSubmitViewModel);
+    Call<ResponseBody> requestLinkTeacherToKG(
+            @Path("teacherId") int Id,
+            @Body TeacherInscriptionRequestSubmitViewModel teacherInscriptionRequestSubmitViewModel);
     //endregion
 
 

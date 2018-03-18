@@ -51,7 +51,19 @@ public class Child {
     @Nullable
     private int kindergartenId;
 
-    public Child(int id, @NonNull String name, @NonNull String lastName,@NonNull String nickName, Date birth, Gender sex,List<Log> logs,int profil_pictureID,@Nullable int kindergartenId) {
+    @Nullable
+    public String getProfilePictureLink() {
+        return profilePictureLink;
+    }
+
+    public void setProfilePictureLink(@Nullable String profilePictureLink) {
+        this.profilePictureLink = profilePictureLink;
+    }
+
+    @Nullable
+    private String profilePictureLink;
+
+    public Child(int id, @NonNull String name, @NonNull String lastName,@NonNull String nickName, Date birth, Gender sex,List<Log> logs,int profil_pictureID,@Nullable int kindergartenId,String ProfilePictureLink) {
         this.id = id;
         this.name = name;
         this.lastName = lastName;
@@ -61,6 +73,7 @@ public class Child {
         this.logs = logs;
         this.profil_pictureID = profil_pictureID;
         this.kindergartenId = kindergartenId;
+        this.profilePictureLink = ProfilePictureLink;
     }
 
     @Nullable

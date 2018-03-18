@@ -3,6 +3,7 @@ package com.example.macbook.splash.ViewModels;
 import android.support.annotation.Nullable;
 
 import com.example.macbook.splash.Enum.Gender;
+import com.example.macbook.splash.Models.Child;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -34,7 +35,9 @@ public class ChildRegistrationViewModel implements Serializable {
                 ", KindergardenID=" + KindergardenID +
                 '}';
     }
-
+    public Child ToChild(){
+        return new Child(Id,Name,LastName,"",Birthday,Gender,null,-1,KindergardenID,ProfilePicture);
+    }
     @Nullable
     public int getId() {
         return Id;
