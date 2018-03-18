@@ -227,7 +227,7 @@ public class LogsPerChildActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent i = new Intent(this,LoggedMainActivity.class);
+        Intent i = new Intent(this,LoggedTeacherMainActivity.class);
         i.putExtra("position",2);
         startActivity(i);
     }

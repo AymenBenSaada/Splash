@@ -14,7 +14,7 @@ import retrofit2.http.Path;
 
 public interface ILogsApi {
 
-    @GET("/api/Logs/{logId}/Comments")
-    Call<List<Comment>> getLogComments(@Path("logId") int logId);
+    @GET("/api/Children/{childId}/Logs/{logId}/Comments")
+    Call<List<Comment>> getLogComments(@Path("childId") int childId, @Path("logId") int logId);
 
 }

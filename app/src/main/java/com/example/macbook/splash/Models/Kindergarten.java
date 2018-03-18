@@ -4,6 +4,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 /**
@@ -18,6 +20,7 @@ public class Kindergarten {
     @NonNull
     private String name;
 
+    @SerializedName("adress")
     @NonNull
     private String address;
 

@@ -15,6 +15,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.macbook.splash.CommunSuggestionsActivity;
+import com.example.macbook.splash.Interfaces.ApiClient;
+import com.example.macbook.splash.Interfaces.IAdminsApi;
 import com.example.macbook.splash.Models.Admin;
 import com.example.macbook.splash.Models.Teacher;
 import com.example.macbook.splash.R;
@@ -34,6 +36,9 @@ import java.lang.reflect.Type;
 import java.util.concurrent.ExecutionException;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class AdminMainActivity extends AppCompatActivity {
 
@@ -41,6 +46,9 @@ public class AdminMainActivity extends AppCompatActivity {
     private ActionBarDrawerToggle mToggle;
     private NavigationView nvDrawer;
     private String AdminFile = "admin.dat";
+    private CircleImageView image;
+    private TextView name;
+    private  TextView email;
 
 
     @Override
@@ -61,25 +69,32 @@ public class AdminMainActivity extends AppCompatActivity {
 
         //region DrawerHeader
         View nvDrawerHeaderView = nvDrawer.getHeaderView(0);
-        CircleImageView image = (CircleImageView) nvDrawerHeaderView.findViewById(R.id.profile_image);
-        TextView name = (TextView) nvDrawerHeaderView.findViewById(R.id.profile_name);
-        TextView email = (TextView) nvDrawerHeaderView.findViewById(R.id.profile_email);
+        image = (CircleImageView) nvDrawerHeaderView.findViewById(R.id.profile_image);
+        name = (TextView) nvDrawerHeaderView.findViewById(R.id.profile_name);
+        email = (TextView) nvDrawerHeaderView.findViewById(R.id.profile_email);
 
         Typeface RegularRobotoFont=Typeface.createFromAsset(getAssets(),"fonts/Roboto-Light.ttf");
 
         name.setTypeface(RegularRobotoFont);
         email.setTypeface(RegularRobotoFont);
 
+        Intent i = getIntent();
+        int adminId = i.getIntExtra("userId",0);
+        IAdminsApi apiService = ApiClient.getClient().create(IAdminsApi.class);
+        apiService.getAdmin(adminId).enqueue(new Callback<Admin>() {
+            @Override
+            public void onResponse(Call<Admin> call, Response<Admin> response) {
+                Admin admin = response.body();
+                image.setImageURI(loadAdminPictureURIFromTheInternalStorage(admin.getKindergartenId()));
+                name.setText((admin.getName()+" "+admin.getLastName()));
+                email.setText(admin.getEmail());
+            }
 
-        try
-        {
-            Admin admin = loadAdminModelFromInternalStorage(AdminFile);
-            image.setImageURI(loadAdminPictureURIFromTheInternalStorage(admin.getKindergartenId()));
-            name.setText((admin.getName()+" "+admin.getLastName()));
-            email.setText(admin.getEmail());
-        }catch (Exception e){
-            Toast toast = Toast.makeText(getApplicationContext(), "La connexion au serveur a echoué!", Toast.LENGTH_SHORT); toast.show();
-        }
+            @Override
+            public void onFailure(Call<Admin> call, Throwable t) {
+                Toast toast = Toast.makeText(getApplicationContext(), "La connexion au serveur a echoué!", Toast.LENGTH_SHORT); toast.show();
+            }
+        });
 
 
 
@@ -122,6 +137,7 @@ public class AdminMainActivity extends AppCompatActivity {
         });
     }
 
+    /*
     private Admin loadAdminModelFromInternalStorage(String file_name){
         FileInputStream fis = null;
         //CODE
@@ -162,6 +178,7 @@ public class AdminMainActivity extends AppCompatActivity {
         }
     }
 
+*/
     private Uri loadAdminPictureURIFromTheInternalStorage(int kg_ID){
         File file = new File(this.getFilesDir() + "/" +"kg_profile_picture_"+kg_ID+".dat");
         return Uri.fromFile(file);

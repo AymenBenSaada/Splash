@@ -99,7 +99,7 @@ public class Admin_Child_Selected_Logs_Activity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 final Log log = resultat.get(position);
-                ApiClient.getClient().create(ILogsApi.class).getLogComments(resultat.get(position).getId()).enqueue(new Callback<List<Comment>>() {
+                ApiClient.getClient().create(ILogsApi.class).getLogComments(0,resultat.get(position).getId()).enqueue(new Callback<List<Comment>>() {
                     @Override
                     public void onResponse(Call<List<Comment>> call, Response<List<Comment>> response) {
                         if (response.isSuccessful()){

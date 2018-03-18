@@ -18,7 +18,7 @@ import java.util.List;
  * Created by macbook on 08/02/2018.
  */
 
-public class Suggestion implements Serializable, Comparable<com.example.macbook.splash.Models.Suggestion>{
+public class Suggestion implements Serializable, Comparable<Suggestion>{
 
     @Nullable
     private int Id;

@@ -1,5 +1,6 @@
 package com.example.macbook.splash;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
@@ -25,6 +26,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 
+import com.example.macbook.splash.Interfaces.ApiClient;
+import com.example.macbook.splash.Interfaces.ITeachersApi;
 import com.example.macbook.splash.Models.Admin;
 import com.example.macbook.splash.Models.Parent;
 import com.example.macbook.splash.Models.Teacher;
@@ -49,8 +52,11 @@ import java.lang.reflect.Type;
 import de.hdodenhof.circleimageview.CircleImageView;
 import id.zelory.compressor.Compressor;
 import io.reactivex.internal.operators.observable.ObservableElementAt;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
-public class LoggedMainActivity extends AppCompatActivity {
+public class LoggedTeacherMainActivity extends AppCompatActivity {
 
     private DrawerLayout mDrawerlayout;
     private ActionBarDrawerToggle mToggle;
@@ -62,6 +68,7 @@ public class LoggedMainActivity extends AppCompatActivity {
 
     private Parent parent;
     private Teacher teacher;
+ //   private GenericRepository repository = new GenericRepository();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,9 +85,21 @@ public class LoggedMainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setupDrawerContent(nvDrawer);
 
-        teacher = loadTeacher();
+        ITeachersApi apiService = ApiClient.getClient().create(ITeachersApi.class);
+        Intent intent = getIntent();
+        int teacherId = intent.getIntExtra("userId",0);
+        apiService.getTeacherWithAll(teacherId).enqueue(new Callback<Teacher>() {
+            @Override
+            public void onResponse(Call<Teacher> call, Response<Teacher> response) {
+                teacher = response.body();
+    //            repository.saveTeacher(getApplicationContext(),teacher);
+                Log.d("Getting Teacher", "Success");
+            }
 
-        parent = loadParent();
+            @Override public void onFailure(Call<Teacher> call, Throwable t) {
+                Log.d("Getting Teacher", "Failure");
+            }
+        });
 
         //region Font
         Typeface RegularRobotoFont=Typeface.createFromAsset(getAssets(),"fonts/Roboto-Light.ttf");
@@ -95,6 +114,8 @@ public class LoggedMainActivity extends AppCompatActivity {
 
         name.setTypeface(RegularRobotoFont);
         email.setTypeface(RegularRobotoFont);
+
+        /*
         try
         {
             File file = new File(this.getFilesDir() + "/" +"parent_profil_picture_"+parent.getId()+".dat");
@@ -104,8 +125,9 @@ public class LoggedMainActivity extends AppCompatActivity {
 
         }catch (NullPointerException e)
         {
+        */
 
-        }
+
 
 
 
@@ -202,6 +224,10 @@ public class LoggedMainActivity extends AppCompatActivity {
     public void onBackPressed() {
     }
 
+    /*
+
+
+
     //region load models from internal storage
     private Teacher loadTeacher(){
         Type teacher_type = new TypeToken<Teacher>(){}.getType();
@@ -260,5 +286,6 @@ public class LoggedMainActivity extends AppCompatActivity {
     //endregion
 
 
+    */
 }
 

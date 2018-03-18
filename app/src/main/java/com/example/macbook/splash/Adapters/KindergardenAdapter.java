@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.example.macbook.splash.Models.Kindergarten;
 import com.example.macbook.splash.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,6 +28,20 @@ public class KindergardenAdapter extends BaseAdapter {
     private String[] NAMES;
     private String[] USERNAME;
     private String[] ADRESS;
+    List<String> names = new ArrayList<String>();
+    List<String> images = new ArrayList<String>();
+    List<String> address = new ArrayList<String>();
+    List<String> phone = new ArrayList<String>();
+
+    public KindergardenAdapter(List<String> names, List<String> images, List<String> address, List<String> phone, Context activity, LayoutInflater layoutInflater) {
+        this.names = names;
+        this.images = images;
+        this.address = address;
+        this.phone = phone;
+        this.activity = activity;
+        this.layoutInflater = layoutInflater;
+    }
+
     private Context activity;
     private LayoutInflater layoutInflater;
     //private List<Kindergarten> kindergartenList;
@@ -43,7 +58,7 @@ public class KindergardenAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return IMAGES.length;
+        return names.size();
     }
 
     /*private void update(List<Kindergarten> kindergartenList){
@@ -79,10 +94,10 @@ public class KindergardenAdapter extends BaseAdapter {
         tvKindergardenUserName.setTypeface(myCustomFont);
 
         //SETTING CONTENT
-        imageView.setImageResource(IMAGES[i]);
-        name.setText(NAMES[i]);
-        tvKindergardenUserName.setText("( "+USERNAME[i]+" )");
-        tvAdresseKindergardenList.setText(ADRESS[i]);
+        imageView.setImageResource(R.drawable.aymen);
+        name.setText(""+(names.get(i)));
+        tvKindergardenUserName.setText("( "+phone.get(i)+" )");
+        tvAdresseKindergardenList.setText(""+address.get(i));
 
 
         return view;

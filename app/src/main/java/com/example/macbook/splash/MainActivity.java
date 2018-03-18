@@ -160,7 +160,7 @@ public class MainActivity extends Activity {
 
 
 
-        Intent intent = new Intent(this, LoggedMainActivity.class);
+        Intent intent = new Intent(this, LoggedTeacherMainActivity.class);
         //Intent intent = new Intent(this, AdminMainActivity.class);
         startActivity(intent);
     }
@@ -205,12 +205,12 @@ public class MainActivity extends Activity {
                             startActivity(intent);
                         }
                         else  if (role.equals("Teacher")){
-                            Intent intent = new Intent(MainActivity.this, LoggedMainActivity.class);
+                            Intent intent = new Intent(MainActivity.this, LoggedTeacherMainActivity.class);
                             intent.putExtra("userId",userId);
                             startActivity(intent);
                         }
                         else {
-                            Intent intent = new Intent(MainActivity.this, LoggedMainActivity.class);
+                            Intent intent = new Intent(MainActivity.this, LoggedTeacherMainActivity.class);
                             intent.putExtra("userId",userId);
                             startActivity(intent);
                         }

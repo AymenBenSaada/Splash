@@ -328,7 +328,7 @@ public class TeacherSelectingChildrenForPostActivity extends AppCompatActivity {
     private void transition(){
         uploadFile();
         addPost();
-        Intent intent = new Intent(this,LoggedMainActivity.class);
+        Intent intent = new Intent(this,LoggedTeacherMainActivity.class);
         intent.putExtra("position",1);
         startActivity(intent);
     }

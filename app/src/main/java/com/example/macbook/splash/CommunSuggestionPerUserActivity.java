@@ -435,7 +435,7 @@ public class CommunSuggestionPerUserActivity extends YouTubeBaseActivity impleme
     }
 
     private void GoBackActivity(){
-        Intent i = new Intent(this,LoggedMainActivity.class);
+        Intent i = new Intent(this,LoggedTeacherMainActivity.class);
         suggestionViewModelArrayListToUpdate = load();
         suggestionViewModelArrayListToUpdate.remove(index);
         suggestionViewModelArrayListToUpdate.add(index,suggestionViewModel);
