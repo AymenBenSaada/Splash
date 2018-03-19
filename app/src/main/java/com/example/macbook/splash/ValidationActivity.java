@@ -210,10 +210,13 @@ public class ValidationActivity extends AppCompatActivity {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 Log.e("pushing Parent done!", "success");
                 childCount = ((ParentRegistrationViewModel) person).getChildrenCount();
-                for (ChildRegistrationViewModel child:
-                        ((ParentRegistrationViewModel) person).getChildren()) {
-                    postChild(child.ToChild());
+                ChildRegistrationViewModel child = ((ParentRegistrationViewModel) person).getChildren().get(0);
 
+                if(childCount == 1) {
+                    postOneChild(child.ToChild());
+                }
+                else{
+                    postMultipleChildren(0,child.ToChild());
                 }
 
             }
@@ -225,10 +228,29 @@ public class ValidationActivity extends AppCompatActivity {
         });
     }
     //endregion
+    public void postMultipleChildren(final int i,final Child child){
+        final IChildrenApi childrenApi = ApiClient.getClient().create(IChildrenApi.class);
+        Gson gson = new Gson();
+        String S = gson.toJson(child);
+        childrenApi.postChild(child).enqueue(new Callback<Child>() {
+            @Override
+            public void onResponse(Call<Child> call, Response<Child> response) {
+                Log.e("Child Model done!", "success");
+                postChildProfilePicture(response.body().getId(),child,i);
 
-    //region PutChildAfterAccountRegistration
 
-    public void postChild(final Child child)
+            }
+
+            @Override
+            public void onFailure(Call<Child> call, Throwable t) {
+
+            }
+        });
+    }
+
+    //region PostOneChildAfterAccountRegistration
+
+    public void postOneChild(final Child child)
     {
         final IChildrenApi childrenApi = ApiClient.getClient().create(IChildrenApi.class);
         Gson gson = new Gson();
@@ -237,7 +259,7 @@ public class ValidationActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Child> call, Response<Child> response) {
                 Log.e("Child Model done!", "success");
-                postChildProfilePicture(response.body().getId(),child);
+                postChildProfilePicture(response.body().getId(),child,0);
 
                 
             }
@@ -252,7 +274,7 @@ public class ValidationActivity extends AppCompatActivity {
 
     //region PutChildProfilePictureAfterChildRegistration
 
-    public void postChildProfilePicture(int Id, final Child child){
+    public void postChildProfilePicture(int Id, final Child child, final int i){
         final IChildrenApi childrenProfilePictureApi = ApiClient.getClient().create(IChildrenApi.class);
         String Ss= child.getProfilePictureLink();
         URI s = URI.create(child.getProfilePictureLink());
@@ -265,7 +287,7 @@ public class ValidationActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 Log.e("Child Model done!", "success");
-                linkTokindergarten(childId,childFinal);
+                linkTokindergarten(childId,childFinal,i);
             }
 
             @Override
@@ -279,14 +301,14 @@ public class ValidationActivity extends AppCompatActivity {
     //endregion
 
     //region LinkChildToKinderGarten
-    public void linkTokindergarten(final int Id,Child child) {
+    public void linkTokindergarten(final int Id,Child child,final int i) {
         final IChildrenApi service2 = ApiClient.getClient().create(IChildrenApi.class);
         service2.requestLinkChildToKG(userID, new TeacherInscriptionRequestSubmitViewModel(Id, child.getKindergartenId()))
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response3) {
                         Log.e("linking Child done!", "success");
-                        linkChildToParent(Id,userID);
+                        linkChildToParent(Id,userID,i);
                     }
 
                     @Override
@@ -297,11 +319,17 @@ public class ValidationActivity extends AppCompatActivity {
     }
 
     //endregion
-    public void linkChildToParent(int childId,int parentId){
+    public void linkChildToParent(int childId,int parentId, final int i){
         final IChildrenApi service3 = ApiClient.getClient().create(IChildrenApi.class);
         service3.linkParentToChild(childId,parentId).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
+                if((i+1)<childCount)
+                {
+                    ChildRegistrationViewModel child = ((ParentRegistrationViewModel) person).getChildren().get(i+1);
+                    postMultipleChildren(i+1,child.ToChild());
+
+                }
             }
 
             @Override

@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "140648606393-723glbmrclsk4equeiuunc96jikt3n76.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.macbook.splash",
+            "certificate_hash": "02690e9140e3c4f081023b58b9b02720ae3cd7b1"
+          }
+        },
+        {
           "client_id": "140648606393-r8na9njeg41ev0kuft1ti224r0qt935j.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

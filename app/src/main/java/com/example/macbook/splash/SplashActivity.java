@@ -80,8 +80,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-
+import com.pusher.pushnotifications.PushNotifications;
 import static okhttp3.internal.Internal.instance;
+
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -115,7 +116,6 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-
         //region verification user
         if(fileExist(userFile)){
             user = loadUser();

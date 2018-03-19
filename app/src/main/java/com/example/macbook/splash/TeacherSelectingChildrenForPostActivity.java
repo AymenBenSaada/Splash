@@ -326,8 +326,8 @@ public class TeacherSelectingChildrenForPostActivity extends AppCompatActivity {
     }
 
     private void transition(){
-        uploadFile();
         addPost();
+        uploadFile();
         Intent intent = new Intent(this,LoggedTeacherMainActivity.class);
         intent.putExtra("position",1);
         startActivity(intent);
@@ -402,7 +402,7 @@ public class TeacherSelectingChildrenForPostActivity extends AppCompatActivity {
         MultipartBody.Part filePart = MultipartBody.Part.createFormData("file", file.getName(), RequestBody.create(MediaType.parse("image/*"), file));
 
         IPostsApi service = ApiClient.getClient().create(IPostsApi.class);
-        service.AddPostShot(filePart).enqueue(new Callback<Integer>() {
+        service.AddPostShot(post.getId(),filePart).enqueue(new Callback<Integer>() {
             @Override
             public void onResponse(Call<Integer> call, Response<Integer> response) {
                 Log.e("Upload", "success");
@@ -424,7 +424,7 @@ public class TeacherSelectingChildrenForPostActivity extends AppCompatActivity {
         MultipartBody.Part filePart = MultipartBody.Part.createFormData("file_",videoFile.getName(), requestVideoFile);
 
         IPostsApi service = ApiClient.getClient().create(IPostsApi.class);
-        service.AddPostVideo(filePart).enqueue(new Callback<Integer>() {
+        service.AddPostVideo(post.getId(),filePart).enqueue(new Callback<Integer>() {
             @Override
             public void onResponse(Call<Integer> call, Response<Integer> response) {
                 Log.e("Upload", "success");
