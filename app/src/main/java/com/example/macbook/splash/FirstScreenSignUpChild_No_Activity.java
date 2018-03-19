@@ -68,7 +68,7 @@ public class FirstScreenSignUpChild_No_Activity extends Activity {
 
         if(sexSpinnerEnfant.getSelectedItem().toString().equals("Femelle"))
         {
-            gender = Gender.Femelle;
+            gender = Gender.Female;
         }
         else
         {

@@ -74,7 +74,7 @@ public class SecondScreenSignUpChild_No_Activity extends AppCompatActivity imple
             etDateDeNaissanceEnfant.requestFocus();
             e.printStackTrace();
         }
-        childRegistrationViewModel.setBirthday(convertedDate);
+        childRegistrationViewModel.setBirthday(dateString);
        // parentRegistrationViewModel.addChild(parentRegistrationViewModel.getChildren(),childRegistrationViewModel);
 
         Intent intent = new Intent (this, CameraInscriptionChildrenActivity.class);

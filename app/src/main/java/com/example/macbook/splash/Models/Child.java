@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import com.example.macbook.splash.Enum.Gender;
 import com.google.gson.annotations.SerializedName;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -23,17 +24,17 @@ public class Child {
     @NonNull
     private String name;
 
-    @SerializedName("last_Name")
+    @SerializedName("lastName")
     @NonNull
     private String lastName;
 
-    @SerializedName("nik_Name")
+    @SerializedName("nickName")
     @NonNull
     private String nickName;
 
     @SerializedName("birth")
     @Nullable
-    private Date birth;
+    private String birth;
 
     @SerializedName("sex")
     @Nullable
@@ -63,7 +64,7 @@ public class Child {
     @Nullable
     private String profilePictureLink;
 
-    public Child(int id, @NonNull String name, @NonNull String lastName,@NonNull String nickName, Date birth, Gender sex,List<Log> logs,int profil_pictureID,@Nullable int kindergartenId,String ProfilePictureLink) {
+    public Child(int id, @NonNull String name, @NonNull String lastName,@NonNull String nickName, String birth, Gender sex,List<Log> logs,int profil_pictureID,@Nullable int kindergartenId,String ProfilePictureLink) {
         this.id = id;
         this.name = name;
         this.lastName = lastName;
@@ -113,11 +114,11 @@ public class Child {
     }
 
     @Nullable
-    public Date getBirth() {
+    public String getBirth() {
         return birth;
     }
 
-    public void setBirth(Date birth) {
+    public void setBirth(String birth) {
         this.birth = birth;
     }
 
@@ -165,4 +166,27 @@ public class Child {
     public void setKindergartenId(@Nullable int kindergartenId) {
         this.kindergartenId = kindergartenId;
     }
+
+
+ /*   public static String formattedDateFromDate( Date inputDdate){
+        String   inputFormat = "EEE MMM DD HH:mm:ss Z yyyy";
+        String   outputFormat = "yyyy-mm-dd'T'hh:mm:ss"; // if inputFormat = "", set a default output format.
+        Date parsed = null;
+        String outputDate = "";
+        SimpleDateFormat df_output = new SimpleDateFormat(outputFormat, java.util.Locale.getDefault());
+        SimpleDateFormat df_input = new SimpleDateFormat(inputFormat, java.util.Locale.getDefault());
+
+        // You can set a different Locale, This example set a locale of Country Mexico.
+        //SimpleDateFormat df_input = new SimpleDateFormat(inputFormat, new Locale("es", "MX"));
+        //SimpleDateFormat df_output = new SimpleDateFormat(outputFormat, new Locale("es", "MX"));
+
+        try {
+            parsed = df_input.parse(inputDdate.toString());
+            outputDate = df_output.format(parsed);
+        } catch (Exception e) {
+            android.util.Log.e("formattedDateFromString", "Exception in formateDateFromstring(): " + e.getMessage());
+        }
+        return outputDate;
+
+    }*/
 }

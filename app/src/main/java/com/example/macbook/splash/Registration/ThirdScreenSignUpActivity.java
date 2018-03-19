@@ -60,7 +60,7 @@ public class ThirdScreenSignUpActivity extends Activity {
     public void FourthScreenSignUp (View v){
         Intent intent = new Intent(this, FourthScreenSignUpActivity.class);
         if(sexSpinner.getSelectedItem().toString().equals("Femelle")){
-            gender = Gender.Femelle;
+            gender = Gender.Female;
         }else{
             gender = Gender.Male;
         }

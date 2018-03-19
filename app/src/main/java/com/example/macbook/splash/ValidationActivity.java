@@ -2,6 +2,7 @@ package com.example.macbook.splash;
 
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -26,8 +27,11 @@ import com.example.macbook.splash.ViewModels.ChildRegistrationViewModel;
 import com.example.macbook.splash.ViewModels.ParentRegistrationViewModel;
 import com.example.macbook.splash.ViewModels.Person;
 import com.example.macbook.splash.ViewModels.TeacherRegistrationViewModel;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.io.File;
+import java.net.URI;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -126,7 +130,6 @@ public class ValidationActivity extends AppCompatActivity {
             }
         });
 
-
     }
     //endregion
 
@@ -178,7 +181,9 @@ public class ValidationActivity extends AppCompatActivity {
     public void registerParent()
     {
         IRegistrationInterface registrationService =  ApiClient.getClient().create(IRegistrationInterface.class);
-        registrationService.registerParent(new AccountRegistrationModel(person)).enqueue(new Callback<RegistrationResponseModel>() {
+        AccountRegistrationModel accountRegistrationModel = new AccountRegistrationModel(person);
+
+        registrationService.registerParent(accountRegistrationModel).enqueue(new Callback<RegistrationResponseModel>() {
             @Override
             public void onResponse(Call<RegistrationResponseModel> call, final Response<RegistrationResponseModel> response) {
                 Log.e("pushing Account done!", "success");
@@ -226,11 +231,13 @@ public class ValidationActivity extends AppCompatActivity {
     public void postChild(final Child child)
     {
         final IChildrenApi childrenApi = ApiClient.getClient().create(IChildrenApi.class);
+        Gson gson = new Gson();
+        String S = gson.toJson(child);
         childrenApi.postChild(child).enqueue(new Callback<Child>() {
             @Override
             public void onResponse(Call<Child> call, Response<Child> response) {
                 Log.e("Child Model done!", "success");
-                postChildProfilePicture(response.body().getId(),response.body());
+                postChildProfilePicture(response.body().getId(),child);
 
             }
 
@@ -246,7 +253,9 @@ public class ValidationActivity extends AppCompatActivity {
 
     public void postChildProfilePicture(int Id, final Child child){
         final IChildrenApi childrenProfilePictureApi = ApiClient.getClient().create(IChildrenApi.class);
-        File file = new File (child.getProfilePictureLink());
+        String Ss= child.getProfilePictureLink();
+        URI s = URI.create(child.getProfilePictureLink());
+        File file = new File (Ss);
 
         MultipartBody.Part filePart = MultipartBody.Part.createFormData("file", file.getName(), RequestBody.create(MediaType.parse("image/*"), file));
         final int childId = Id;
@@ -269,14 +278,14 @@ public class ValidationActivity extends AppCompatActivity {
     //endregion
 
     //region LinkChildToKinderGarten
-    public void linkTokindergarten(int Id,Child child) {
+    public void linkTokindergarten(final int Id,Child child) {
         final IChildrenApi service2 = ApiClient.getClient().create(IChildrenApi.class);
         service2.requestLinkChildToKG(userID, new TeacherInscriptionRequestSubmitViewModel(Id, child.getKindergartenId()))
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response3) {
                         Log.e("linking Child done!", "success");
-
+                        linkChildToParent(Id,userID);
                     }
 
                     @Override
@@ -287,7 +296,18 @@ public class ValidationActivity extends AppCompatActivity {
     }
 
     //endregion
+    public void linkChildToParent(int childId,int parentId){
+        final IChildrenApi service3 = ApiClient.getClient().create(IChildrenApi.class);
+        service3.linkParentToChild(childId,parentId).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+            }
 
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+            }
+        });
+    }
 
 
 

@@ -8,6 +8,7 @@ import com.example.macbook.splash.Enum.Gender;
 import com.example.macbook.splash.Enum.Status;
 import com.example.macbook.splash.Models.Parent;
 import com.example.macbook.splash.Models.Teacher;
+import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
@@ -28,6 +29,7 @@ public class Person implements Serializable {
     private int Phone;
     private String Name;
     private String LastName;
+
     private Gender Gender;
     private Date Birth;
     private String datest;
@@ -74,7 +76,7 @@ public class Person implements Serializable {
     public Parent ToParent(){
         ParentRegistrationViewModel parentRegistrationViewModel = this.ConvertToParent();
         Parent parent = new Parent(0,this.Name,this.LastName,null,this.Adress,this.Email,
-                this.Gender.toString(),this.Birth,this.Phone,this.Status.toString(),parentRegistrationViewModel.getChildrenCount());
+                this.Gender,this.Birth,this.Phone,this.Status.toString(),parentRegistrationViewModel.getChildrenCount());
         return parent;
     }
 
@@ -195,6 +197,23 @@ public class Person implements Serializable {
         return outputDate;
 
     }
+    public static String formattedDateFromDate( Date inputDdate){
+        String   outputFormat = "yyyy-mm-dd'T'hh:mm:ss"; // if inputFormat = "", set a default output format.
+        Date parsed = null;
+        String outputDate = "";
+        SimpleDateFormat df_output = new SimpleDateFormat(outputFormat, java.util.Locale.getDefault());
 
+        // You can set a different Locale, This example set a locale of Country Mexico.
+        //SimpleDateFormat df_input = new SimpleDateFormat(inputFormat, new Locale("es", "MX"));
+        //SimpleDateFormat df_output = new SimpleDateFormat(outputFormat, new Locale("es", "MX"));
+
+        try {
+            outputDate = df_output.format(inputDdate);
+        } catch (Exception e) {
+            Log.e("formattedDateFromString", "Exception in formateDateFromstring(): " + e.getMessage());
+        }
+        return outputDate;
+
+    }
 
 }

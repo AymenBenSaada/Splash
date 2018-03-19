@@ -218,7 +218,7 @@ public class SplashActivity extends AppCompatActivity {
                         Log.e("debug","entring second respons body phase");
 
 
-                        Child child1 = new Child(1,"Aymen","Gharbi","Nawfel",date1, Gender.Male,logs,1,0,"");
+                       /* Child child1 = new Child(1,"Aymen","Gharbi","Nawfel",date1.toString(), Gender.Male,logs,1,0,"");
                         Child child2 = new Child(2,"Zac","Hattira","Tarzan",date2,Gender.Male,logs2,2,0,"");
                         Child child3 = new Child(3,"Nader","Zouaoui","Schneider",date3, Gender.Male,logs,3,0,"");
                         Child child4 = new Child(4,"Miras","Ayed","Mokded",date4,Gender.Male,logs2,4,0,"");
@@ -231,10 +231,10 @@ public class SplashActivity extends AppCompatActivity {
 
                         Group group1 = new Group(1,children,"Batmans");
                         List<Group> groups = new ArrayList<>();
-                        groups.add(group1);
+                        groups.add(group1);*/
                         Log.e("debug","entring third respons body phase");
 
-                        teacher.setGroups(groups);
+                        //teacher.setGroups(groups);
 
                         //endregion
                         Log.e("debug","entring Fourth respons body phase");
@@ -429,13 +429,13 @@ public class SplashActivity extends AppCompatActivity {
                         postList.add(post1);postList.add(post2);postList.add(post3);postList.add(post4);
 
 
-                        Child child1 = new Child(1,"Aymen","Gharbi","Nawfel",date1, Gender.Male,logs,1,0,"");
+                        Child child1 = new Child(1,"Aymen","Gharbi","Nawfel",date1.toString(), Gender.Male,logs,1,0,"");
                         child1.setPosts(postList);
-                        Child child2 = new Child(2,"Zac","Hattira","Tarzan",date2,Gender.Male,logs2,2,0,"");
+                        Child child2 = new Child(2,"Zac","Hattira","Tarzan",date2.toString(),Gender.Male,logs2,2,0,"");
                         child2.setPosts(postList);
-                        Child child3 = new Child(3,"Nader","Zouaoui","Schneider",date3, Gender.Male,logs,3,0,"");
+                        Child child3 = new Child(3,"Nader","Zouaoui","Schneider",date3.toString(), Gender.Male,logs,3,0,"");
                         child3.setPosts(postList);
-                        Child child4 = new Child(4,"Miras","Ayed","Mokded",date4,Gender.Male,logs2,4,0,"");
+                        Child child4 = new Child(4,"Miras","Ayed","Mokded",date4.toString(),Gender.Male,logs2,4,0,"");
                         child4.setPosts(postList);
                         List<Child> children = new ArrayList<>();
                         children.add(child1);children.add(child2);children.add(child3);children.add(child4);

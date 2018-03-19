@@ -3,6 +3,8 @@ package com.example.macbook.splash.Models;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.example.macbook.splash.Enum.Gender;
+
 import java.util.Date;
 import java.util.List;
 
@@ -33,7 +35,7 @@ public class Parent {
 
     //Enum
     @NonNull
-    private String gender;
+    private Gender gender;
 
     @Nullable
     private Date birth;
@@ -53,7 +55,7 @@ public class Parent {
 
     public Parent(int id, @NonNull String name, @NonNull String lastName,
                   @NonNull String profession, @NonNull String address, @NonNull String email,
-                  @NonNull String gender, Date birth,int Phone, @NonNull String status, int childCount) {
+                  @NonNull Gender gender, Date birth,int Phone, @NonNull String status, int childCount) {
 
         this.id = id;
         this.name = name;
@@ -123,11 +125,11 @@ public class Parent {
     }
 
     @NonNull
-    public String getGender() {
+    public Gender getGender() {
         return gender;
     }
 
-    public void setGender(@NonNull String gender) {
+    public void setGender(@NonNull Gender gender) {
         this.gender = gender;
     }
 
