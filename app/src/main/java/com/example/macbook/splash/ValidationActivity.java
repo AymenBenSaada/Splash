@@ -239,6 +239,7 @@ public class ValidationActivity extends AppCompatActivity {
                 Log.e("Child Model done!", "success");
                 postChildProfilePicture(response.body().getId(),child);
 
+                
             }
 
             @Override
