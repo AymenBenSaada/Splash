@@ -197,23 +197,6 @@ public class Person implements Serializable {
         return outputDate;
 
     }
-    public static String formattedDateFromDate( Date inputDdate){
-        String   outputFormat = "yyyy-mm-dd'T'hh:mm:ss"; // if inputFormat = "", set a default output format.
-        Date parsed = null;
-        String outputDate = "";
-        SimpleDateFormat df_output = new SimpleDateFormat(outputFormat, java.util.Locale.getDefault());
 
-        // You can set a different Locale, This example set a locale of Country Mexico.
-        //SimpleDateFormat df_input = new SimpleDateFormat(inputFormat, new Locale("es", "MX"));
-        //SimpleDateFormat df_output = new SimpleDateFormat(outputFormat, new Locale("es", "MX"));
-
-        try {
-            outputDate = df_output.format(inputDdate);
-        } catch (Exception e) {
-            Log.e("formattedDateFromString", "Exception in formateDateFromstring(): " + e.getMessage());
-        }
-        return outputDate;
-
-    }
 
 }

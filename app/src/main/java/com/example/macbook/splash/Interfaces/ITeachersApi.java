@@ -3,8 +3,12 @@ package com.example.macbook.splash.Interfaces;
 import com.example.macbook.splash.Models.Group;
 import com.example.macbook.splash.Models.Suggestion;
 import com.example.macbook.splash.Models.Teacher;
+import com.example.macbook.splash.Models.TeacherInscriptionRequest;
 import com.example.macbook.splash.Models.TeacherInscriptionRequestSubmitViewModel;
+import com.example.macbook.splash.Models.TeacherInscriptionResponse;
+import com.example.macbook.splash.Models.TeacherInscriptionResponseSubmitViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -56,6 +60,12 @@ public interface ITeachersApi {
     Call<ResponseBody> requestLinkTeacherToKG(
             @Path("teacherId") int Id,
             @Body TeacherInscriptionRequestSubmitViewModel teacherInscriptionRequestSubmitViewModel);
+
+    @GET("api/Teachers/{teacherId}/TeacherInscriptionResponses")
+    Call<ArrayList<TeacherInscriptionResponse>> getTeacherInscriptionResponses(
+            @Path("teacherId") int teacherId,
+            @Body TeacherInscriptionResponseSubmitViewModel viewModel);
+
     //endregion
 
 

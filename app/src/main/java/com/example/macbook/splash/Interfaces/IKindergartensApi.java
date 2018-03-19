@@ -1,10 +1,15 @@
 package com.example.macbook.splash.Interfaces;
 
 import com.example.macbook.splash.Models.Child;
+import com.example.macbook.splash.Models.ChildAdoptionResponseSubmitViewModel;
+import com.example.macbook.splash.Models.ChildInscriptionResponse;
+import com.example.macbook.splash.Models.ChildInscriptionResponseSubmitViewModel;
 import com.example.macbook.splash.Models.Group;
 import com.example.macbook.splash.Models.Kindergarten;
 import com.example.macbook.splash.Models.Message;
 import com.example.macbook.splash.Models.Teacher;
+import com.example.macbook.splash.Models.TeacherInscriptionResponse;
+import com.example.macbook.splash.Models.TeacherInscriptionResponseSubmitViewModel;
 
 import java.util.List;
 
@@ -55,4 +60,19 @@ public interface IKindergartensApi {
     Call<Void> deleteKindergartenChild(@Path("kindergartenId") int kindergartenId ,@Path("childId") int childId);
 
 
+    //region KindergartenResponses
+
+    @POST("api/Kindergartens/{kidnergartenId}/ChildInscriptonRequests")
+    Call<ChildInscriptionResponse> postChildInscriptionResponse(
+            @Path("kindergartenId") int kindergartenId,
+            @Body ChildInscriptionResponseSubmitViewModel viewModel
+    );
+
+    @POST("api/Kindergartens/{kidnergartenId}/TeacherInscriptionRequests")
+    Call<TeacherInscriptionResponse> postTeacherInscriptionResponse(
+            @Path("kindergartenId") int kindergartenId,
+            @Body TeacherInscriptionResponseSubmitViewModel viewModel
+    );
+
+    //endregion
 }

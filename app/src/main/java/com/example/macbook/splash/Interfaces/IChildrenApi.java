@@ -3,6 +3,7 @@ package com.example.macbook.splash.Interfaces;
 import android.util.Log;
 
 import com.example.macbook.splash.Models.Child;
+import com.example.macbook.splash.Models.ChildAdoptionRequestSubmitViewModel;
 import com.example.macbook.splash.Models.Group;
 import com.example.macbook.splash.Models.Parent;
 import com.example.macbook.splash.Models.Post;
@@ -138,11 +139,20 @@ public interface IChildrenApi{
     //endregion
     //region TeacherKinderGarten
 
-    @POST("api/Parents/{parentId}/ChildAdoptionRequests")
+    //region ParentRequests
+
+    @POST("api/Parents/{parentId}/ChildInscriptionRequests")
     Call<ResponseBody> requestLinkChildToKG(
             @Path("parentId") int Id,
             @Body TeacherInscriptionRequestSubmitViewModel teacherInscriptionRequestSubmitViewModel);
+
+    @POST("api/Parents/{parentId}/ChildAdoptionRequests")
+    Call<ResponseBody> requestChildAdoption(
+            @Path("parentId") int parentId,
+            @Body ChildAdoptionRequestSubmitViewModel viewModel
+    );
     //endregion
+
 
 }
 

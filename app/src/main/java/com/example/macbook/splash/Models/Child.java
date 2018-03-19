@@ -166,27 +166,4 @@ public class Child {
     public void setKindergartenId(@Nullable int kindergartenId) {
         this.kindergartenId = kindergartenId;
     }
-
-
- /*   public static String formattedDateFromDate( Date inputDdate){
-        String   inputFormat = "EEE MMM DD HH:mm:ss Z yyyy";
-        String   outputFormat = "yyyy-mm-dd'T'hh:mm:ss"; // if inputFormat = "", set a default output format.
-        Date parsed = null;
-        String outputDate = "";
-        SimpleDateFormat df_output = new SimpleDateFormat(outputFormat, java.util.Locale.getDefault());
-        SimpleDateFormat df_input = new SimpleDateFormat(inputFormat, java.util.Locale.getDefault());
-
-        // You can set a different Locale, This example set a locale of Country Mexico.
-        //SimpleDateFormat df_input = new SimpleDateFormat(inputFormat, new Locale("es", "MX"));
-        //SimpleDateFormat df_output = new SimpleDateFormat(outputFormat, new Locale("es", "MX"));
-
-        try {
-            parsed = df_input.parse(inputDdate.toString());
-            outputDate = df_output.format(parsed);
-        } catch (Exception e) {
-            android.util.Log.e("formattedDateFromString", "Exception in formateDateFromstring(): " + e.getMessage());
-        }
-        return outputDate;
-
-    }*/
 }

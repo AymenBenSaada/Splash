@@ -1,6 +1,12 @@
 package com.example.macbook.splash.Interfaces;
 
 import com.example.macbook.splash.Models.Child;
+import com.example.macbook.splash.Models.ChildAdoptionRequest;
+import com.example.macbook.splash.Models.ChildAdoptionRequestSubmitViewModel;
+import com.example.macbook.splash.Models.ChildAdoptionResponse;
+import com.example.macbook.splash.Models.ChildInscriptionRequest;
+import com.example.macbook.splash.Models.ChildInscriptionRequestSubmitViewModel;
+import com.example.macbook.splash.Models.ChildInscriptionResponse;
 import com.example.macbook.splash.Models.Post;
 
 import java.util.List;
@@ -74,16 +80,42 @@ public interface IPostsApi {
     @Multipart
     @POST("api/Posts/{postId}/Shots")
     Call<Integer> AddPostShot(
-                          @Part MultipartBody.Part file
+            @Path("postId") int postId,
+            @Part MultipartBody.Part file
     );
 
     @Multipart
     @POST("api/Posts/{postId}/Videos")
     Call<Integer> AddPostVideo(
-                           @Part MultipartBody.Part file
+            @Path("postId") int postId,
+            @Part MultipartBody.Part file
     );
 
     //endregion
 
+    //region ChildInscriptionRequest
 
+    @GET("api/Parents/{parentId}/ChildInscriptionResponses")
+    Call<ChildInscriptionResponse>  getChildInscriptionResponses(
+            @Path("parentId") int parentId
+    );
+
+    @GET("api/Parents/{parentId}/ChildAdoptionResponses")
+    Call<ChildAdoptionResponse> getChildAdoptionResponses(
+            @Path("parentId") int parentId
+    );
+
+    @POST("api/Parents/{parentId}/ChildInscriptionRequests")
+    Call<ChildInscriptionRequest> postChildInscriptionRequest(
+            @Path("parentId") int parentId,
+            @Body ChildInscriptionRequestSubmitViewModel viewModel
+    );
+
+    @POST("api/Parents/{parentId}/ChildAdoptionRequests")
+    Call<ChildAdoptionRequest> postChildAdoptionRequest(
+            @Path("parentId") int parentId,
+            @Body ChildAdoptionRequestSubmitViewModel viewModel
+    );
+
+    //endregion
 }
