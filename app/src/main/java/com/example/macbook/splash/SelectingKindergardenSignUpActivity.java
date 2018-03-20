@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,6 +52,7 @@ public class SelectingKindergardenSignUpActivity extends AppCompatActivity {
     ChildRegistrationViewModel childRegistrationViewModel;
     int nbrIteration;
     String text;
+    ProgressBar progressBar;
 
 
     // LIST VIEW Parameters**
@@ -154,6 +156,8 @@ public class SelectingKindergardenSignUpActivity extends AppCompatActivity {
         // Toast.makeText(this, "l'Algorithme", Toast.LENGTH_SHORT).show();
         // String s = etResearchKindergarden.getText().toString();
         //test();
+        progressBar = (ProgressBar)findViewById(R.id.listviewKindergardenProgressBar);
+        progressBar.setVisibility(View.VISIBLE);
         TestSearch();
         //REQUEST POST RESERACH (s)
         //onResponse :
@@ -222,8 +226,10 @@ public class SelectingKindergardenSignUpActivity extends AppCompatActivity {
                 // Get the current student (json object) data
                 try {
 
+                    if(response.length()==0)
+                    Toast.makeText(SelectingKindergardenSignUpActivity.this, "Aucune établissement trouvée" , Toast.LENGTH_LONG).show();
 
-
+                    progressBar.setVisibility(View.GONE);
                     for (int i = 0; i < response.length(); i++) {
 
 //
@@ -251,7 +257,6 @@ public class SelectingKindergardenSignUpActivity extends AppCompatActivity {
 
                         Log.e("LOG_RESPONSE", String.valueOf(response));
 
-                        Toast.makeText(SelectingKindergardenSignUpActivity.this, "cc" + name, Toast.LENGTH_SHORT).show();
 
                     }
 
@@ -265,7 +270,7 @@ public class SelectingKindergardenSignUpActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(SelectingKindergardenSignUpActivity.this, "NN FRR", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SelectingKindergardenSignUpActivity.this, "network error", Toast.LENGTH_SHORT).show();
             }
         }) {
             @Override

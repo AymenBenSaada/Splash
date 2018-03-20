@@ -33,4 +33,8 @@ public interface IRegistrationInterface {
     @POST("/auth/registerTeacher")
     Call<RegistrationResponseModel> registerTeacher(@Body AccountRegistrationModel Account);
 
+    @GET("/api/EmailExists?email={email}")
+    Call<Boolean> checkEmail(@Path("email") String email);
+
+
 }

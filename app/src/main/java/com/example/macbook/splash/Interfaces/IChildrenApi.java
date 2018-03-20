@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.example.macbook.splash.Models.Child;
 import com.example.macbook.splash.Models.ChildAdoptionRequestSubmitViewModel;
+import com.example.macbook.splash.Models.ChildInscriptionRequestSubmitViewModel;
 import com.example.macbook.splash.Models.Group;
 import com.example.macbook.splash.Models.Parent;
 import com.example.macbook.splash.Models.Post;
@@ -144,7 +145,7 @@ public interface IChildrenApi{
     @POST("api/Parents/{parentId}/ChildInscriptionRequests")
     Call<ResponseBody> requestLinkChildToKG(
             @Path("parentId") int Id,
-            @Body TeacherInscriptionRequestSubmitViewModel teacherInscriptionRequestSubmitViewModel);
+            @Body ChildInscriptionRequestSubmitViewModel childInscriptionRequestSubmitViewModel);
 
     @POST("api/Parents/{parentId}/ChildAdoptionRequests")
     Call<ResponseBody> requestChildAdoption(

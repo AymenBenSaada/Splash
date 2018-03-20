@@ -33,6 +33,8 @@ import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.macbook.splash.Admin.AdminMainActivity;
+import com.example.macbook.splash.Interfaces.ApiClient;
+import com.example.macbook.splash.Interfaces.IRegistrationInterface;
 import com.example.macbook.splash.Models.User;
 import com.example.macbook.splash.Registration.SecondScreenSignUpActivity;
 import com.example.macbook.splash.SwipePagers.TeacherPager;
@@ -49,6 +51,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
 
 import static android.provider.ContactsContract.CommonDataKinds.Website.URL;
 
@@ -118,7 +124,7 @@ public class MainActivity extends Activity {
 
 
     public void Inscription (View v){
-        Intent intent = new Intent(this, SecondScreenSignUpActivity.class);
+        final Intent intent = new Intent(this, SecondScreenSignUpActivity.class);
 
         String email = etEmail.getText().toString().trim();
         if (email.isEmpty()){
@@ -142,16 +148,36 @@ public class MainActivity extends Activity {
             etMdp.requestFocus();
             return;
         }
+        IRegistrationInterface registrationInterface = ApiClient.getClient().create(IRegistrationInterface.class);
+        registrationInterface.checkEmail(email).enqueue(new Callback<Boolean>() {
+            @Override
+            public void onResponse(Call<Boolean> call, retrofit2.Response<Boolean> response) {
+                if(!response.body()) {
+                    ImageView edonecLogo = (ImageView) findViewById(R.id.edonecLogo);
+                    Pair pair = new Pair<View, String>(edonecLogo, "imgTransition");
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(MainActivity.this, pair);
 
-        ImageView edonecLogo = (ImageView)findViewById(R.id.edonecLogo);
-        Pair pair = new Pair<View,String>(edonecLogo,"imgTransition");
-        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(MainActivity.this, pair);
-
-        intent.putExtra("email",etEmail.getText().toString());
-        intent.putExtra("mdp",etMdp.getText().toString());
+                    intent.putExtra("email", etEmail.getText().toString());
+                    intent.putExtra("mdp", etMdp.getText().toString());
 
 
-        startActivity(intent, options.toBundle());
+                    startActivity(intent, options.toBundle());
+                }
+                else {
+                    etMdp.setError("Cet utilisateur existe déjà");
+                    etMdp.requestFocus();
+                    return;
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<Boolean> call, Throwable t) {
+                Toast.makeText(MainActivity.this, "Network error", Toast.LENGTH_LONG).show();
+
+
+            }
+        });
     }
 
     public void SIdentifier (View v){

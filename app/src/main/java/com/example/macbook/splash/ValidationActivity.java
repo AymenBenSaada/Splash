@@ -19,6 +19,7 @@ import com.example.macbook.splash.Interfaces.IRegistrationInterface;
 import com.example.macbook.splash.Interfaces.ITeachersApi;
 import com.example.macbook.splash.Models.AccountRegistrationModel;
 import com.example.macbook.splash.Models.Child;
+import com.example.macbook.splash.Models.ChildInscriptionRequestSubmitViewModel;
 import com.example.macbook.splash.Models.Post;
 import com.example.macbook.splash.Models.RegistrationResponseModel;
 import com.example.macbook.splash.Models.Teacher;
@@ -303,7 +304,7 @@ public class ValidationActivity extends AppCompatActivity {
     //region LinkChildToKinderGarten
     public void linkTokindergarten(final int Id,Child child,final int i) {
         final IChildrenApi service2 = ApiClient.getClient().create(IChildrenApi.class);
-        service2.requestLinkChildToKG(userID, new TeacherInscriptionRequestSubmitViewModel(Id, child.getKindergartenId()))
+        service2.requestLinkChildToKG(userID, new ChildInscriptionRequestSubmitViewModel(userID, child.getKindergartenId(),Id))
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response3) {
