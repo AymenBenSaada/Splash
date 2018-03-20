@@ -164,8 +164,8 @@ public class MainActivity extends Activity {
                     startActivity(intent, options.toBundle());
                 }
                 else {
-                    etMdp.setError("Cet utilisateur existe déjà");
-                    etMdp.requestFocus();
+                    etEmail.setError("Cet utilisateur existe déjà");
+                    etEmail.requestFocus();
                     return;
                 }
 
