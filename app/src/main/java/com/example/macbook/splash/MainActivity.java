@@ -236,7 +236,7 @@ public class MainActivity extends Activity {
                             startActivity(intent);
                         }
                         else {
-                            Intent intent = new Intent(MainActivity.this, LoggedTeacherMainActivity.class);
+                            Intent intent = new Intent(MainActivity.this, LoggedParentMainActivity.class);
                             intent.putExtra("userId",userId);
                             startActivity(intent);
                         }
