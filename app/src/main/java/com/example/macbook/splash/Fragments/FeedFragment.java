@@ -269,8 +269,10 @@ public class FeedFragment extends Fragment {
     }
 
     private void saveTeacherProfilPicture(final int teacherID){
-        if(!fileExist("teacher_profil_picture_"+teacherID+".dat"))
+        if(!fileExist("teacher_profile_picture_"+teacherID+".dat"))
         {
+            ////// NADERR REPLACE THIS WITH OUR OWN ADRESS SERVER AND MODIFY THE PARAMETER OF iMediaApi.getPhoto("...")
+            ////// OPTIMIZATION : USE ONLY ONE iMedia INTERFACE (declared as a global var) FOR THIS METHOD AND THE NEXT METHOD
             //region intializing media API
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl("https://i.imgur.com/")
@@ -286,7 +288,7 @@ public class FeedFragment extends Fragment {
 
                     byte[] fileReader = new byte[4096];
                     try {
-                        fos = getActivity().openFileOutput("teacher_profil_picture_" + teacherID+".dat", Context.MODE_PRIVATE);
+                        fos = getActivity().openFileOutput("teacher_profile_picture_" + teacherID+".dat", Context.MODE_PRIVATE);
                         while (true) {
                             int read = fis.read(fileReader);
 
@@ -325,6 +327,7 @@ public class FeedFragment extends Fragment {
     private void savePostMedia(final int postID){
         if(!fileExist("post_media_"+postID+".dat"))
         {
+            ////// NADERR REPLACE THIS WITH OUR OWN ADRESS SERVER AND MODIFY THE PARAMETER OF iMediaApi.getPhoto("...")
             //region intializing media API
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl("https://i.imgur.com/")
@@ -381,6 +384,8 @@ public class FeedFragment extends Fragment {
         return file.exists();
     }
 
+    //region to be replaced and removed after
+
     private String ConvertTeacherIDToPhotoName(int i){
         String s = "Oq17met.jpg";
         switch (i%2){
@@ -406,6 +411,8 @@ public class FeedFragment extends Fragment {
         }
         return s;
     }
+
+    //endregion
 
     private List<Post> DeleteRedundantPosts(List<Post> posts){
         List<Post> new_postList = new ArrayList<>();

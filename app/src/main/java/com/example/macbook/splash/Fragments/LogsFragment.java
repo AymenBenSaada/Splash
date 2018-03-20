@@ -251,17 +251,17 @@ public class LogsFragment extends Fragment {
                             if(IsChildSelected){
                                 Date currentTime = Calendar.getInstance().getTime();
                                 Teacher teacher = loadTeacher();
-                                Log log = new Log(-1,et_log_title_in_newlog.getText().toString(),et_log_content_in_newlog.getText().toString(),currentTime,(teacher.getName()+" "+teacher.getLastName()),new ArrayList<Comment>());
-                                //REQUEST POST LOG(CHILDID,LOG)
-                                //onResponse
-                                log.setId(6);
-                                teacher.getGroups().get(0).getChildren().get(getTheChildIndexInTheList(defaultListofChildren,selectedChildId)).getLogs().add(log);
-                                Gson gson = new GsonBuilder()
-                                        .create();
-                                String tempString = gson.toJson(teacher);
-                                saveTeacher(tempString);
-                                dialog.dismiss();
-                                Toast toast = Toast.makeText(getActivity(), "Observation enregistrée !", Toast.LENGTH_SHORT); toast.show();
+                                Log log = new Log(0,et_log_title_in_newlog.getText().toString(),et_log_content_in_newlog.getText().toString(),currentTime,(teacher.getName()+" "+teacher.getLastName()),new ArrayList<Comment>());
+                                ////////////////////////////////////NADERRRRR
+                                    //REQUEST POST LOG(CHILDID,LOG)
+                                    //onResponse
+                                    teacher.getGroups().get(0).getChildren().get(getTheChildIndexInTheList(defaultListofChildren,selectedChildId)).getLogs().add(log);
+                                    Gson gson = new GsonBuilder()
+                                            .create();
+                                    String tempString = gson.toJson(teacher);
+                                    saveTeacher(tempString);
+                                    dialog.dismiss();
+                                    Toast toast = Toast.makeText(getActivity(), "Observation enregistrée !", Toast.LENGTH_SHORT); toast.show();
                             }else{
                                 et_child_name_in_newlog.setError("Sélectionnez un enfant de la liste");
                                 et_child_name_in_newlog.requestFocus();

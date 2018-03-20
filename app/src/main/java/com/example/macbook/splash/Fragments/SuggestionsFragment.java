@@ -43,6 +43,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 //import javafx.collections.FXCollections;
 
 
@@ -244,7 +245,7 @@ public class SuggestionsFragment extends Fragment {
     //////////////////////////////FUNCTIONS////////////////////////////////
 
     public Date CustomFormatDate (String dateString){
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
         Date convertedDate = new Date();
         try {
             convertedDate = dateFormat.parse(dateString);

@@ -191,6 +191,7 @@ public class LogsPerChildActivity extends AppCompatActivity {
                         Date today = Calendar.getInstance().getTime();
                         Teacher teacher = loadTeacher();
                         Comment comment = new Comment(5,et_commentaire_in_log_per_child.getText().toString(),today,teacher.getName()+" "+teacher.getLastName());
+                        ///////////////NADĘRRRRRRRR
                         //REQUEST POST COMMENT AND GET THE COMMENT IN RESPONSE
                         child.getLogs().get(pos).getComments().add(comment);
                         logAdapter.updateComments(child.getLogs().get(pos).getComments());
@@ -202,7 +203,7 @@ public class LogsPerChildActivity extends AppCompatActivity {
                         lp.height =(int)(pixels*listSize);
                         listview_log_comment_in_log_per_child.setLayoutParams(lp);
 
-                        //WE ONLY WORKED WITH ONE GROUP NEED TO BE CHANGED
+                        //WE ONLY USED WITH ONE GROUP NEED TO BE CHANGED
                         teacher.getGroups().get(0).getChildren().remove(index);
                         teacher.getGroups().get(0).getChildren().add(index,child);
                         Gson gson = new GsonBuilder()
