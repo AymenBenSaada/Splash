@@ -2,6 +2,7 @@ package com.example.macbook.splash;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.net.Uri;
@@ -198,9 +199,11 @@ public class LoggedTeacherMainActivity extends AppCompatActivity {
     public void selectItemDrawer(MenuItem menuItem) {
         switch (menuItem.getItemId()) {
             case R.id.logout:
-                //TODO: fix the logout logic here!!
-                Intent i = new Intent(this,CommunSuggestionsActivity.class);
-                startActivity(i);
+                SharedPreferences sharedPreferences = getSharedPreferences("isConnected",MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("AccountType","");
+                editor.putBoolean("isConnected",false);
+                editor.putInt("userId",0);
                 break;
             default:
                 return;
