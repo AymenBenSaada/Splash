@@ -59,7 +59,6 @@ import retrofit2.Callback;
 import static android.provider.ContactsContract.CommonDataKinds.Website.URL;
 
 public class MainActivity extends Activity {
-    SharedPreferences shared;
 
 
     EditText etEmail;
@@ -228,15 +227,19 @@ public class MainActivity extends Activity {
                         if (role.equals("Admin")){
                             Intent intent = new Intent(MainActivity.this, AdminMainActivity.class);
                             intent.putExtra("userId",userId);
+                            storePeref(Integer.parseInt(userId),"Admin",true);
                             startActivity(intent);
                         }
                         else  if (role.equals("Teacher")){
                             Intent intent = new Intent(MainActivity.this, LoggedTeacherMainActivity.class);
+                            storePeref(Integer.parseInt(userId),"Teacher",true);
+
                             intent.putExtra("userId",userId);
                             startActivity(intent);
                         }
                         else {
                             Intent intent = new Intent(MainActivity.this, LoggedParentMainActivity.class);
+                            storePeref(Integer.parseInt(userId),"Parent",true);
                             intent.putExtra("userId",userId);
                             startActivity(intent);
                         }
@@ -282,8 +285,19 @@ public class MainActivity extends Activity {
         }
     }
 
+    //region SetSharedPereferences
+    public void storePeref(int userId, String accountType, Boolean isConnected){
+        SharedPreferences sharedisConnecterdPereferences = getSharedPreferences("AccountStatus",MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedisConnecterdPereferences.edit();
+        editor.putString("AccountType",accountType);
+        editor.putBoolean("isConnected",isConnected);
+        editor.putInt("userId",userId);
+        editor.apply();
 
 
+    }
+
+    //endregion
 
 
 

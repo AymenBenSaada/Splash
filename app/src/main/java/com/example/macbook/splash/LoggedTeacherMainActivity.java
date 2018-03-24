@@ -68,7 +68,7 @@ public class LoggedTeacherMainActivity extends AppCompatActivity {
 
     private Parent parent;
     private Teacher teacher;
- //   private GenericRepository repository = new GenericRepository();
+    //   private GenericRepository repository = new GenericRepository();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -2,6 +2,7 @@ package com.example.macbook.splash;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.databinding.ObservableArrayList;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
@@ -12,9 +13,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 
 import com.androidnetworking.AndroidNetworking;
 import com.example.macbook.splash.Adapters.GsonTimeAdapter;
+import com.example.macbook.splash.Admin.AdminMainActivity;
 import com.example.macbook.splash.Enum.Gender;
 import com.example.macbook.splash.Enum.Status;
 import com.example.macbook.splash.Interfaces.ApiClient;
@@ -115,6 +118,8 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SharedPreferences sharedisConnecterdPereferences = getSharedPreferences("AccountStatus",MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedisConnecterdPereferences.edit();
         setContentView(R.layout.activity_splash);
         //region verification user
         if(fileExist(userFile)){
@@ -130,27 +135,32 @@ public class SplashActivity extends AppCompatActivity {
             new TeacherAsyncRefresh().execute();
         }
         //endregion
-
+        Intent intent;
         //region set GIFImageView Resource
 
-        gifImageView = (GifImageView) findViewById(R.id.gifImageView);
-        try{
-            InputStream inputStream = getAssets().open("splash_screen.gif");
-            byte [] bytes = IOUtils.toByteArray(inputStream);
-            gifImageView.setBytes(bytes);
-            gifImageView.startAnimation();
+        Boolean isConnected = sharedisConnecterdPereferences.getBoolean("isConnected",false);
+        if(isConnected){
+            String accountType = sharedisConnecterdPereferences.getString("AccountType","");
+            int userId = sharedisConnecterdPereferences.getInt("userId",-1);
+            if(accountType.equals("Admin")){
+                intent = new Intent(SplashActivity.this, AdminMainActivity.class);
+
+            }else if (accountType.equals("Teacher")){
+                intent  = new Intent( SplashActivity.this, LoggedTeacherMainActivity.class);
+
+            }else{
+                intent  = new Intent( SplashActivity.this, LoggedParentMainActivity.class);
+
+            }
+
         }
-        catch (IOException ex){
+        else{
+            intent  = new Intent( SplashActivity.this, MainActivity.class);
         }
 
-        //wait for 4,333 seconds and start Activity Main
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                SplashActivity.this.startActivity(new Intent( SplashActivity.this, MainActivity.class));
-                SplashActivity.this.finish();
-            }
-        }, 4333);
+
+        SplashActivity.this.startActivity(intent);
+        SplashActivity.this.finish();
 
         //endregion
 
