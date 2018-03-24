@@ -85,6 +85,7 @@ public class TeacherSelectingChildrenForPostActivity extends AppCompatActivity {
     private String videoURII;
     private File photoFileCompressed;
     private String compressedPhotoURIforSendeing;
+    private Boolean isSellectedAtAll = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,6 +140,7 @@ public class TeacherSelectingChildrenForPostActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //region traitement
+                isSellectedAtAll=true;
                 if(position != 0){
                     IsChildSelected.set(position,!(IsChildSelected.get(position)));
                     childProfilePictureAdapter.update(IsChildSelected);
@@ -157,7 +159,7 @@ public class TeacherSelectingChildrenForPostActivity extends AppCompatActivity {
                 //endregion
             }
         });
-
+//TODO: fix the selection process here
         btnAfterSelectingChildren =(ImageView) findViewById(R.id.btnAfterSelectingChildren);
         btnAfterSelectingChildren.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -171,22 +173,24 @@ public class TeacherSelectingChildrenForPostActivity extends AppCompatActivity {
                 //on response mana3mel chay
                 //endregion
                 //region Traitement
+                if (isSellectedAtAll) {
+
                 Date today = Calendar.getInstance().getTime();
-                post = new Post(-1,postContent,today,postLegend,2);
+                post = new Post(-1, postContent, today, postLegend, 2);
                 //TRAITEMENT BACKEND -> ON RESPONSE
                 post.setId(1);
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(TeacherSelectingChildrenForPostActivity.this);
-                View mView = getLayoutInflater().inflate(R.layout.customlayout_selecting_activity_for_post,null);
+                View mView = getLayoutInflater().inflate(R.layout.customlayout_selecting_activity_for_post, null);
 
                 // SETTING CONTENT
 
                 //region setting activity view
-                yesrepas = (ImageView)mView.findViewById(R.id.yesrepas);
-                yesjeux = (ImageView)mView.findViewById(R.id.yesjeux);
-                yessport = (ImageView)mView.findViewById(R.id.yessport);
-                yesdessin = (ImageView)mView.findViewById(R.id.yesdessin);
-                yesapprentissage = (ImageView)mView.findViewById(R.id.yesapprentissage);
-                yesmignon = (ImageView)mView.findViewById(R.id.yesmignon);
+                yesrepas = (ImageView) mView.findViewById(R.id.yesrepas);
+                yesjeux = (ImageView) mView.findViewById(R.id.yesjeux);
+                yessport = (ImageView) mView.findViewById(R.id.yessport);
+                yesdessin = (ImageView) mView.findViewById(R.id.yesdessin);
+                yesapprentissage = (ImageView) mView.findViewById(R.id.yesapprentissage);
+                yesmignon = (ImageView) mView.findViewById(R.id.yesmignon);
                 //endregion
 
                 TextView tv_decrire_post = (TextView) mView.findViewById(R.id.tv_decrire_post);
@@ -200,13 +204,18 @@ public class TeacherSelectingChildrenForPostActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         post.setLegend(et_postLegend.getText().toString());
-                        Toast toast = Toast.makeText(getApplicationContext(), "Publication réussie!", Toast.LENGTH_SHORT); toast.show();
+                        Toast toast = Toast.makeText(getApplicationContext(), "Publication réussie!", Toast.LENGTH_SHORT);
+                        toast.show();
                         transition();
                     }
                 });
                 mBuilder.setView(mView);
                 AlertDialog dialog = mBuilder.create();
                 dialog.show();
+            }
+            else{
+                    return;
+                }
                 //endregion
             }
         });
