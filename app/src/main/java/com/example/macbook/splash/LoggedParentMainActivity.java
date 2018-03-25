@@ -199,6 +199,7 @@ public class LoggedParentMainActivity extends AppCompatActivity {
     public void selectItemDrawer(MenuItem menuItem) {
         switch (menuItem.getItemId()) {
             case R.id.logout:
+                //TODO: fix the logout logic here!!
                 Intent i = new Intent(this,CommunSuggestionsActivity.class);
                 startActivity(i);
                 break;

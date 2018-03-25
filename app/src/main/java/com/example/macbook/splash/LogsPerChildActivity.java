@@ -191,6 +191,7 @@ public class LogsPerChildActivity extends AppCompatActivity {
                         Date today = Calendar.getInstance().getTime();
                         Teacher teacher = loadTeacher();
                         Comment comment = new Comment(5,et_commentaire_in_log_per_child.getText().toString(),today,teacher.getName()+" "+teacher.getLastName());
+                        //TODO: fix the logout logic here!!
                         ///////////////NADĘRRRRRRRR
                         //REQUEST POST COMMENT AND GET THE COMMENT IN RESPONSE
                         child.getLogs().get(pos).getComments().add(comment);

@@ -253,6 +253,7 @@ public class LogsFragment extends Fragment {
                                 Teacher teacher = loadTeacher();
                                 Log log = new Log(0,et_log_title_in_newlog.getText().toString(),et_log_content_in_newlog.getText().toString(),currentTime,(teacher.getName()+" "+teacher.getLastName()),new ArrayList<Comment>());
                                 ////////////////////////////////////NADERRRRR
+                                //TODO: fix the logout logic here!!
                                     //REQUEST POST LOG(CHILDID,LOG)
                                     //onResponse
                                     teacher.getGroups().get(0).getChildren().get(getTheChildIndexInTheList(defaultListofChildren,selectedChildId)).getLogs().add(log);

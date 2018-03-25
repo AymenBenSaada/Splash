@@ -271,6 +271,7 @@ public class FeedFragment extends Fragment {
     private void saveTeacherProfilPicture(final int teacherID){
         if(!fileExist("teacher_profile_picture_"+teacherID+".dat"))
         {
+            //TODO: fix the logout logic here!!
             ////// NADERR REPLACE THIS WITH OUR OWN ADRESS SERVER AND MODIFY THE PARAMETER OF iMediaApi.getPhoto("...")
             ////// OPTIMIZATION : USE ONLY ONE iMedia INTERFACE (declared as a global var) FOR THIS METHOD AND THE NEXT METHOD
             //region intializing media API

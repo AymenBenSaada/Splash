@@ -137,48 +137,6 @@ public class AdminMainActivity extends AppCompatActivity {
         });
     }
 
-    /*
-    private Admin loadAdminModelFromInternalStorage(String file_name){
-        FileInputStream fis = null;
-        //CODE
-
-        try {
-            fis = this.openFileInput(file_name);
-            InputStreamReader isr = new InputStreamReader(fis);
-            BufferedReader br = new BufferedReader(isr);
-            StringBuilder sb = new StringBuilder();
-            String text;
-
-            while ((text = br.readLine()) != null) {
-                sb.append(text).append("\n");
-            }
-
-            String Json = sb.toString();
-            Type type = new TypeToken<Admin>(){}.getType();
-            Gson gson = new GsonBuilder()
-                    .create();
-            Admin admin = gson.fromJson(Json,type);
-            return admin;
-
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            return null;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        } finally {
-            if (fis != null) {
-                try {
-                    fis.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
-
-*/
     private Uri loadAdminPictureURIFromTheInternalStorage(int kg_ID){
         File file = new File(this.getFilesDir() + "/" +"kg_profile_picture_"+kg_ID+".dat");
         return Uri.fromFile(file);
