@@ -1,6 +1,7 @@
 package com.example.macbook.splash.Admin;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.support.annotation.NonNull;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 import com.example.macbook.splash.CommunSuggestionsActivity;
 import com.example.macbook.splash.Interfaces.ApiClient;
 import com.example.macbook.splash.Interfaces.IAdminsApi;
+import com.example.macbook.splash.MainActivity;
 import com.example.macbook.splash.Models.Admin;
 import com.example.macbook.splash.Models.Teacher;
 import com.example.macbook.splash.R;
@@ -79,13 +81,24 @@ public class AdminMainActivity extends AppCompatActivity {
         email.setTypeface(RegularRobotoFont);
 
         Intent i = getIntent();
-        int adminId = i.getIntExtra("userId",0);
+        SharedPreferences sharedisConnecterdPereferences = getSharedPreferences("AccountStatus",MODE_PRIVATE);
+
+        int userId = sharedisConnecterdPereferences.getInt("userId",-1);
+
+        int adminId = userId;
         IAdminsApi apiService = ApiClient.getClient().create(IAdminsApi.class);
         apiService.getAdmin(adminId).enqueue(new Callback<Admin>() {
             @Override
             public void onResponse(Call<Admin> call, Response<Admin> response) {
                 Admin admin = response.body();
-                image.setImageURI(loadAdminPictureURIFromTheInternalStorage(admin.getKindergartenId()));
+                try
+                {
+                    image.setImageURI(loadAdminPictureURIFromTheInternalStorage(admin.getKindergartenId()));
+                }
+                catch (Exception e)
+                {
+                    image.setImageResource(R.drawable.genericprofile);
+                }
                 name.setText((admin.getName()+" "+admin.getLastName()));
                 email.setText(admin.getEmail());
             }
@@ -115,8 +128,14 @@ public class AdminMainActivity extends AppCompatActivity {
     public void selectItemDrawer(MenuItem menuItem) {
         switch (menuItem.getItemId()) {
             case R.id.logout:
-                Intent i = new Intent(this,CommunSuggestionsActivity.class);
-                startActivity(i);
+                SharedPreferences sharedPreferences = getSharedPreferences("AccountStatus",MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("AccountType","");
+                editor.putBoolean("isConnected",false);
+                editor.putInt("userId",0);
+                editor.apply();
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
                 break;
             default:
                 return;

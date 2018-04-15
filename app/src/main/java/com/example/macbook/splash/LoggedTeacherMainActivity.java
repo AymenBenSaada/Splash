@@ -199,11 +199,14 @@ public class LoggedTeacherMainActivity extends AppCompatActivity {
     public void selectItemDrawer(MenuItem menuItem) {
         switch (menuItem.getItemId()) {
             case R.id.logout:
-                SharedPreferences sharedPreferences = getSharedPreferences("isConnected",MODE_PRIVATE);
+                SharedPreferences sharedPreferences = getSharedPreferences("AccountStatus",MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString("AccountType","");
                 editor.putBoolean("isConnected",false);
                 editor.putInt("userId",0);
+                editor.apply();
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
                 break;
             default:
                 return;

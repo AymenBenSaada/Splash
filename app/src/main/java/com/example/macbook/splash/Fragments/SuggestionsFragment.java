@@ -162,8 +162,10 @@ public class SuggestionsFragment extends Fragment {
         progressBarSuggestions = (ProgressBar)view.findViewById(R.id.progressBarSuggestions);
 
         /////////////////////TEST////////////////////////
-        //region TODO: TEST -> MUST BE REPLACED WITH A REQUEST GET TEACHERSUGGESTIONS AND STORE THE IN Jsondownload
-
+        //region
+        // TODO: TEST -> MUST BE REPLACED WITH A REQUEST GET TEACHERSUGGESTIONS AND STORE THE IN Jsondownload
+        //TODO: get suggestions by parent or teacher
+        //TODO :
         referenceList = new ArrayList<Reference>();
         suggestionViewModelArrayListDownloaded = new ArrayList<Suggestion>();
 
@@ -225,7 +227,7 @@ public class SuggestionsFragment extends Fragment {
         /////////////////////FIN TEST////////////////////////
         ////////////////////MUST BE REPLACED WITH THE JSON COMING FROM THE SERVER///////////////////////////////////
 
-//TODO : Received must be put here
+        //TODO : Received must be put here
         SuggestionsAdapter suggestionsAdapter = new SuggestionsAdapter(suggestionViewModelList,getActivity(),getLayoutInflater());
         listView.setAdapter(suggestionsAdapter);
 

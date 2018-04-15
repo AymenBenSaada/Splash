@@ -271,7 +271,9 @@ public class FeedFragment extends Fragment {
     private void saveTeacherProfilPicture(final int teacherID){
         if(!fileExist("teacher_profile_picture_"+teacherID+".dat"))
         {
-            //TODO: fix the logout logic here!!
+            //TODO: Change the baseUrl!!
+            //TODO: Go to IMedia API and change the [ROUTE]
+            //TODO: check for the E in all profile picters
             ////// NADERR REPLACE THIS WITH OUR OWN ADRESS SERVER AND MODIFY THE PARAMETER OF iMediaApi.getPhoto("...")
             ////// OPTIMIZATION : USE ONLY ONE iMedia INTERFACE (declared as a global var) FOR THIS METHOD AND THE NEXT METHOD
             //region intializing media API
@@ -281,6 +283,8 @@ public class FeedFragment extends Fragment {
                     .build();
             IMediaApi iMediaApi = retrofit.create(IMediaApi.class);
             //endregion
+
+            //TODO: Remove the convertTeacherID and replace with teacher ID
             iMediaApi.getPhoto(ConvertTeacherIDToPhotoName(teacherID)).enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -328,6 +332,9 @@ public class FeedFragment extends Fragment {
     private void savePostMedia(final int postID){
         if(!fileExist("post_media_"+postID+".dat"))
         {
+            //TODO: Change the baseUrl!!
+            //TODO: Go to IMedia API and change the [ROUTE]
+            //TODO: check for the E in all profile picters
             ////// NADERR REPLACE THIS WITH OUR OWN ADRESS SERVER AND MODIFY THE PARAMETER OF iMediaApi.getPhoto("...")
             //region intializing media API
             Retrofit retrofit = new Retrofit.Builder()
@@ -336,6 +343,8 @@ public class FeedFragment extends Fragment {
                     .build();
             IMediaApi iMediaApi = retrofit.create(IMediaApi.class);
             //endregion
+            //TODO: Remove the convertTeacherID and replace with teacher ID
+
             iMediaApi.getPhoto(ConvertPostIDtoPhotoName(postID)).enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {

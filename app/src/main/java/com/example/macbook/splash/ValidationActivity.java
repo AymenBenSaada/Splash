@@ -1,6 +1,7 @@
 package com.example.macbook.splash;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.support.v7.app.ActionBar;
@@ -48,6 +49,7 @@ public class ValidationActivity extends AppCompatActivity {
     int userID;
     String text;
     int childCount;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -57,7 +59,6 @@ public class ValidationActivity extends AppCompatActivity {
 
 
         super.onCreate(savedInstanceState);
-        registerParent();
         setContentView(R.layout.activity_validation);
         Button btnValidateInscription = findViewById(R.id.btnValidateInscription);
         Typeface RegularRobotoFont=Typeface.createFromAsset(getAssets(),"fonts/Roboto-Regular.ttf");
@@ -74,6 +75,9 @@ public class ValidationActivity extends AppCompatActivity {
 
             if(((ParentRegistrationViewModel) person).getEmailLinking() == null){
                 //PARENT WITH CHILDREN
+                registerParent();
+                storePeref(userID,"Parent",true);
+
                 String s = "";
                 String children = "";
                 test.setText(person.toString());
@@ -164,6 +168,10 @@ public class ValidationActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response3) {
                         Log.e("linking teacher done!", "success");
+                        Intent intent  = new Intent( ValidationActivity.this, LoggedTeacherMainActivity.class);
+                        storePeref(userID,"Teacher",true);
+
+                        startActivity(intent);
 
                     }
                     @Override
@@ -339,7 +347,16 @@ public class ValidationActivity extends AppCompatActivity {
         });
     }
 
+    public void storePeref(int userId, String accountType, Boolean isConnected){
+        SharedPreferences sharedisConnecterdPereferences = getSharedPreferences("AccountStatus",MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedisConnecterdPereferences.edit();
+        editor.putString("AccountType",accountType);
+        editor.putBoolean("isConnected",isConnected);
+        editor.putInt("userId",userId);
+        editor.apply();
 
+
+    }
 
 }
 

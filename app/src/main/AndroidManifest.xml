@@ -86,9 +86,10 @@
         </service>
 
         <activity android:name=".Admin.Admin_Groupes_Activity" />
+        <activity android:name=".Admin.Admin_Demandes_Activity" />
+        <activity android:name=".Admin.Admin_ChildrenList_Activity" />
         <activity android:name=".Admin.Admin_Enseignant_Selected_Activity" />
         <activity android:name=".Admin.Admin_Groupes_OnGroupSelected_Activity" />
-        <activity android:name=".Admin.Admin_ChildrenList_Activity" />
         <activity android:name=".Admin.Admin_Child_Selected_Activity" />
         <activity android:name=".Admin.Admin_Child_Selected_Logs_Activity" />
         <activity android:name=".Admin.Admin_Child_Selected_Feed_Activity"></activity>

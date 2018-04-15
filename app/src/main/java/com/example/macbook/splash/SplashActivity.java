@@ -109,7 +109,7 @@ public class SplashActivity extends AppCompatActivity {
 
     private LoginModelView user;
     private String userFile="user.dat";
-
+    private  int userId;
     //endregion
 
     /*
@@ -131,8 +131,6 @@ public class SplashActivity extends AppCompatActivity {
             }else{
                 new AdminAsyncRefresh().execute();
             }
-        }else {
-            new TeacherAsyncRefresh().execute();
         }
         //endregion
         Intent intent;
@@ -141,14 +139,17 @@ public class SplashActivity extends AppCompatActivity {
         Boolean isConnected = sharedisConnecterdPereferences.getBoolean("isConnected",false);
         if(isConnected){
             String accountType = sharedisConnecterdPereferences.getString("AccountType","");
-            int userId = sharedisConnecterdPereferences.getInt("userId",-1);
+            userId = sharedisConnecterdPereferences.getInt("userId",-1);
             if(accountType.equals("Admin")){
+                new AdminAsyncRefresh().execute();
                 intent = new Intent(SplashActivity.this, AdminMainActivity.class);
 
             }else if (accountType.equals("Teacher")){
+                new TeacherAsyncRefresh().execute();
                 intent  = new Intent( SplashActivity.this, LoggedTeacherMainActivity.class);
 
             }else{
+                new ParentAsyncRefresh().execute();
                 intent  = new Intent( SplashActivity.this, LoggedParentMainActivity.class);
 
             }
@@ -183,7 +184,7 @@ public class SplashActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... strings) {
             iTeachersApi = ApiClient.getClient().create(ITeachersApi.class);
-            iTeachersApi.getTeacher(2).enqueue(new Callback<Teacher>() {
+            iTeachersApi.getTeacher(userId).enqueue(new Callback<Teacher>() {
                 @Override
                 public void onResponse(Call<Teacher> call, Response<Teacher> response) {
                     try{
@@ -591,29 +592,35 @@ public class SplashActivity extends AppCompatActivity {
         protected String doInBackground(String... strings) {
             iAdminsApi = ApiClient.getClient().create(IAdminsApi.class);
             //region getting the admin model + kindergarten with groups
-            iAdminsApi.getAdmin(16).enqueue(new Callback<Admin>() {
+            iAdminsApi.getAdmin(userId).enqueue(new Callback<Admin>() {
                 @Override
                 public void onResponse(Call<Admin> call, Response<Admin> response) {
                     try {
                         admin = response.body();
+                        Log.e("Admin","First Response");
                         saveAdmin(admin);
+                        Log.e("Admin","Between First and second");
 
                         IKindergartensApi iKindergartensApi = ApiClient.getClient().create(IKindergartensApi.class);
+                        Log.e("Admin","Probable Cause next to here");
+
                         iKindergartensApi.getKindergarten(admin.getKindergartenId()).enqueue(new Callback<Kindergarten>() {
                             @Override
                             public void onResponse(Call<Kindergarten> call, Response<Kindergarten> response) {
+                                Log.e("Admin","Second Response");
 
                                 final Kindergarten kindergarten = response.body();
                                 saveKindergartenModelInTheInternalStorage(kindergarten);
+                                Log.e("Admin","KG Saved");
 
                                 //region get kindergarten profile picture
                                 IKindergartensApi iKindergartensApi = ApiClient.getClient().create(IKindergartensApi.class);
                                 iKindergartensApi.getKindergartenProfilePicture(kindergarten.getId()).enqueue(new Callback<ResponseBody>() {
                                     @Override
                                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-
+                                        if(response.code()!=204){
                                         InputStream fis = response.body().byteStream();
-                                        saveKindergartenProfilePictureInTheInternalStorage(fis, kindergarten.getId());
+                                        saveKindergartenProfilePictureInTheInternalStorage(fis, kindergarten.getId());}
                                     }
 
                                     @Override
@@ -945,7 +952,11 @@ public class SplashActivity extends AppCompatActivity {
 
     private void saveObjectAsFileInTheInternalStorage(Object object,String file_name){
         File file = new File(getFilesDir() + "/"+file_name);
+        Log.e("Admin","new File");
+
         file.delete();
+        Log.e("Admin","File Deleted");
+
         FileOutputStream fos = null;
 
         try {
@@ -956,6 +967,7 @@ public class SplashActivity extends AppCompatActivity {
                     .create();
             String json = gson.toJson(object);
             fos.write(json.getBytes());
+            Log.e("Admin","File Saved");
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -970,6 +982,7 @@ public class SplashActivity extends AppCompatActivity {
                 }
             }
         }
+
     }
 
     private void savePictureAsFileInTheInternalStorage(InputStream fis,String file_name){
