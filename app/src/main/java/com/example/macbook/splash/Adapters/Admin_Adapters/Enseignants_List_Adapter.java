@@ -101,7 +101,17 @@ public class Enseignants_List_Adapter extends BaseAdapter{
 
         //SETTING CONTENT
         File file = new File(activity.getFilesDir(),"teacher_profile_picture_"+teacher.getId()+".dat");
-        holder.photo_teacher_name_in_admin_teachers.setImageURI(Uri.fromFile(file));
+        try{
+            if(file.exists())
+            holder.photo_teacher_name_in_admin_teachers.setImageURI(Uri.fromFile(file));
+            else {
+                holder.photo_teacher_name_in_admin_teachers.setImageResource(R.drawable.genericprofile);
+
+            }
+        }catch (Exception e){
+            holder.photo_teacher_name_in_admin_teachers.setImageResource(R.drawable.genericprofile);
+        }
+
         holder.tv_teacher_name_in_admin_teachers.setText((teacher.getName() + " " + teacher.getLastName()));
 
         if (activity instanceof Admin_Enseignants_Activity){

@@ -17,15 +17,7 @@
         android:src="@mipmap/ic_launcher_round"
         app:civ_border_color="@android:color/transparent"/>
 
-    <ImageView
-        android:id="@+id/mask"
-        android:layout_width="64dp"
-        android:layout_height="65dp"
-        android:paddingTop="2dp"
-        android:layout_marginStart="15dp"
-        android:layout_alignTop="@+id/tv_teacher_name_in_admin_teachers"
-        app:srcCompat="@drawable/mask"
-        android:alpha="1"/>
+
 
     <TextView
         android:id="@+id/tv_teacher_name_in_admin_teachers"

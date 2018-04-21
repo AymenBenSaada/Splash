@@ -710,9 +710,19 @@ public class SplashActivity extends AppCompatActivity {
                                                         iTeachersApi.getTeacherProfilePicture(teacher.getId()).enqueue(new Callback<ResponseBody>() {
                                                             @Override
                                                             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                                                if(response.isSuccessful()){
+                                                                    try{
+                                                                        InputStream fis = response.body().byteStream();
+                                                                        saveTeacherProfilePictureInTheInternalStorage(fis,teacher.getId());
 
-                                                                InputStream fis = response.body().byteStream();
-                                                                saveTeacherProfilePictureInTheInternalStorage(fis,teacher.getId());
+                                                                    }catch (Exception e){
+
+
+
+
+                                                                    }
+
+                                                                }
                                                             }
 
                                                             @Override
@@ -788,8 +798,15 @@ public class SplashActivity extends AppCompatActivity {
                                                 iTeachersApi.getTeacherProfilePicture(teacher.getId()).enqueue(new Callback<ResponseBody>() {
                                                     @Override
                                                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                                                        InputStream fis = response.body().byteStream();
-                                                        saveTeacherProfilePictureInTheInternalStorage(fis,teacher.getId());
+                                                        if(response.isSuccessful()){
+                                                            try {
+                                                                InputStream fis = response.body().byteStream();
+                                                                saveTeacherProfilePictureInTheInternalStorage(fis,teacher.getId());
+
+                                                            }catch (Exception e){
+
+                                                            }
+                                                        }
                                                     }
 
                                                     @Override

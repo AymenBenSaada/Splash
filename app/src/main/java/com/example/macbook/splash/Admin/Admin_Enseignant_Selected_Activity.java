@@ -70,8 +70,11 @@ public class Admin_Enseignant_Selected_Activity extends AppCompatActivity {
         //endregion
 
         File file = new File(getFilesDir() + "/" + "teacher_profile_picture_"+teacher.getId()+".dat");
+        if(file.exists())
         teacher_profilpicture_in_admin.setImageURI(Uri.fromFile(file));
-
+        else{
+            teacher_profilpicture_in_admin.setImageResource(R.drawable.genericprofile);
+        }
         teacher_name_in_profile_in_admin.setText((teacher.getName() + " " + teacher.getLastName()));
         teacher_phone_number_in_admin.setText((""+teacher.getPhone()));
         teacher_email_in_admin.setText(teacher.getEmail());
