@@ -45,4 +45,7 @@ public interface IParentsApi {
     @PUT("api/parents/{parentId}")
     Call<ResponseBody> putParent(@Path("parentId")int parentID, @Body Parent parent);
 
+    @GET("api/Parents/{parentId}/Suggestions")
+    Call<List<Suggestion>> getParentSuggestions(@Path("parentId") int parentID);
+
 }

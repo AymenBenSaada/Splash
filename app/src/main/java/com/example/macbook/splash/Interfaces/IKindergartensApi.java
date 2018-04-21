@@ -8,6 +8,7 @@ import com.example.macbook.splash.Models.Group;
 import com.example.macbook.splash.Models.Kindergarten;
 import com.example.macbook.splash.Models.Message;
 import com.example.macbook.splash.Models.Teacher;
+import com.example.macbook.splash.Models.TeacherInscriptionRequest;
 import com.example.macbook.splash.Models.TeacherInscriptionResponse;
 import com.example.macbook.splash.Models.TeacherInscriptionResponseSubmitViewModel;
 
@@ -72,6 +73,11 @@ public interface IKindergartensApi {
     Call<TeacherInscriptionResponse> postTeacherInscriptionResponse(
             @Path("kindergartenId") int kindergartenId,
             @Body TeacherInscriptionResponseSubmitViewModel viewModel
+    );
+
+    @GET("api/Kindergartens/{kindergartenId}/teacherinscriptionrequests")
+    Call<List<TeacherInscriptionRequest>> getTeacherInscriptionRequest(
+            @Path("kindergartenId") int kindergartenId
     );
 
     //endregion

@@ -63,12 +63,7 @@ public class LoggedParentMainActivity extends AppCompatActivity {
     private ActionBarDrawerToggle mToggle;
     private NavigationView nvDrawer;
     private ViewPager viewPager;
-    private String TeacherFile = "teacher.dat";
-    private String ParentFile="parent.dat";
-    private String AdminFile="admin.dat";
 
-    private Parent parent;
-    private Teacher teacher;
     //   private GenericRepository repository = new GenericRepository();
 
     @Override
@@ -92,7 +87,8 @@ public class LoggedParentMainActivity extends AppCompatActivity {
         apiService.getTeacherWithAll(teacherId).enqueue(new Callback<Teacher>() {
             @Override
             public void onResponse(Call<Teacher> call, Response<Teacher> response) {
-                teacher = response.body();
+                Teacher teacher = response.body();
+                //
                 //            repository.saveTeacher(getApplicationContext(),teacher);
                 Log.d("Getting Teacher", "Success");
             }

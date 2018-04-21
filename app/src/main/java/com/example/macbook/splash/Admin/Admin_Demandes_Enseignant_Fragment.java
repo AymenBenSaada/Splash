@@ -7,11 +7,28 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
+import com.example.macbook.splash.Adapters.Admin_Adapters.Senders_Enseignants_List_Adapter;
+import com.example.macbook.splash.Interfaces.ApiClient;
+import com.example.macbook.splash.Interfaces.IKindergartensApi;
+import com.example.macbook.splash.Interfaces.IParentsApi;
+import com.example.macbook.splash.Interfaces.ITeachersApi;
 import com.example.macbook.splash.Models.Teacher;
+import com.example.macbook.splash.Models.TeacherInscriptionRequest;
 import com.example.macbook.splash.R;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class Admin_Demandes_Enseignant_Fragment extends Fragment {
@@ -95,10 +112,107 @@ public class Admin_Demandes_Enseignant_Fragment extends Fragment {
     }
 //endregion
 
+    private ITeachersApi iTeachersApi;
+    private IKindergartensApi iKindergartensApi;
+    private int kindergartenId;
+    private List<Teacher> listOfTeacherSenders = new ArrayList<>();
+    private int teacherId;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        final Senders_Enseignants_List_Adapter senders_enseignants_list_adapter = new Senders_Enseignants_List_Adapter(listOfTeacherSenders, getActivity());
+
         // Inflate the layout for this fragment
+        iKindergartensApi = ApiClient.getClient().create(IKindergartensApi.class);
+        //todo : kindergartenId need to be changed by the real value loaded from the internal storage
+        iKindergartensApi.getTeacherInscriptionRequest(kindergartenId).enqueue(new Callback<List<TeacherInscriptionRequest>>() {
+            @Override
+            public void onResponse(Call<List<TeacherInscriptionRequest>> call, Response<List<TeacherInscriptionRequest>> response) {
+                if(response.isSuccessful()){
+                    for (TeacherInscriptionRequest teacherInscriptionRequest:response.body()
+                         ) {
+                        if (teacherInscriptionRequest.getReceiverDescriptor().equals("Teacher")){
+                            iTeachersApi.getTeacher(teacherInscriptionRequest.getId()).enqueue(new Callback<Teacher>() {
+                                @Override
+                                public void onResponse(Call<Teacher> call, Response<Teacher> response) {
+                                    if(response.isSuccessful()){
+                                        listOfTeacherSenders.add(response.body());
+                                        teacherId = response.body().getId();
+                                        iTeachersApi.getTeacherProfilePicture(teacherId).enqueue(new Callback<ResponseBody>() {
+                                            @Override
+                                            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                                InputStream fis = response.body().byteStream();
+                                                saveTeacherProfilePictureInTheInternalStorage(fis,teacherId);
+                                                //todo : notify adapter
+                                                senders_enseignants_list_adapter.notifyDataSetChanged();
+                                            }
+
+                                            @Override
+                                            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                                            }
+                                        });
+
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(Call<Teacher> call, Throwable t) {
+
+                                }
+                            });
+                        }
+                    }
+                }else{
+                    //todo : handle the request failure
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<TeacherInscriptionRequest>> call, Throwable t) {
+
+            }
+        });
+
+        ListView listview_demandes_enseignants = getActivity().findViewById(R.id.listview_demandes_enseignants);
+        listview_demandes_enseignants.setAdapter(senders_enseignants_list_adapter);
+
         return inflater.inflate(R.layout.fragment_admin_demandes_enseignant, container, false);
+
+    }
+
+    private void saveTeacherProfilePictureInTheInternalStorage(InputStream fis, int teacher_id){
+        savePictureAsFileInTheInternalStorage(fis,"teacher_profile_picture_" + teacher_id+".dat");
+    }
+
+    private void savePictureAsFileInTheInternalStorage(InputStream fis,String file_name){
+        FileOutputStream fos = null;
+
+        byte[] fileReader = new byte[4096];
+        try {
+            fos = getActivity().openFileOutput(file_name, Context.MODE_PRIVATE);
+            while (true) {
+                int read = fis.read(fileReader);
+
+                if (read == -1) {
+                    break;
+                }
+                fos.write(fileReader, 0, read);
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (fos != null) {
+                try {
+                    fos.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 }

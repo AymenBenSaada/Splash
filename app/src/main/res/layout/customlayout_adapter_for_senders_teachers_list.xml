@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/photo_teacher_name_in_admin_teachers"
+        android:layout_width="50dp"
+        android:layout_height="51dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignTop="@+id/tv_teacher_name_in_admin_teachers"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="22dp"
+        android:src="@mipmap/ic_launcher_round"
+        app:civ_border_color="@android:color/transparent"/>
+
+    <ImageView
+        android:id="@+id/mask"
+        android:layout_width="64dp"
+        android:layout_height="65dp"
+        android:paddingTop="2dp"
+        android:layout_marginStart="15dp"
+        android:layout_alignTop="@+id/tv_teacher_name_in_admin_teachers"
+        app:srcCompat="@drawable/mask"
+        android:alpha="1"/>
+
+    <TextView
+        android:id="@+id/tv_teacher_name_in_admin_teachers"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="12dp"
+        android:paddingTop="5dp"
+        android:layout_marginTop="7dp"
+        android:layout_toEndOf="@+id/photo_teacher_name_in_admin_teachers"
+        android:text="Nom Prénom"
+        android:singleLine="true"
+        android:textColor="#000"
+        android:textSize="25sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/mask"
+        android:layout_marginTop="7dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginEnd="80dp"
+        android:layout_centerHorizontal="true"
+        android:background="@color/gris"
+        />
+
+    <ImageView
+        android:id="@+id/declinebtn_in_senders_teachers_list"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="7dp"
+        android:layout_marginTop="27dp"
+        android:src="@drawable/decline_icon_admin"/>
+
+    <ImageView
+        android:id="@+id/acceptbtn_in_senders_teachers_list"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignTop="@+id/declinebtn_in_senders_teachers_list"
+        android:layout_marginEnd="34dp"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/accept_icon_admin"/>
+
+
+</RelativeLayout>
