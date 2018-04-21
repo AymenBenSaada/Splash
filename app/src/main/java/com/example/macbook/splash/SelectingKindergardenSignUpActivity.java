@@ -53,7 +53,7 @@ public class SelectingKindergardenSignUpActivity extends AppCompatActivity {
     int nbrIteration;
     String text;
     ProgressBar progressBar;
-
+    ArrayList<Integer> IDList;
 
     // LIST VIEW Parameters**
 
@@ -62,11 +62,7 @@ public class SelectingKindergardenSignUpActivity extends AppCompatActivity {
     List<String> address = new ArrayList<String>();
     List<String> phone = new ArrayList<String>();
 
-    int[] IMAGES = {R.drawable.aymen, R.drawable.miras, R.drawable.zac, R.drawable.nader, R.drawable.med, R.drawable.sarra};
-    String[] NAMES = {"Aymen Gharbi", "Miras Ayed", "Zac Hatira", "Nader Zouaoui", "Boussa MedLamine", "Jaziri Sarra"};
-    String[] USERNAME = {"El Gen", "Mo9ded", "Zak", "Nounou", "Hayssam", "Sorsor" };
-    String[] ADRESS = {"Ennasr", "Sousse", "Sfax", "Tunis", "Gafsa", "Bizerte" };
-    KindergardenAdapter kindergardenAdapter;
+      KindergardenAdapter kindergardenAdapter;
     EditText etResearchKindergarden;
 
 
@@ -88,15 +84,7 @@ public class SelectingKindergardenSignUpActivity extends AppCompatActivity {
 
         etResearchKindergarden = (EditText)findViewById(R.id.etResearchKindergarden);
 
-        ListView listViewKindergarden = (ListView) findViewById(R.id.listviewKindergarden);
-        kindergardenAdapter = new KindergardenAdapter(IMAGES,NAMES,USERNAME,ADRESS,this,getLayoutInflater());
-        listViewKindergarden.setAdapter(kindergardenAdapter);
-        listViewKindergarden.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Choice(i);
-            }
-        });
+
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
@@ -208,7 +196,7 @@ public class SelectingKindergardenSignUpActivity extends AppCompatActivity {
     public void TestSearch(){
         // final String email = etEmail.getText().toString();
         final String search = etResearchKindergarden.getText().toString();
-
+        IDList = new ArrayList<>();
         // RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
 
                 /*------------------------------URL---------------------------------*/
@@ -235,7 +223,7 @@ public class SelectingKindergardenSignUpActivity extends AppCompatActivity {
 //
 
                         JSONObject j = response.getJSONObject(i);
-
+                        IDList.add(j.getInt("id"));
                         String name = j.getString("name");
                         ListView listViewKindergarden = (ListView) findViewById(R.id.listviewKindergarden);
 
@@ -250,7 +238,7 @@ public class SelectingKindergardenSignUpActivity extends AppCompatActivity {
                         listViewKindergarden.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             @Override
                             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                                Choice(i);
+                                Choice(IDList.get(i));
                             }
                         });
 

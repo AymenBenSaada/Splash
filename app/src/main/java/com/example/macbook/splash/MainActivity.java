@@ -244,14 +244,9 @@ public class MainActivity extends Activity {
                             startActivity(intent);
                         }
 
-
-
-
-
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-
 
                 }
             }, new Response.ErrorListener() {

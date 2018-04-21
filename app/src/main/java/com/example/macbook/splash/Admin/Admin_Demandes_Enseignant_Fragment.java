@@ -101,6 +101,4 @@ public class Admin_Demandes_Enseignant_Fragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_admin_demandes_enseignant, container, false);
     }
-
-
 }

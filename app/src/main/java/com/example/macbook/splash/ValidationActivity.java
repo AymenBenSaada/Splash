@@ -149,7 +149,7 @@ public class ValidationActivity extends AppCompatActivity {
                     public void onResponse(Call<Void> call, Response<Void> response2) {
 
                         Log.e("pushing teacher done!", "success");
-
+                        linkTeacherToKG();
                     }
 
                     @Override
