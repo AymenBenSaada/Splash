@@ -137,6 +137,7 @@ public class FeedFragment extends Fragment {
         posts = loadPosts();
 
         feedAdapter = new FeedAdapter(getContext(),DeleteRedundantPosts(posts));
+
         recyclerView.setAdapter(feedAdapter);
 
         new PostAsyncRefresh().execute();

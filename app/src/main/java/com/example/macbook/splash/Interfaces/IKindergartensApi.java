@@ -63,19 +63,19 @@ public interface IKindergartensApi {
 
     //region KindergartenResponses
 
-    @POST("api/Kindergartens/{kidnergartenId}/ChildInscriptonRequests")
+    @POST("/api/Kindergartens/{kidnergartenId}/ChildInscriptonRequests")
     Call<ChildInscriptionResponse> postChildInscriptionResponse(
             @Path("kindergartenId") int kindergartenId,
             @Body ChildInscriptionResponseSubmitViewModel viewModel
     );
 
-    @POST("api/Kindergartens/{kidnergartenId}/TeacherInscriptionRequests")
+    @POST("/api/Kindergartens/{kidnergartenId}/TeacherInscriptionRequests")
     Call<TeacherInscriptionResponse> postTeacherInscriptionResponse(
             @Path("kindergartenId") int kindergartenId,
             @Body TeacherInscriptionResponseSubmitViewModel viewModel
     );
 
-    @GET("api/Kindergartens/{kindergartenId}/teacherinscriptionrequests")
+    @GET("/api/Kindergartens/{kindergartenId}/teacherinscriptionrequests")
     Call<List<TeacherInscriptionRequest>> getTeacherInscriptionRequest(
             @Path("kindergartenId") int kindergartenId
     );

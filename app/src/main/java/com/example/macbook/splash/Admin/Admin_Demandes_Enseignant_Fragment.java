@@ -1,12 +1,16 @@
 package com.example.macbook.splash.Admin;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.example.macbook.splash.Adapters.Admin_Adapters.Senders_Enseignants_List_Adapter;
@@ -14,9 +18,11 @@ import com.example.macbook.splash.Interfaces.ApiClient;
 import com.example.macbook.splash.Interfaces.IKindergartensApi;
 import com.example.macbook.splash.Interfaces.IParentsApi;
 import com.example.macbook.splash.Interfaces.ITeachersApi;
+import com.example.macbook.splash.Models.Log;
 import com.example.macbook.splash.Models.Teacher;
 import com.example.macbook.splash.Models.TeacherInscriptionRequest;
 import com.example.macbook.splash.R;
+import android.support.v7.widget.LinearLayoutManager;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -49,6 +55,7 @@ public class Admin_Demandes_Enseignant_Fragment extends Fragment {
     public Admin_Demandes_Enseignant_Fragment() {
         // Required empty public constructor
     }
+
 
     /**
      * Use this factory method to create a new instance of
@@ -114,105 +121,75 @@ public class Admin_Demandes_Enseignant_Fragment extends Fragment {
 
     private ITeachersApi iTeachersApi;
     private IKindergartensApi iKindergartensApi;
-    private int kindergartenId;
+    private int kindergartenId = 11;
     private List<Teacher> listOfTeacherSenders = new ArrayList<>();
     private int teacherId;
+    private Senders_Enseignants_List_Adapter senders_enseignants_list_adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        final Senders_Enseignants_List_Adapter senders_enseignants_list_adapter = new Senders_Enseignants_List_Adapter(listOfTeacherSenders, getActivity());
 
-        // Inflate the layout for this fragment
+        View mView = inflater.inflate(R.layout.fragment_admin_demandes_enseignant, container, false);
+
+        RecyclerView listview_demandes_enseignants = (RecyclerView) mView.findViewById(R.id.listview_demandes_enseignants);
+
+        listview_demandes_enseignants.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        getKindergartenRequests();
+
+        senders_enseignants_list_adapter = new Senders_Enseignants_List_Adapter(listOfTeacherSenders, getActivity());
+
+        listview_demandes_enseignants.setAdapter(senders_enseignants_list_adapter);
+
+        return  mView;
+    }
+
+    //region GetRequestFromBackEnd
+
+    private void getKindergartenRequests(){
         iKindergartensApi = ApiClient.getClient().create(IKindergartensApi.class);
-        //todo : kindergartenId need to be changed by the real value loaded from the internal storage
-        iKindergartensApi.getTeacherInscriptionRequest(kindergartenId).enqueue(new Callback<List<TeacherInscriptionRequest>>() {
+        iKindergartensApi.getTeacherInscriptionRequest(11).enqueue(new Callback<List<TeacherInscriptionRequest>>() {
             @Override
             public void onResponse(Call<List<TeacherInscriptionRequest>> call, Response<List<TeacherInscriptionRequest>> response) {
-                if(response.isSuccessful()){
-                    for (TeacherInscriptionRequest teacherInscriptionRequest:response.body()
-                         ) {
-                        if (teacherInscriptionRequest.getReceiverDescriptor().equals("Teacher")){
-                            iTeachersApi.getTeacher(teacherInscriptionRequest.getId()).enqueue(new Callback<Teacher>() {
-                                @Override
-                                public void onResponse(Call<Teacher> call, Response<Teacher> response) {
-                                    if(response.isSuccessful()){
-                                        listOfTeacherSenders.add(response.body());
-                                        teacherId = response.body().getId();
-                                        iTeachersApi.getTeacherProfilePicture(teacherId).enqueue(new Callback<ResponseBody>() {
-                                            @Override
-                                            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                                                InputStream fis = response.body().byteStream();
-                                                saveTeacherProfilePictureInTheInternalStorage(fis,teacherId);
-                                                //todo : notify adapter
-                                                senders_enseignants_list_adapter.notifyDataSetChanged();
-                                            }
-
-                                            @Override
-                                            public void onFailure(Call<ResponseBody> call, Throwable t) {
-
-                                            }
-                                        });
-
-                                    }
-                                }
-
-                                @Override
-                                public void onFailure(Call<Teacher> call, Throwable t) {
-
-                                }
-                            });
-                        }
-                    }
-                }else{
-                    //todo : handle the request failure
-                }
+               getTeachersFromList(0,response.body());
             }
 
             @Override
             public void onFailure(Call<List<TeacherInscriptionRequest>> call, Throwable t) {
+                android.util.Log.e("KG","failed");
 
             }
         });
-
-        ListView listview_demandes_enseignants = getActivity().findViewById(R.id.listview_demandes_enseignants);
-        listview_demandes_enseignants.setAdapter(senders_enseignants_list_adapter);
-
-        return inflater.inflate(R.layout.fragment_admin_demandes_enseignant, container, false);
-
     }
 
-    private void saveTeacherProfilePictureInTheInternalStorage(InputStream fis, int teacher_id){
-        savePictureAsFileInTheInternalStorage(fis,"teacher_profile_picture_" + teacher_id+".dat");
-    }
-
-    private void savePictureAsFileInTheInternalStorage(InputStream fis,String file_name){
-        FileOutputStream fos = null;
-
-        byte[] fileReader = new byte[4096];
-        try {
-            fos = getActivity().openFileOutput(file_name, Context.MODE_PRIVATE);
-            while (true) {
-                int read = fis.read(fileReader);
-
-                if (read == -1) {
-                    break;
+    private void getTeachersFromList(final int i, final List<TeacherInscriptionRequest> teacherInscriptionRequests){
+        iTeachersApi = ApiClient.getClient().create(ITeachersApi.class);
+        if(i<teacherInscriptionRequests.size()){
+            iTeachersApi.getTeacher(teacherInscriptionRequests.get(i).senderId).enqueue(new Callback<Teacher>() {
+                @Override
+                public void onResponse(Call<Teacher> call, Response<Teacher> response) {
+                    listOfTeacherSenders.add(response.body());
+                    getTeachersFromList(i+1,teacherInscriptionRequests);
+                    android.util.Log.e("Teacher:","added");
                 }
-                fos.write(fileReader, 0, read);
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (fos != null) {
-                try {
-                    fos.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
+
+                @Override
+                public void onFailure(Call<Teacher> call, Throwable t) {
+                    android.util.Log.e("Teacher","Failed");
                 }
-            }
+
+            });
         }
+        else {
+            senders_enseignants_list_adapter = new Senders_Enseignants_List_Adapter(listOfTeacherSenders, getActivity());
+
+            senders_enseignants_list_adapter.notifyDataSetChanged();
+
+        }
+
     }
+    //endregion
+
 }
