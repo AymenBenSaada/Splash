@@ -28,6 +28,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -123,7 +124,7 @@ public class Admin_Demandes_Enseignant_Fragment extends Fragment {
     private IKindergartensApi iKindergartensApi;
     //TODO : FIX the kinderGarten ID
     private int kindergartenId = 11;
-    private List<Teacher> listOfTeacherSenders = new ArrayList<>();
+    private final List<Teacher> listOfTeacherSenders = new ArrayList<>();
     private int teacherId;
     private Senders_Enseignants_List_Adapter senders_enseignants_list_adapter;
 
@@ -165,14 +166,17 @@ public class Admin_Demandes_Enseignant_Fragment extends Fragment {
             }
         });
     }
+    private final ArrayList<Teacher> listOfTeacherSenderLocal = new ArrayList<>();
+
 
     private void getTeachersFromList(final int i, final List<TeacherInscriptionRequest> teacherInscriptionRequests){
+
         iTeachersApi = ApiClient.getClient().create(ITeachersApi.class);
         if(i<teacherInscriptionRequests.size()){
             iTeachersApi.getTeacher(teacherInscriptionRequests.get(i).senderId).enqueue(new Callback<Teacher>() {
                 @Override
                 public void onResponse(Call<Teacher> call, Response<Teacher> response) {
-                    listOfTeacherSenders.add(response.body());
+                    listOfTeacherSenderLocal.add(response.body());
                     getTeachersFromList(i+1,teacherInscriptionRequests);
                     android.util.Log.e("Teacher:","added");
                 }
@@ -185,7 +189,8 @@ public class Admin_Demandes_Enseignant_Fragment extends Fragment {
             });
         }
         else {
-
+            listOfTeacherSenders.clear();
+            listOfTeacherSenders.addAll(listOfTeacherSenderLocal);
             senders_enseignants_list_adapter.notifyDataSetChanged();
 
         }

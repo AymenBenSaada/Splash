@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import com.example.macbook.splash.Models.Teacher;
 import com.example.macbook.splash.R;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -27,13 +29,19 @@ public class Senders_Enseignants_List_Adapter extends RecyclerView.Adapter<Sende
 
     private List<Teacher> teachers;
     private Activity activity;
-
+    private ArrayList<Teacher> localTeachers = new ArrayList<Teacher>();
 
     public Senders_Enseignants_List_Adapter(List<Teacher> teachers, Activity activity) {
         this.teachers = teachers;
         this.activity = activity;
     }
 
+    public void updateReceiptsList(ArrayList<Teacher> newlist) {
+        localTeachers = newlist;
+        teachers.clear();
+        teachers.addAll(localTeachers);
+        this.notifyDataSetChanged();
+    }
 
 
 
@@ -49,6 +57,7 @@ public class Senders_Enseignants_List_Adapter extends RecyclerView.Adapter<Sende
             tv_teacher_name_in_admin_teachers = (TextView) view.findViewById(R.id.tv_teacher_name_in_admin_teachers);
             declinebtn_in_teachers_list = (ImageView) view.findViewById(R.id.declinebtn_in_senders_teachers_list);
             acceptbtn_in_teachers_list = (ImageView) view.findViewById(R.id.acceptbtn_in_senders_teachers_list);
+            Log.e("debug", String.valueOf(teachers.size()));
         }
     }
     @Override
@@ -67,9 +76,6 @@ public class Senders_Enseignants_List_Adapter extends RecyclerView.Adapter<Sende
     @Override
     public void onBindViewHolder(SendersList holder, int position) {
         final Teacher teacher = teachers.get(position);
-
-
-
 
         //SETTING FONTS
         final Typeface myCustomFont = Typeface.createFromAsset(activity.getAssets(), "fonts/Roboto-Thin.ttf");
