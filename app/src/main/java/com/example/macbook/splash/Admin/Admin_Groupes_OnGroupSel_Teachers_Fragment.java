@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -313,13 +314,11 @@ public class Admin_Groupes_OnGroupSel_Teachers_Fragment extends Fragment {
             grp_teachers = loadGroupTeachersInTheInternalStorage(group_id);
         }
 
-        int i = 0;
-        for (Teacher teacher:kg_teachers
-                ) {
-            if(CheckIfTeacherExistInGroup(teacher,grp_teachers)){
+        for (int i = 0; i<kg_teachers.size();i++)
+                 {
+            if(CheckIfTeacherExistInGroup(kg_teachers.get(i),grp_teachers)){
                 kg_teachers.remove(i);
-            }else {
-                i++;
+                i--;
             }
         }
         return kg_teachers;
