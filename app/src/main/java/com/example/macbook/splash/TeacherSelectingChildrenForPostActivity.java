@@ -176,6 +176,7 @@ public class TeacherSelectingChildrenForPostActivity extends AppCompatActivity {
                 if (isSellectedAtAll) {
 
                 Date today = Calendar.getInstance().getTime();
+                //TODO : fix the teacher ID
                 post = new Post(-1, postContent, today, postLegend, 2);
                 //TRAITEMENT BACKEND -> ON RESPONSE
                 post.setId(1);
