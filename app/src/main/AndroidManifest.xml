@@ -86,7 +86,10 @@
         </service>
 
         <activity android:name=".Admin.Admin_Groupes_Activity" />
-        <activity android:name=".Admin.Admin_Demandes_Activity" />
+        <activity
+            android:name=".Admin.Admin_Demandes_Activity"
+            android:noHistory="true"
+            />
         <activity android:name=".Admin.Admin_ChildrenList_Activity" />
         <activity android:name=".Admin.Admin_Enseignant_Selected_Activity" />
         <activity android:name=".Admin.Admin_Groupes_OnGroupSelected_Activity" />

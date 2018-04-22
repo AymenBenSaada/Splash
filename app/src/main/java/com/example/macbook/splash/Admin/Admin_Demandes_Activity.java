@@ -11,6 +11,7 @@ import android.view.View;
 
 import com.example.macbook.splash.R;
 import com.example.macbook.splash.SwipePagers.AdminDemandeDAjoutPager;
+import com.example.macbook.splash.SwipePagers.AdminGroupesOnGroupSelected;
 
 public class Admin_Demandes_Activity extends AppCompatActivity implements Admin_Demandes_Parent_Fragment.OnFragmentInteractionListener,Admin_Demandes_Enseignant_Fragment.OnFragmentInteractionListener {
 
@@ -18,6 +19,8 @@ public class Admin_Demandes_Activity extends AppCompatActivity implements Admin_
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_demandes);
+
+        setTitle("  Demandes d'ajout");
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tablayout_parent_teacher_list_in_admin);
         tabLayout.addTab(tabLayout.newTab().setText("PARENTS"));
@@ -27,6 +30,35 @@ public class Admin_Demandes_Activity extends AppCompatActivity implements Admin_
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager_parent_teacher_list_in_admin);
         final PagerAdapter pagerAdapter = new AdminDemandeDAjoutPager(getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(pagerAdapter);
+
+        /*TabLayout tabLayout = (TabLayout) findViewById(R.id.tablayout_parent_teacher_list_in_admin);
+        tabLayout.addTab(tabLayout.newTab().setText("PARENTS"));
+        tabLayout.addTab(tabLayout.newTab().setText("ENSEIGNANTS"));
+        tabLayout.setTabGravity(tabLayout.GRAVITY_FILL);
+
+        final ViewPager viewPager = (ViewPager) findViewById(R.id.pager_parent_teacher_list_in_admin);
+        final PagerAdapter pagerAdapter = new AdminGroupesOnGroupSelected(getSupportFragmentManager(), tabLayout.getTabCount());
+        viewPager.setAdapter(pagerAdapter);
+
+        viewPager.setOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });*/
+
+
     }
 
     @Override

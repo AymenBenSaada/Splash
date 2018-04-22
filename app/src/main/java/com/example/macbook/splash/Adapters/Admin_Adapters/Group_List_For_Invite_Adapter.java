@@ -39,6 +39,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -56,13 +57,15 @@ public class Group_List_For_Invite_Adapter extends RecyclerView.Adapter<Group_Li
     private List<Group> groupList;
     @Nullable
     private Integer KindergartenID;
-    private List<Teacher> TeacherList;
+    private Teacher teacher;
 
-    public Group_List_For_Invite_Adapter(Activity mActivity, List<Group> groupList,List<Teacher> TeacherList,@Nullable Integer KindergartenID) {
+    private boolean isClicked = false;
+
+    public Group_List_For_Invite_Adapter(Activity mActivity, List<Group> groupList,Teacher teacher,@Nullable Integer KindergartenID) {
         this.mActivity = mActivity;
         this.groupList = groupList;
         this.KindergartenID = KindergartenID;
-        this.TeacherList = TeacherList;
+        this.teacher = teacher;
     }
 
 
@@ -91,7 +94,6 @@ public class Group_List_For_Invite_Adapter extends RecyclerView.Adapter<Group_Li
     @Override
     public void onBindViewHolder(GroupListViewHolder holder, int position) {
         final Group group = groupList.get(position);
-        final Teacher teacher = TeacherList.get(position);
         final Typeface Roboto_Thin_Font = Typeface.createFromAsset(mActivity.getAssets(), "fonts/Roboto-Light.ttf");
         final Typeface Roboto_Regular_Font = Typeface.createFromAsset(mActivity.getAssets(), "fonts/Roboto-Regular.ttf");
 
@@ -102,10 +104,20 @@ public class Group_List_For_Invite_Adapter extends RecyclerView.Adapter<Group_Li
         holder.grp_name_in_grp_list_in_teacher_profile.setText(group.getName());
         holder.grp_children_nbr_in_grp_list_in_teacher_profile.setText((getChildrenCountInAGroupStoredInTheInternalStorage(group.getId()) + " enfants"));
         holder.grp_teachers_nbr_in_grp_list_in_teacher_profile.setText((getTeachersCountInAGroupStoredInTheInternalStorage(group.getId()) + " enseignants"));
+
         holder.grp_name_in_grp_list_in_teacher_profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Respond(teacher,group);
+                if(!isClicked){
+                    isClicked = true;
+                    List<Teacher> teachers = loadGroupTeachersInTheInternalStorage(group.getId());
+                    if(teachers == null){
+                        teachers = new ArrayList<>();
+                    }
+                    teachers.add(teacher);
+                    saveGroupTeachersList(teachers,group.getId());
+                    Respond(teacher,group);
+                }
             }
         });
 
@@ -116,28 +128,28 @@ public class Group_List_For_Invite_Adapter extends RecyclerView.Adapter<Group_Li
         return groupList.size();
     }
 
-public void Respond(Teacher teacher, Group group){
-    IKindergartensApi iKindergartensApi = ApiClient.getClient().create(IKindergartensApi.class);
+    private void Respond(Teacher teacher, Group group){
+        IKindergartensApi iKindergartensApi = ApiClient.getClient().create(IKindergartensApi.class);
 
-    TeacherInscriptionResponseSubmitViewModel teacherInscriptionResponseSubmitViewModel =
-    new TeacherInscriptionResponseSubmitViewModel(teacher.getRequestId(),group.getId(),true);
+        TeacherInscriptionResponseSubmitViewModel teacherInscriptionResponseSubmitViewModel =
+        new TeacherInscriptionResponseSubmitViewModel(teacher.getRequestId(),group.getId(),true);
 
-    //TODO:Fix kinderGartenID
-    iKindergartensApi.postTeacherInscriptionResponse(11,teacherInscriptionResponseSubmitViewModel).
-            enqueue(new Callback<TeacherInscriptionResponse>() {
-        @Override
-        public void onResponse(Call<TeacherInscriptionResponse> call, Response<TeacherInscriptionResponse> response) {
-            Toast.makeText(mActivity,"Ensegniant accepté",Toast.LENGTH_LONG).show();
+        //TODO:Fix kinderGartenID
+        iKindergartensApi.postTeacherInscriptionResponse(11,teacherInscriptionResponseSubmitViewModel).
+                enqueue(new Callback<TeacherInscriptionResponse>() {
+            @Override
+            public void onResponse(Call<TeacherInscriptionResponse> call, Response<TeacherInscriptionResponse> response) {
+                Toast.makeText(mActivity,"Enseignant accepté",Toast.LENGTH_LONG).show();
 
-            transition();
-        }
+                transition();
+            }
 
-        @Override
-        public void onFailure(Call<TeacherInscriptionResponse> call, Throwable t) {
+            @Override
+            public void onFailure(Call<TeacherInscriptionResponse> call, Throwable t) {
 
-        }
-    });
-}
+            }
+        });
+    }
 
 
     //region Methods
@@ -252,6 +264,35 @@ public void Respond(Teacher teacher, Group group){
         return teachers;
     }
 
+    private void saveGroupTeachersList(List<Teacher> teachers,int group_id){
+        File file = new File(mActivity.getFilesDir() + "/"+"kg_group_teachers_"+group_id+".dat");
+        file.delete();
+        FileOutputStream fos = null;
+
+        try {
+            fos = mActivity.openFileOutput("kg_group_teachers_"+group_id+".dat", Context.MODE_PRIVATE);
+
+            Gson gson = new GsonBuilder()
+                    .registerTypeAdapter(Date.class, new GsonTimeAdapter())
+                    .create();
+            String json = gson.toJson(teachers);
+            fos.write(json.getBytes());
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (fos != null) {
+                try {
+                    fos.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
     private boolean fileExist(String fname){
         File file = mActivity.getFileStreamPath(fname);
         return file.exists();
@@ -324,6 +365,8 @@ public void Respond(Teacher teacher, Group group){
         Intent i = new Intent(mActivity, Admin_Demandes_Activity.class);
         mActivity.startActivity(i);
     }
+
+
 
     //endregion
 

@@ -1,10 +1,12 @@
 package com.example.macbook.splash.Adapters.Admin_Adapters;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -96,16 +98,22 @@ public class Senders_Enseignants_List_Adapter extends BaseAdapter{
 
                 final Admin admin = loadAdminFromInternalStorage();
 
-                if(admin!= null){
-                    groups = loadAdminGroupes(admin);
+                groups = loadAdminGroupes(admin);
 
-                }
+                AlertDialog.Builder mBuilder = new AlertDialog.Builder(activity);
+                @SuppressLint("ViewHolder") View mView = activity.getLayoutInflater().inflate(R.layout.custom_admin_choose_group_for_accepted,null);
+
+                RecyclerView grp_list_RecyclerView = (RecyclerView) mView.findViewById(R.id.grp_list_RecyclerView);
+                grp_list_RecyclerView.setLayoutManager(new LinearLayoutManager(activity));
+                Group_List_For_Invite_Adapter grp_List_Adapter = new Group_List_For_Invite_Adapter(activity, groups,teacher,admin.getKindergartenId());
+                grp_list_RecyclerView.setAdapter(grp_List_Adapter);
+
+                mBuilder.setView(mView);
+                AlertDialog dialog = mBuilder.create();
 
 
-                //TODO : CALL THE GroupLIST here
-                // fil parametre hot el TeacherList w el Groups
-
-
+                dialog.show();
+                
             }
         });
         //endregion
