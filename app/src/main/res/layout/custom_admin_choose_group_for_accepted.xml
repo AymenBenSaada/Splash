@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:id="@+id/recycleViewForGroups"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="15dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/trans_white_rectangle_without_corners">
+    <TextView
+        android:id="@+id/tv_group_list_per_teacher_in_admin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Liste des groupes"
+        android:textSize="15sp"
+        android:textStyle="normal"
+        android:textColor="@color/grisvert"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="25dp"
+        android:layout_below="@+id/teacher_selected_in_admin_background"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/grp_list_RecyclerView"
+        android:layout_below="@+id/tv_group_list_per_teacher_in_admin"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </android.support.v7.widget.RecyclerView>
+    </RelativeLayout>
+</ScrollView>

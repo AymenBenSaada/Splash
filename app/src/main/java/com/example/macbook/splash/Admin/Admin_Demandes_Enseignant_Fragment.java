@@ -174,7 +174,9 @@ public class Admin_Demandes_Enseignant_Fragment extends Fragment {
             iTeachersApi.getTeacher(teacherInscriptionRequests.get(i).senderId).enqueue(new Callback<Teacher>() {
                 @Override
                 public void onResponse(Call<Teacher> call, Response<Teacher> response) {
-                    listOfTeacherSenderLocal.add(response.body());
+                    Teacher teacherTemp = response.body();
+                    teacherTemp.setRequestId(teacherInscriptionRequests.get(i).getId());
+                    listOfTeacherSenderLocal.add(teacherTemp);
                     getTeachersFromList(i+1,teacherInscriptionRequests);
                     android.util.Log.e("Teacher:","added");
                 }

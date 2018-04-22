@@ -61,6 +61,16 @@ public class Teacher {
     @SerializedName("kindergartenId")
     private int kindergartenId;
 
+    public int getRequestId() {
+        return requestId;
+    }
+
+    public void setRequestId(int requestId) {
+        this.requestId = requestId;
+    }
+
+    private int requestId;
+
     public Teacher(int id, String name, String lastName, String address, String email, Gender gender, Date birth,int phone, Status status, Date graduationDate, List<Group> groups, List<Suggestion> suggestions, int kindergartenId) {
         this.id = id;
         this.name = name;

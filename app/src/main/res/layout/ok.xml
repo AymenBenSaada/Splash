@@ -5,15 +5,11 @@
     android:background="@drawable/backgroundcut">
 
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
+    <ProgressBar
+        android:id="@+id/progressBar2"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_marginTop="222dp"
-        android:text="OK"
-        android:textColor="#093"
-        android:textSize="70dp"/>
+        android:layout_centerVertical="true" />
 </RelativeLayout>
