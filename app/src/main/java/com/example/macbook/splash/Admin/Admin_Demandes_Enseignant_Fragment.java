@@ -121,6 +121,7 @@ public class Admin_Demandes_Enseignant_Fragment extends Fragment {
 
     private ITeachersApi iTeachersApi;
     private IKindergartensApi iKindergartensApi;
+    //TODO : FIX the kinderGarten ID
     private int kindergartenId = 11;
     private List<Teacher> listOfTeacherSenders = new ArrayList<>();
     private int teacherId;
@@ -150,6 +151,7 @@ public class Admin_Demandes_Enseignant_Fragment extends Fragment {
 
     private void getKindergartenRequests(){
         iKindergartensApi = ApiClient.getClient().create(IKindergartensApi.class);
+        //TODO: fix the kinder Garten ID
         iKindergartensApi.getTeacherInscriptionRequest(11).enqueue(new Callback<List<TeacherInscriptionRequest>>() {
             @Override
             public void onResponse(Call<List<TeacherInscriptionRequest>> call, Response<List<TeacherInscriptionRequest>> response) {
@@ -183,7 +185,6 @@ public class Admin_Demandes_Enseignant_Fragment extends Fragment {
             });
         }
         else {
-            senders_enseignants_list_adapter = new Senders_Enseignants_List_Adapter(listOfTeacherSenders, getActivity());
 
             senders_enseignants_list_adapter.notifyDataSetChanged();
 

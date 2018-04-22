@@ -4,15 +4,13 @@
     android:layout_height="match_parent"
     tools:context="com.example.macbook.splash.Admin.Admin_Demandes_Parent_Fragment"
     android:padding="15dp">
+        <ListView
+            android:id="@+id/listview_demandes_parent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="20dp"
+            android:divider="@null"
+            android:dividerHeight="0dp">
 
-    <ListView
-        android:id="@+id/listview_demandes_parent"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingTop="20dp"
-        android:divider="@null"
-        android:dividerHeight="0dp">
-
-    </ListView>
-
+        </ListView>
 </FrameLayout>

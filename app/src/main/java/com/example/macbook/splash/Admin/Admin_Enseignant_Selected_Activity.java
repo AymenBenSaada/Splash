@@ -71,7 +71,7 @@ public class Admin_Enseignant_Selected_Activity extends AppCompatActivity {
 
         File file = new File(getFilesDir() + "/" + "teacher_profile_picture_"+teacher.getId()+".dat");
         if(file.exists())
-        teacher_profilpicture_in_admin.setImageURI(Uri.fromFile(file));
+            teacher_profilpicture_in_admin.setImageURI(Uri.fromFile(file));
         else{
             teacher_profilpicture_in_admin.setImageResource(R.drawable.genericprofile);
         }
@@ -81,7 +81,8 @@ public class Admin_Enseignant_Selected_Activity extends AppCompatActivity {
 
         downloadTeacherGroups(teacher.getId());
         grp_list_RecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        grp_List_Adapter = new Group_List_Adapter(this, groups,null);
+        //TODO:Fix the KG ID
+        grp_List_Adapter = new Group_List_Adapter(this, groups,11);
         grp_list_RecyclerView.setAdapter(grp_List_Adapter);
     }
 
@@ -91,7 +92,8 @@ public class Admin_Enseignant_Selected_Activity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<Group>> call, Response<List<Group>> response) {
                 if(response.isSuccessful()){
-                    groups = response.body();
+                    groups.clear();
+                    groups.addAll(response.body());
                     grp_List_Adapter.notifyDataSetChanged();
                 }
             }

@@ -38,16 +38,15 @@ public class AdminDemandeDAjoutPager extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
         switch (position){
-            case 1 :{
-
-                return new Admin_Demandes_Enseignant_Fragment();
-
-            }
             case 0 :
-                return new Admin_Demandes_Parent_Fragment();
-
+                Admin_Demandes_Parent_Fragment fragment2 = new Admin_Demandes_Parent_Fragment();
+                return fragment2;
+            case 1 :
+                Admin_Demandes_Enseignant_Fragment fragment = new Admin_Demandes_Enseignant_Fragment();
+                return fragment;
             default:
-                return null;
+                return  null;
+
         }
     }
 
