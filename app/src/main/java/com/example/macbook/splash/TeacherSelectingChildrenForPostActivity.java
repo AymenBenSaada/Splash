@@ -159,7 +159,7 @@ public class TeacherSelectingChildrenForPostActivity extends AppCompatActivity {
                 //endregion
             }
         });
-//TODO: fix the selection process here
+        //TODO: fix the selection process here
         btnAfterSelectingChildren =(ImageView) findViewById(R.id.btnAfterSelectingChildren);
         btnAfterSelectingChildren.setOnClickListener(new View.OnClickListener() {
             @Override
