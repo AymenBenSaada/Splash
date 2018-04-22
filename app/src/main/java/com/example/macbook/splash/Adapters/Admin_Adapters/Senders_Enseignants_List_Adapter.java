@@ -13,7 +13,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.macbook.splash.Interfaces.ApiClient;
+import com.example.macbook.splash.Interfaces.IKindergartensApi;
 import com.example.macbook.splash.Models.Admin;
 import com.example.macbook.splash.Models.Group;
 import com.example.macbook.splash.Models.Teacher;
@@ -35,6 +38,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by macbook on 21/04/2018.
@@ -47,7 +53,7 @@ public class Senders_Enseignants_List_Adapter extends BaseAdapter{
     private ArrayList<Teacher> localTeachers = new ArrayList<Teacher>();
     private Group_List_For_Invite_Adapter group_list_for_invite_adapter;
     private List<Group> groups = new ArrayList<>();
-
+    private Senders_Enseignants_List_Adapter senders_enseignants_list_adapter  = this;
 
     public Senders_Enseignants_List_Adapter(List<Teacher> teachers, Activity activity) {
         this.teachers = teachers;
@@ -70,7 +76,7 @@ public class Senders_Enseignants_List_Adapter extends BaseAdapter{
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
 
         convertView = activity.getLayoutInflater().inflate(R.layout.customlayout_adapter_for_senders_teachers_list, null);
 
@@ -82,6 +88,8 @@ public class Senders_Enseignants_List_Adapter extends BaseAdapter{
         holder.tv_teacher_name_in_admin_teachers = (TextView) convertView.findViewById(R.id.tv_teacher_name_in_admin_teachers);
         holder.declinebtn_in_teachers_list = (ImageView) convertView.findViewById(R.id.declinebtn_in_senders_teachers_list);
         holder.acceptbtn_in_teachers_list = (ImageView) convertView.findViewById(R.id.acceptbtn_in_senders_teachers_list);
+
+        //region OnClickAccept
         holder.acceptbtn_in_teachers_list.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -100,6 +108,22 @@ public class Senders_Enseignants_List_Adapter extends BaseAdapter{
 
             }
         });
+        //endregion
+
+        //region OnClickRefuse
+
+        holder.declinebtn_in_teachers_list.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                refuseInvite(teacher,position);
+            }
+        });
+
+
+
+        //endregion
+
+
         //SETTING FONTS
         final Typeface myCustomFont = Typeface.createFromAsset(activity.getAssets(), "fonts/Roboto-Thin.ttf");
         holder.tv_teacher_name_in_admin_teachers.setTypeface(myCustomFont);
@@ -127,6 +151,35 @@ public class Senders_Enseignants_List_Adapter extends BaseAdapter{
         return file.exists();
     }
 
+    //region Methods
+    private void refuseInvite(Teacher teacher,final int position){
+
+        IKindergartensApi iKindergartensApi = ApiClient.getClient().create(IKindergartensApi.class);
+
+        TeacherInscriptionResponseSubmitViewModel teacherInscriptionResponseSubmitViewModel = new TeacherInscriptionResponseSubmitViewModel(teacher.getRequestId(),0,false);
+
+        //TODO: fix the kinderGarten ID here
+        iKindergartensApi.postTeacherInscriptionResponse(11,teacherInscriptionResponseSubmitViewModel).enqueue(new Callback<TeacherInscriptionResponse>() {
+            @Override
+            public void onResponse(Call<TeacherInscriptionResponse> call, Response<TeacherInscriptionResponse> response) {
+                Toast.makeText(activity,"Ensegniant refusé",Toast.LENGTH_LONG).show();
+
+                teachers.remove(position);
+                List<Teacher> localTeachers = new ArrayList<Teacher>();
+                localTeachers.addAll(teachers);
+                teachers.clear();
+                teachers.addAll(localTeachers);
+                senders_enseignants_list_adapter.notifyDataSetChanged();
+
+            }
+
+            @Override
+            public void onFailure(Call<TeacherInscriptionResponse> call, Throwable t) {
+
+            }
+        });
+
+    }
 
     private List<Group> loadAdminGroupes(Admin admin){
 
@@ -213,6 +266,7 @@ public class Senders_Enseignants_List_Adapter extends BaseAdapter{
             }
         }
     }
+    //endregion
 }
 
 

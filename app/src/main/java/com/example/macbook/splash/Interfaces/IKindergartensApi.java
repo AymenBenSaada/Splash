@@ -69,7 +69,7 @@ public interface IKindergartensApi {
             @Body ChildInscriptionResponseSubmitViewModel viewModel
     );
 
-    @POST("/api/Kindergartens/{kidnergartenId}/TeacherInscriptionResponses")
+    @POST("/api/Kindergartens/{kindergartenId}/TeacherInscriptionResponses")
     Call<TeacherInscriptionResponse> postTeacherInscriptionResponse(
             @Path("kindergartenId") int kindergartenId,
             @Body TeacherInscriptionResponseSubmitViewModel viewModel
