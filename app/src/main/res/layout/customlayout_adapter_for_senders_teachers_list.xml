@@ -24,7 +24,7 @@
         android:paddingTop="2dp"
         android:layout_marginStart="15dp"
         android:layout_alignTop="@+id/tv_teacher_name_in_admin_teachers"
-        app:srcCompat="@drawable/mask"
+        app:srcCompat="@drawable/genericprofile"
         android:alpha="1"/>
 
     <TextView
