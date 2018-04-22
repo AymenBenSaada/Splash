@@ -3,15 +3,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.macbook.splash.Admin.Admin_Demandes_Enseignant_Fragment"
-    android:padding="15dp">
-    <android.support.v7.widget.RecyclerView
+    android:padding="5dp">
+
+    <ListView
         android:id="@+id/listview_demandes_enseignants"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="20dp"
+        android:paddingTop="0dp"
         android:divider="@null"
         android:dividerHeight="0dp">
 
-    </android.support.v7.widget.RecyclerView>
+    </ListView>
 
 </FrameLayout>

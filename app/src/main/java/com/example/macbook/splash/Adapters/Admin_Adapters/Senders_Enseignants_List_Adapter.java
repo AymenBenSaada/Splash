@@ -25,76 +25,11 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Created by macbook on 21/04/2018.
  */
 
-public class Senders_Enseignants_List_Adapter extends RecyclerView.Adapter<Senders_Enseignants_List_Adapter.SendersList>{
+public class Senders_Enseignants_List_Adapter extends BaseAdapter{
 
     private List<Teacher> teachers;
     private Activity activity;
     private ArrayList<Teacher> localTeachers = new ArrayList<Teacher>();
-
-    public Senders_Enseignants_List_Adapter(List<Teacher> teachers, Activity activity) {
-        this.teachers = teachers;
-        this.activity = activity;
-    }
-
-    public void updateReceiptsList(ArrayList<Teacher> newlist) {
-        localTeachers = newlist;
-        teachers.clear();
-        teachers.addAll(localTeachers);
-        this.notifyDataSetChanged();
-    }
-
-
-
-    public class SendersList extends RecyclerView.ViewHolder {
-
-        private TextView tv_teacher_name_in_admin_teachers;
-        private CircleImageView photo_teacher_name_in_admin_teachers;
-        private ImageView declinebtn_in_teachers_list,acceptbtn_in_teachers_list;
-
-        private SendersList(View view) {
-            super(view);
-            photo_teacher_name_in_admin_teachers = (CircleImageView) view.findViewById(R.id.photo_teacher_name_in_admin_teachers);
-            tv_teacher_name_in_admin_teachers = (TextView) view.findViewById(R.id.tv_teacher_name_in_admin_teachers);
-            declinebtn_in_teachers_list = (ImageView) view.findViewById(R.id.declinebtn_in_senders_teachers_list);
-            acceptbtn_in_teachers_list = (ImageView) view.findViewById(R.id.acceptbtn_in_senders_teachers_list);
-            Log.e("debug", String.valueOf(teachers.size()));
-        }
-    }
-    @Override
-    public int getItemCount() {
-        return teachers.size();
-    }
-
-    @Override
-    public SendersList onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).
-                inflate(R.layout.customlayout_adapter_for_senders_teachers_list, parent,false);
-
-        return new SendersList(view);
-    }
-
-    @Override
-    public void onBindViewHolder(SendersList holder, int position) {
-        final Teacher teacher = teachers.get(position);
-
-        //SETTING FONTS
-        final Typeface myCustomFont = Typeface.createFromAsset(activity.getAssets(), "fonts/Roboto-Thin.ttf");
-        holder.tv_teacher_name_in_admin_teachers.setTypeface(myCustomFont);
-
-        //SETTING CONTENT
-        if (fileExist("teacher_profile_picture_"+teacher.getId()+".dat")){
-            File file = new File(activity.getFilesDir(),"teacher_profile_picture_"+teacher.getId()+".dat");
-            holder.photo_teacher_name_in_admin_teachers.setImageURI(Uri.fromFile(file));
-        }
-
-        holder.tv_teacher_name_in_admin_teachers.setText((teacher.getName() + " " + teacher.getLastName()));
-
-    }
-
-
-    /*
-    private List<Teacher> teachers;
-    private Activity activity;
 
     public Senders_Enseignants_List_Adapter(List<Teacher> teachers, Activity activity) {
         this.teachers = teachers;
@@ -119,7 +54,7 @@ public class Senders_Enseignants_List_Adapter extends RecyclerView.Adapter<Sende
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        convertView = activity.getLayoutInflater().inflate(R.layout.customlayout_adapter_for_admin_teachers_list, null);
+        convertView = activity.getLayoutInflater().inflate(R.layout.customlayout_adapter_for_senders_teachers_list, null);
 
         final Teacher teacher = teachers.get(position);
 
@@ -142,7 +77,7 @@ public class Senders_Enseignants_List_Adapter extends RecyclerView.Adapter<Sende
 
         holder.tv_teacher_name_in_admin_teachers.setText((teacher.getName() + " " + teacher.getLastName()));
 
-        return null;
+        return convertView;
     }
 
     static class ViewHolder {
@@ -152,11 +87,6 @@ public class Senders_Enseignants_List_Adapter extends RecyclerView.Adapter<Sende
         ImageView acceptbtn_in_teachers_list;
     }
 
-    private boolean fileExist(String fname){
-        File file = activity.getFileStreamPath(fname);
-        return file.exists();
-    }
-*/
     private boolean fileExist(String fname){
         File file = activity.getFileStreamPath(fname);
         return file.exists();

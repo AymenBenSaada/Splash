@@ -135,9 +135,7 @@ public class Admin_Demandes_Enseignant_Fragment extends Fragment {
 
         View mView = inflater.inflate(R.layout.fragment_admin_demandes_enseignant, container, false);
 
-        RecyclerView listview_demandes_enseignants = (RecyclerView) mView.findViewById(R.id.listview_demandes_enseignants);
-
-        listview_demandes_enseignants.setLayoutManager(new LinearLayoutManager(getActivity()));
+        ListView listview_demandes_enseignants = (ListView) mView.findViewById(R.id.listview_demandes_enseignants);
 
         getKindergartenRequests();
 
