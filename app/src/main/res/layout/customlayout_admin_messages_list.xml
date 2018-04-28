@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/message_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="9dp"
+        android:layout_marginEnd="22dp"
+        android:text="Message Title"
+        android:singleLine="true"
+        android:textColor="#000"
+        android:textSize="25sp" />
+
+    <TextView
+        android:id="@+id/message_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/message_title"
+        android:layout_below="@+id/message_title"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="22dp"
+        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+        android:singleLine="true"
+        android:textColor="@color/black"
+        android:textSize="13sp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/message_date"
+        android:layout_below="@+id/message_text"
+        android:layout_marginTop="5dp"
+        android:layout_alignEnd="@+id/message_text"
+        android:text="28/04/2018 à 8:34 AM"/>
+
+    <ImageButton
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:id="@+id/messageResendButton"
+        android:layout_below="@+id/message_text"
+        android:layout_toStartOf="@+id/message_date"
+        android:layout_marginEnd="15dp"
+        android:src="@drawable/ic_screen_share_black_24dp"/>
+
+    <ImageButton
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:id="@+id/messageDeleteButton"
+        android:layout_below="@+id/message_text"
+        android:layout_toStartOf="@+id/messageResendButton"
+        android:layout_marginEnd="0dp"
+        android:src="@drawable/ic_delete_forever_black_24dp"/>
+
+
+
+
+</RelativeLayout>

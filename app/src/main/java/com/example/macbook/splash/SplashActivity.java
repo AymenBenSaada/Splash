@@ -967,7 +967,7 @@ public class SplashActivity extends AppCompatActivity {
 
     //region save an object or a picture in the internal storage
 
-    private void saveObjectAsFileInTheInternalStorage(Object object,String file_name){
+    public void saveObjectAsFileInTheInternalStorage(Object object,String file_name){
         File file = new File(getFilesDir() + "/"+file_name);
         Log.e("Admin","new File");
 

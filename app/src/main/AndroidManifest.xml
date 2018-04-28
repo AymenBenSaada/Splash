@@ -88,14 +88,14 @@
         <activity android:name=".Admin.Admin_Groupes_Activity" />
         <activity
             android:name=".Admin.Admin_Demandes_Activity"
-            android:noHistory="true"
-            />
+            android:noHistory="true" />
         <activity android:name=".Admin.Admin_ChildrenList_Activity" />
         <activity android:name=".Admin.Admin_Enseignant_Selected_Activity" />
         <activity android:name=".Admin.Admin_Groupes_OnGroupSelected_Activity" />
         <activity android:name=".Admin.Admin_Child_Selected_Activity" />
         <activity android:name=".Admin.Admin_Child_Selected_Logs_Activity" />
-        <activity android:name=".Admin.Admin_Child_Selected_Feed_Activity"></activity>
+        <activity android:name=".Admin.Admin_Child_Selected_Feed_Activity" />
+        <activity android:name=".Admin.Admin_Messages_Activity"></activity>
     </application>
 
 </manifest>

@@ -14,6 +14,8 @@ public class Message {
     @Nullable
     private int id;
 
+    private String title;
+
     @NonNull
     private String content;
 
@@ -23,8 +25,9 @@ public class Message {
     @Nullable
     private int kindergartenId;
 
-    public Message(int id, @NonNull String content, @NonNull Date date, int kindergartenId) {
+    public Message(int id,String title, @NonNull String content, @NonNull Date date, int kindergartenId) {
         this.id = id;
+        this.title = title;
         this.content = content;
         this.date = date;
         this.kindergartenId = kindergartenId;
@@ -37,6 +40,14 @@ public class Message {
 
     public void setId(@Nullable int id) {
         this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     @NonNull
